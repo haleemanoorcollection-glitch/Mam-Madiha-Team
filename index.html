@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mam Madiha Ghazal Team</title>
 <style>
- *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}
   body{background:linear-gradient(135deg,#f5f7fa 0%,#e8eef5 100%);min-height:100vh;color:#1a2332;padding:20px;display:flex;flex-direction:column;min-height:100vh;}
   .container{max-width:1150px;margin:0 auto;width:100%;flex:1;}
 
@@ -20,9 +20,8 @@
   .card h2::before{content:'';width:5px;height:20px;border-radius:3px;background:linear-gradient(135deg,#2563eb,#7c3aed);}
 
   label{display:block;font-weight:600;margin-bottom:6px;color:#334155;font-size:0.9rem;}
-  input[type="text"],input[type="password"],input[type="email"],input[type="number"],select,textarea{width:100%;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.95rem;background:#f8fafc;color:#1e293b;font-family:inherit;transition:all 0.2s;resize:vertical;}
+  input[type="text"],input[type="password"],input[type="number"],select,textarea{width:100%;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.95rem;background:#f8fafc;color:#1e293b;font-family:inherit;transition:all 0.2s;resize:vertical;}
   input:focus,select:focus,textarea:focus{outline:none;border-color:#2563eb;background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,0.12);}
-  input:disabled{background:#e2e8f0;color:#64748b;cursor:not-allowed;font-weight:600;}
 
   .btn{padding:11px 20px;border:none;border-radius:10px;font-size:0.93rem;font-weight:600;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;}
   .btn-primary{background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.3);}
@@ -37,10 +36,6 @@
   .btn-warning:hover{background:#fde68a;}
   .btn-small{padding:6px 12px;font-size:0.8rem;border-radius:8px;}
   .btn:disabled{opacity:0.5;cursor:not-allowed;transform:none!important;}
-  
-  .btn-google{background:#fff;color:#333;border:1.5px solid #ddd;box-shadow:0 2px 5px rgba(0,0,0,0.05);width:100%;font-size:1rem;padding:12px;}
-  .btn-google:hover{background:#f9f9f9;box-shadow:0 4px 10px rgba(0,0,0,0.1);}
-  .btn-google img{width:20px;height:20px;}
 
   .view{display:none;}
   .view.active{display:block;}
@@ -141,19 +136,13 @@
   .home-test-card h2::before{display:none;}
   .home-test-card p{color:#64748b;font-size:0.9rem;}
 
-  /* Mobile Responsive Tables */
   @media (max-width:820px){
     .form-grid,.form-grid-3,.options-grid{grid-template-columns:1fr;}
     .app-header h1{font-size:1.8rem;}
     .actions-bar{justify-content:stretch;}
     .actions-bar .btn{flex:1;}
-    
-    .data-table, .data-table thead, .data-table tbody, .data-table th, .data-table td, .data-table tr {display: block;}
-    .data-table thead tr {position: absolute;top: -9999px;left: -9999px;}
-    .data-table tr {border: 1.5px solid #e2e8f0; border-radius: 12px; margin-bottom: 12px; background: #fff;}
-    .data-table td {border: none;border-bottom: 1px solid #f1f5f9;position: relative;padding-left: 50%;text-align: right;padding-top:10px;padding-bottom:10px;}
-    .data-table td:last-child {border-bottom: none;}
-    .data-table td:before {position: absolute;top: 11px;left: 12px;width: 45%;padding-right: 10px;white-space: nowrap;text-align: left;font-weight: 700;color: #64748b;content: attr(data-label);}
+    .data-table{font-size:0.8rem;}
+    .data-table th,.data-table td{padding:8px 6px;}
   }
 </style>
 </head>
@@ -171,7 +160,7 @@
       <div class="title">Welcome to Mam Madiha Ghazal Team</div>
       <div class="sub">One system. One team. One goal — learn, test, grow.</div>
       <div class="actions-bar" style="justify-content:center;border-top:none;padding-top:0;">
-        <button class="btn btn-primary" style="width:100%;" onclick="goLogin()">Login / Sign Up</button>
+        <button class="btn btn-primary" style="width:100%;" onclick="goLogin()">Login to Continue</button>
       </div>
     </div>
 
@@ -182,113 +171,200 @@
     </div>
   </div>
 
-  <!-- LOGIN / SIGNUP -->
+  <!-- LOGIN -->
   <div id="loginView" class="view">
     <div class="login-box">
-      <div class="card" id="authCard">
-        <h2 style="text-align:center;justify-content:center;margin-bottom:20px;">Welcome</h2>
-        
-        <button class="btn btn-google" onclick="signInWithGoogle()">
-          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G">
-          Continue with Google
-        </button>
-        
-        <div id="authFormArea" style="display:none; margin-top:20px;">
+      <div class="card">
+        <h2>Login</h2>
+        <p class="login-sub">Enter your details to continue</p>
+
+        <div id="loginForm">
           <div class="form-group">
-            <label>Gmail Address</label>
-            <input type="text" id="authGmail" disabled>
+            <label>Name</label>
+            <input type="text" id="loginName" placeholder="Your name">
           </div>
-          
-          <div class="tabs" style="margin-bottom:20px;">
-            <div class="tab active" id="tabLoginBtn" onclick="switchAuthTab('login')" style="flex:1;text-align:center;">Login</div>
-            <div class="tab" id="tabSignupBtn" onclick="switchAuthTab('signup')" style="flex:1;text-align:center;">Sign Up</div>
+          <div class="form-group">
+            <label>Gmail</label>
+            <input type="text" id="loginGmail" placeholder="Your gmail">
           </div>
-
-          <!-- Login Form -->
-          <div id="loginForm" style="display:block;">
-            <div class="form-group">
-              <label>Password</label>
-              <input type="password" id="loginPassword" placeholder="Enter your password">
-            </div>
-            <div class="actions-bar" style="border:none;padding-top:0;">
-              <button class="btn btn-primary" style="width:100%;" onclick="doLogin()">Login</button>
-            </div>
-            <div style="text-align:center;margin-top:14px;">
-              <span style="color:#2563eb;cursor:pointer;font-size:0.85rem;font-weight:600;" onclick="forgotPassword()">Forgot Password?</span>
-            </div>
+          <div class="form-group">
+            <label>Upline Name</label>
+            <input type="text" id="loginUpline" placeholder="Your upline name or 'Supervisor'">
           </div>
+          <div class="form-group">
+            <label>FBO ID</label>
+            <input type="text" id="loginFbo" placeholder="Your FBO ID">
+            <div class="hint">Supervisor: leave FBO ID empty and write "Supervisor" in Upline Name</div>
+          </div>
+          <div class="actions-bar" style="justify-content:space-between;">
+            <button class="btn btn-secondary" onclick="goHome()">Back</button>
+            <button class="btn btn-primary" onclick="handleLogin()">Continue</button>
+          </div>
+          <div id="loginError" style="margin-top:12px;"></div>
+        </div>
 
-          <!-- Signup Form -->
-          <div id="signupForm" style="display:none;">
-            <div class="form-group">
-              <label>Select Upline</label>
-              <select id="signupUpline" onchange="checkIsSupervisor()">
-                <option value="">Loading uplines...</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Your Name</label>
-              <input type="text" id="signupName" placeholder="Enter your full name">
-            </div>
-            <div class="form-group">
-              <label>FBO ID</label>
-              <input type="text" id="signupFbo" placeholder="Enter your FBO ID">
-            </div>
-            
-            <div id="signupPasswordGroup" style="display:none;">
-              <div class="form-group">
-                <label>Create Password</label>
-                <input type="password" id="signupPassword" placeholder="Min 4 characters">
-              </div>
-              <div class="form-group">
-                <label>Confirm Password</label>
-                <input type="password" id="signupPassword2" placeholder="Confirm password">
-              </div>
-            </div>
-
-            <div class="actions-bar" style="border:none;padding-top:0;">
-              <button class="btn btn-primary" style="width:100%;" id="btnNextSignup" onclick="processSignup()">Next</button>
-            </div>
+        <!-- Supervisor are you -->
+        <div id="supAreYou" style="display:none;">
+          <div class="notice notice-info">Are You Supervisor?</div>
+          <div class="form-group">
+            <label>Enter Code</label>
+            <input type="text" id="supAreYouCode" placeholder="Enter code">
+          </div>
+          <div class="actions-bar">
+            <button class="btn btn-secondary" onclick="resetLogin()">Back</button>
+            <button class="btn btn-primary" onclick="verifySupAreYou()">Verify</button>
           </div>
         </div>
 
-        <div id="authError" style="margin-top:12px;"></div>
-        <div class="actions-bar" style="justify-content:center;border:none;margin-top:10px;">
-          <button class="btn btn-secondary" onclick="goHome()">Back</button>
+        <!-- Supervisor password set -->
+        <div id="supPasswordSetup" style="display:none;">
+          <div class="notice notice-success">Set your supervisor password</div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="supPw1" placeholder="Password">
+          </div>
+          <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" id="supPw2" placeholder="Confirm password">
+          </div>
+          <div class="actions-bar">
+            <button class="btn btn-secondary" onclick="resetLogin()">Back</button>
+            <button class="btn btn-success" onclick="saveSupPassword()">Save & Login</button>
+          </div>
         </div>
+
+        <!-- Supervisor password login -->
+        <div id="supPasswordLogin" style="display:none;">
+          <div class="notice notice-info">Enter supervisor password</div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="supLoginPw" placeholder="Password">
+          </div>
+          <div class="actions-bar">
+            <button class="btn btn-secondary" onclick="resetLogin()">Back</button>
+            <button class="btn btn-primary" onclick="supLogin()">Login</button>
+          </div>
+        </div>
+
+        <!-- Member password set -->
+        <div id="memPasswordSetup" style="display:none;">
+          <div class="notice notice-success">Set your password to activate your account</div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="memPw1" placeholder="Password">
+          </div>
+          <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" id="memPw2" placeholder="Confirm password">
+          </div>
+          <div class="actions-bar">
+            <button class="btn btn-secondary" onclick="resetLogin()">Back</button>
+            <button class="btn btn-success" onclick="saveMemPassword()">Save & Login</button>
+          </div>
+        </div>
+
+        <!-- Member password login -->
+        <div id="memPasswordLogin" style="display:none;">
+          <div class="notice notice-info">Enter your password</div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="memLoginPw" placeholder="Password">
+          </div>
+          <div class="actions-bar">
+            <button class="btn btn-secondary" onclick="resetLogin()">Back</button>
+            <button class="btn btn-primary" onclick="memLogin()">Login</button>
+          </div>
+          <div style="text-align:center;margin-top:14px;">
+            <span style="color:#2563eb;cursor:pointer;font-size:0.85rem;font-weight:600;" onclick="showMemForget()">Forgot Password?</span>
+          </div>
+        </div>
+
+        <!-- Member forget -->
+        <div id="memForget" style="display:none;">
+          <div class="notice notice-info">Request Password Reset</div>
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" id="mfName" placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label>Gmail</label>
+            <input type="text" id="mfGmail" placeholder="Your gmail">
+          </div>
+          <div class="form-group">
+            <label>Upline Name</label>
+            <input type="text" id="mfUpline" placeholder="Upline name">
+          </div>
+          <div class="form-group">
+            <label>FBO ID</label>
+            <input type="text" id="mfFbo" placeholder="FBO ID">
+          </div>
+          <div class="actions-bar">
+            <button class="btn btn-secondary" onclick="resetLogin()">Back</button>
+            <button class="btn btn-primary" onclick="requestMemReset()">Request Reset</button>
+          </div>
+        </div>
+
+        <!-- Member secret code entry -->
+        <div id="memSecretEntry" style="display:none;">
+          <div class="notice notice-warning">Request pending. Ask your upline for the secret code.</div>
+          <div class="form-group">
+            <label>Gmail</label>
+            <input type="text" id="msGmail" placeholder="Your gmail">
+          </div>
+          <div class="form-group">
+            <label>Secret Code</label>
+            <input type="text" id="msCode" placeholder="Secret code">
+          </div>
+          <div class="actions-bar">
+            <button class="btn btn-secondary" onclick="resetLogin()">Back</button>
+            <button class="btn btn-primary" onclick="verifyMemSecret()">Verify</button>
+          </div>
+        </div>
+
+        <!-- Member new password -->
+        <div id="memResetPassword" style="display:none;">
+          <div class="notice notice-success">Set your new password</div>
+          <div class="form-group">
+            <label>New Password</label>
+            <input type="password" id="mrPw1" placeholder="New password">
+          </div>
+          <div class="form-group">
+            <label>Confirm New Password</label>
+            <input type="password" id="mrPw2" placeholder="Confirm password">
+          </div>
+          <div class="actions-bar">
+            <button class="btn btn-success" onclick="saveMemResetPassword()">Save & Login</button>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 
-  <!-- SUPERVISOR & MEMBER DASHBOARD (Shared View) -->
-  <div id="dashboardView" class="view">
+  <!-- SUPERVISOR DASHBOARD -->
+  <div id="supervisorDashboard" class="view">
     <div class="top-actions">
       <button class="btn btn-secondary" onclick="goHome()">Back to Home</button>
       <button class="btn btn-danger" onclick="logout()">Logout</button>
     </div>
 
-    <div class="dash-header" id="dashHeader">
-      <!-- Dynamic content -->
+    <div class="dash-header">
+      <div class="name">Mam Madiha Ghazal</div>
+      <div class="role">Supervisor — Team Head</div>
+      <div class="team-head-badge">Team Head</div>
     </div>
 
-    <div class="tabs" id="dashTabs"></div>
+    <div class="tabs" id="supTabs"></div>
 
-    <!-- Profile / Dashboard Tab -->
-    <div id="tabProfile" class="dash-tab">
-      <div class="card">
-        <h2>My Profile</h2>
-        <div id="profileContent"></div>
-      </div>
-    </div>
-
-    <!-- Schedule Tab (Supervisor only) -->
-    <div id="tabSchedule" class="dash-tab" style="display:none;">
+    <!-- Schedule -->
+    <div id="tabSchedule" class="dash-tab">
       <div class="card">
         <h2>Test Schedule</h2>
+        <p class="hint" style="margin-bottom:14px;">Assign which member will make the test on which date.</p>
         <div class="form-grid-3">
           <div class="form-group">
             <label>Date</label>
-            <input type="date" id="schDate">
+            <input type="text" id="schDate" placeholder="YYYY-MM-DD">
           </div>
           <div class="form-group">
             <label>Primary Member</label>
@@ -309,15 +385,18 @@
       </div>
     </div>
 
-    <!-- Add Member Tab -->
+    <!-- Add member -->
     <div id="tabAddMember" class="dash-tab">
       <div class="card">
         <h2>Add Member</h2>
-        <p class="hint" style="margin-bottom:12px;">Add member details here. They will sign up themselves using Google.</p>
         <div class="form-grid-3">
           <div class="form-group">
             <label>Member Name</label>
             <input type="text" id="amName" placeholder="Member name">
+          </div>
+          <div class="form-group">
+            <label>Member Gmail</label>
+            <input type="text" id="amGmail" placeholder="member@gmail.com">
           </div>
           <div class="form-group">
             <label>Member FBO ID</label>
@@ -325,34 +404,129 @@
           </div>
         </div>
         <div class="actions-bar">
-          <button class="btn btn-primary" onclick="addMember()">Add Member</button>
+          <button class="btn btn-primary" onclick="supAddMember()">Add Member</button>
+        </div>
+      </div>
+      <div class="card">
+        <h2>My Direct Members</h2>
+        <div id="supMembersList"></div>
+      </div>
+    </div>
+
+    <!-- Report my members -->
+    <div id="tabReportMembers" class="dash-tab">
+      <div class="card">
+        <h2>Test Report of My Members</h2>
+        <p class="hint" style="margin-bottom:14px;">Test attempts made using direct members' codes.</p>
+        <div id="reportMembersContent"></div>
+      </div>
+    </div>
+
+    <!-- Report my team -->
+    <div id="tabReportTeam" class="dash-tab">
+      <div class="card">
+        <h2>Test Report of My Team</h2>
+        <p class="hint" style="margin-bottom:14px;">All test attempts across the full team chain.</p>
+        <div id="reportTeamContent"></div>
+      </div>
+    </div>
+
+    <!-- Change password -->
+    <div id="tabChangePw" class="dash-tab">
+      <div class="card">
+        <h2>Change Password</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>New Password</label>
+            <input type="password" id="chPw1" placeholder="New password">
+          </div>
+          <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" id="chPw2" placeholder="Confirm password">
+          </div>
+        </div>
+        <div class="actions-bar">
+          <button class="btn btn-success" onclick="supervisorChangePassword()">Save</button>
         </div>
       </div>
     </div>
 
-    <!-- My Members Tab -->
-    <div id="tabMyMembers" class="dash-tab">
+  </div>
+
+  <!-- MEMBER DASHBOARD -->
+  <div id="memberDashboard" class="view">
+    <div class="top-actions">
+      <button class="btn btn-secondary" onclick="goHome()">Back to Home</button>
+      <button class="btn btn-danger" onclick="logout()">Logout</button>
+    </div>
+
+    <div class="tabs" id="memTabs"></div>
+
+    <!-- Profile -->
+    <div id="mtabProfile" class="dash-tab">
       <div class="card">
-        <h2>My Members</h2>
-        <div id="membersList"></div>
+        <h2>My Profile</h2>
+        <div id="memProfileContent"></div>
       </div>
     </div>
 
-    <!-- Test Builder Tab -->
-    <div id="tabTestBuilder" class="dash-tab">
+    <!-- Add member -->
+    <div id="mtabAddMember" class="dash-tab">
+      <div class="card">
+        <h2>Add Member</h2>
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label>Member Name</label>
+            <input type="text" id="mmName" placeholder="Member name">
+          </div>
+          <div class="form-group">
+            <label>Member Gmail</label>
+            <input type="text" id="mmGmail" placeholder="member@gmail.com">
+          </div>
+          <div class="form-group">
+            <label>Member FBO ID</label>
+            <input type="text" id="mmFbo" placeholder="FBO ID">
+          </div>
+        </div>
+        <div class="actions-bar">
+          <button class="btn btn-primary" onclick="memAddMember()">Add Member</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- My members -->
+    <div id="mtabMyMembers" class="dash-tab">
+      <div class="card">
+        <h2>My Members</h2>
+        <div id="memMembersList"></div>
+      </div>
+    </div>
+
+    <!-- Test attempts -->
+    <div id="mtabAttempts" class="dash-tab">
+      <div class="card">
+        <h2>Test Attempts (My Code)</h2>
+        <p class="hint" style="margin-bottom:14px;">Attempts made by test-takers who used your code.</p>
+        <div id="memAttemptsList"></div>
+      </div>
+    </div>
+
+    <!-- Reset requests -->
+    <div id="mtabResetRequests" class="dash-tab">
+      <div class="card">
+        <h2>Password Reset Requests</h2>
+        <div id="memResetRequests"></div>
+      </div>
+    </div>
+
+    <!-- Test Builder -->
+    <div id="mtabTestBuilder" class="dash-tab">
       <div class="card">
         <h2>Test Builder</h2>
+        <p class="hint" style="margin-bottom:14px;">Create today's test (12:00 PM – 5:30 PM primary, 5:30 PM – 5:58 PM backup only).</p>
         <div class="actions-bar" style="justify-content:flex-start;">
           <button class="btn btn-primary" onclick="openTestBuilder()">Open Test Builder</button>
         </div>
-      </div>
-    </div>
-
-    <!-- Test Reports Tab -->
-    <div id="tabReports" class="dash-tab">
-      <div class="card">
-        <h2>Test Reports</h2>
-        <div id="reportsContent"></div>
       </div>
     </div>
 
@@ -361,7 +535,7 @@
   <!-- TEST BUILDER -->
   <div id="testBuilderView" class="view">
     <div class="top-actions">
-      <button class="btn btn-secondary" onclick="backToDashboard()">Back</button>
+      <button class="btn btn-secondary" onclick="closeTestBuilder()">Back</button>
       <div class="user-badge" id="tbUserBadge"></div>
     </div>
 
@@ -399,6 +573,7 @@
     <div class="card">
       <h2>Grade System (Percentage)</h2>
       <div id="tbGradeRows"></div>
+      <p class="hint" style="margin-top:10px;">A+ is only for 100%. Adjust minimum percentages as needed.</p>
     </div>
 
     <div class="actions-bar">
@@ -406,7 +581,7 @@
     </div>
   </div>
 
-  <!-- KNOWLEDGE TEST VIEW -->
+  <!-- KNOWLEDGE TEST VIEW (ONLY OPENS AFTER CLICKING HOME BUTTON) -->
   <div id="ktView" class="view">
     <div class="top-actions">
       <button class="btn btn-secondary" onclick="goHome()">Back to Home</button>
@@ -427,37 +602,47 @@
 <div class="footer">Mam Madiha Ghazal Team — Supervisor System</div>
 <div class="toast" id="toast"></div>
 
-<!-- Firebase & App Logic -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-import { getFirestore, collection, doc, getDoc, getDocs, setDoc, addDoc, updateDoc, deleteDoc, query, where, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyD-bIXvnHh8NFRR0Tml8MG46yxW5YJc6Jo",
-  authDomain: "mam-madiha-team.firebaseapp.com",
-  projectId: "mam-madiha-team",
-  storageBucket: "mam-madiha-team.firebasestorage.app",
-  messagingSenderId: "22648340791",
-  appId: "1:22648340791:web:d6fae37067a1fed9ff1ab2"
+<script>
+/* ============================================================
+   DATA & LOCAL STORAGE
+   ============================================================ */
+const DEFAULT_SUP = {
+  name: "Mam Madiha Ghazal",
+  password: null,
+  secretCode: "9876"
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const provider = new GoogleAuthProvider();
+let store = {
+  supervisor: { ...DEFAULT_SUP },
+  members: [],
+  schedules: [],
+  timings: { testStart: "18:00", testDone: "20:00", noNotif: "10:00", countdown: "10:00" },
+  publishedTest: null,
+  testResults: [],
+  nextCodeNumber: 1
+};
 
-// Global State
-let currentUser = null; // Firebase Auth User
-let userData = null;    // DB User Profile
-let tempGoogleUser = null; // Holds user between Google auth and Signup
-let isSignupMode = false;
-let authMode = 'login';
-let uplinesList = [];
-let allMembersList = []; // For supervisor schedule and dropdowns
+// Load from local storage if exists
+function loadStore() {
+  const saved = localStorage.getItem('mamMadihaTeamData');
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved);
+      store = { ...store, ...parsed };
+      // Ensure supervisor object exists correctly
+      if(!store.supervisor) store.supervisor = { ...DEFAULT_SUP };
+    } catch(e) { console.error("Local storage error", e); }
+  }
+}
+function saveStore() {
+  localStorage.setItem('mamMadihaTeamData', JSON.stringify(store));
+}
+
+let currentMember = null;
+let isSupervisor = false;
 
 /* ============================================================
-   UTILITIES & UI
+   UTILITIES
    ============================================================ */
 function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function today(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
@@ -468,429 +653,773 @@ function showToast(msg){ const t=document.getElementById('toast'); t.textContent
 
 function showView(id){ document.querySelectorAll('.view').forEach(v=>v.classList.remove('active')); const v=document.getElementById(id); if(v)v.classList.add('active'); window.scrollTo(0,0); }
 
-function goHome(){ showView('homeView'); stopKTViewTimer(); }
-function goLogin(){ 
-  resetAuthUI();
-  showView('loginView'); 
+let ktTimer=null;
+function goHome(){
+  showView('homeView');
+  stopKTViewTimer();
 }
+function goLogin(){ resetLogin(); showView('loginView'); stopKTViewTimer(); }
 
 /* ============================================================
-   AUTHENTICATION (GOOGLE LOGIN & SIGNUP)
+   LOGIN
    ============================================================ */
-async function signInWithGoogle() {
-  try {
-    const result = await signInWithPopup(auth, provider);
-    tempGoogleUser = result.user;
-    
-    // Check if user exists in DB
-    const userDocRef = doc(db, "users", tempGoogleUser.uid);
-    const userDoc = await getDoc(userDocRef);
-    
-    if (userDoc.exists()) {
-      userData = userDoc.data();
-      showToast("Welcome back, " + userData.name);
-      showView('dashboardView');
-      renderDashboard();
-    } else {
-      // New user -> Show Signup Form
-      document.getElementById('authGmail').value = tempGoogleUser.email;
-      document.getElementById('authFormArea').style.display = 'block';
-      switchAuthTab('signup');
-      loadUplinesForSignup();
-    }
-  } catch (error) {
-    console.error(error);
-    document.getElementById('authError').innerHTML = `<div class="notice notice-danger">Google login failed. ${error.message}</div>`;
-  }
-}
+let pendingMember = null;
+let pendingMemberReset = null;
 
-function switchAuthTab(mode) {
-  authMode = mode;
-  document.getElementById('tabLoginBtn').classList.toggle('active', mode === 'login');
-  document.getElementById('tabSignupBtn').classList.toggle('active', mode === 'signup');
-  
-  document.getElementById('loginForm').style.display = mode === 'login' ? 'block' : 'none';
-  document.getElementById('signupForm').style.display = mode === 'signup' ? 'block' : 'none';
-  
-  if(mode === 'login' && tempGoogleUser) {
-    checkIfUserExistsForLogin();
-  }
-}
-
-async function checkIfUserExistsForLogin() {
-  if(!tempGoogleUser) return;
-  const userDoc = await getDoc(doc(db, "users", tempGoogleUser.uid));
-  if(!userDoc.exists()) {
-    document.getElementById('authError').innerHTML = `<div class="notice notice-warning">Account not found. Please Sign Up first.</div>`;
-    switchAuthTab('signup');
-    loadUplinesForSignup();
-  }
-}
-
-async function loadUplinesForSignup() {
-  const sel = document.getElementById('signupUpline');
-  sel.innerHTML = '<option value="">Loading...</option>';
-  
-  const q = query(collection(db, "users"), where("status", "==", "active"));
-  const querySnapshot = await getDocs(q);
-  
-  uplinesList = [];
-  querySnapshot.forEach((doc) => {
-    uplinesList.push({ id: doc.id, ...doc.data() });
+function resetLogin(){
+  ['loginForm','supAreYou','supPasswordSetup','supPasswordLogin','memPasswordSetup','memPasswordLogin','memForget','memSecretEntry','memResetPassword'].forEach(id=>{
+    const el=document.getElementById(id); if(el)el.style.display='none';
   });
-
-  if(uplinesList.length === 0) {
-    sel.innerHTML = '<option value="">-- No uplines found. Supervisor must sign up first. --</option>';
-    return;
-  }
-
-  sel.innerHTML = '<option value="">-- Select Upline --</option>' + 
-    uplinesList.map(u => `<option value="${u.id}">${esc(u.name)} (Code: ${u.code||'Pending'})</option>`).join('');
+  document.getElementById('loginForm').style.display='block';
+  document.getElementById('loginError').innerHTML='';
 }
 
-function checkIsSupervisor() {
-  const selId = document.getElementById('signupUpline').value;
-  if(!selId) return;
-  // If this is the first user (Mam Madiha), we allow bypass. But logic works.
-}
+function handleLogin(){
+  const name=document.getElementById('loginName').value.trim();
+  const gmail=document.getElementById('loginGmail').value.trim();
+  const upline=document.getElementById('loginUpline').value.trim();
+  const fbo=document.getElementById('loginFbo').value.trim();
+  const errEl=document.getElementById('loginError');
+  errEl.innerHTML='';
 
-async function processSignup() {
-  const err = document.getElementById('authError');
-  err.innerHTML = '';
-  
-  const uplineId = document.getElementById('signupUpline').value;
-  const name = document.getElementById('signupName').value.trim();
-  const fbo = document.getElementById('signupFbo').value.trim();
-  
-  if(!uplineId || !name || !fbo) {
-    err.innerHTML = '<div class="notice notice-danger">All fields are required.</div>';
-    return;
-  }
-
-  const uplineData = uplinesList.find(u => u.id === uplineId);
-  
-  // FBO Verification
-  if(uplineData) {
-     // Check if this FBO exists in the upline's "addedMembers" list
-     const addedQuery = query(collection(db, "users"), where("uplineId", "==", uplineId), where("fbo", "==", fbo), where("status", "==", "pending"));
-     const addedSnap = await getDocs(addedQuery);
-     
-     if(addedSnap.empty) {
-        err.innerHTML = '<div class="notice notice-danger">Invalid FBO ID. The selected upline has not added this FBO.</div>';
-        return;
-     }
-  }
-
-  document.getElementById('signupPasswordGroup').style.display = 'block';
-  document.getElementById('btnNextSignup').textContent = 'Complete Sign Up';
-  document.getElementById('btnNextSignup').setAttribute('onclick', 'completeSignup()');
-  err.innerHTML = '<div class="notice notice-success">FBO Verified! Please create a password.</div>';
-}
-
-async function completeSignup() {
-  const err = document.getElementById('authError');
-  const pw1 = document.getElementById('signupPassword').value;
-  const pw2 = document.getElementById('signupPassword2').value;
-  
-  if(pw1.length < 4) { err.innerHTML = '<div class="notice notice-danger">Password must be at least 4 characters.</div>'; return; }
-  if(pw1 !== pw2) { err.innerHTML = '<div class="notice notice-danger">Passwords do not match.</div>'; return; }
-
-  const uplineId = document.getElementById('signupUpline').value;
-  const name = document.getElementById('signupName').value.trim();
-  const fbo = document.getElementById('signupFbo').value.trim();
-  const gmail = tempGoogleUser.email;
-  
-  try {
-    // 1. Get upline info to generate next code
-    const uplineDoc = await getDoc(doc(db, "users", uplineId));
-    const uData = uplineDoc.data();
-    
-    // Simple code generation based on total users (in real app, use a counter)
-    const usersSnap = await getDocs(collection(db, "users"));
-    const nextCode = String(usersSnap.size + 1).padStart(3, '0');
-
-    // 2. Update the "Pending" member to "Active" and link the UID
-    const pendingQuery = query(collection(db, "users"), where("uplineId", "==", uplineId), where("fbo", "==", fbo), where("status", "==", "pending"));
-    const pendingSnap = await getDocs(pendingQuery);
-    
-    if(!pendingSnap.empty) {
-      const pendingDocId = pendingSnap.docs[0].id;
-      await updateDoc(doc(db, "users", pendingDocId), {
-         name: name, // Update name to what user typed
-         gmail: gmail,
-         uid: tempGoogleUser.uid,
-         password: pw1, // In real apps, hash this.
-         status: 'active',
-         code: nextCode
-      });
-      userData = { id: pendingDocId, name, gmail, uid: tempGoogleUser.uid, fbo, uplineId, code: nextCode, status: 'active' };
-    } else {
-       // Create fresh (fallback)
-       const newId = tempGoogleUser.uid;
-       userData = { name, gmail, uid: newId, fbo, uplineId, code: nextCode, status: 'active', password: pw1 };
-       await setDoc(doc(db, "users", newId), userData);
+  if(upline.toLowerCase()==='supervisor'){
+    if(fbo!==''){
+      errEl.innerHTML='<div class="notice notice-danger">Leave FBO ID empty for supervisor login.</div>';
+      return;
     }
-
-    showToast("Account created successfully!");
-    showView('dashboardView');
-    renderDashboard();
-
-  } catch(e) {
-    console.error(e);
-    err.innerHTML = '<div class="notice notice-danger">Signup failed. Try again.</div>';
-  }
-}
-
-async function doLogin() {
-  const err = document.getElementById('authError');
-  const pw = document.getElementById('loginPassword').value;
-  
-  if(!tempGoogleUser) { err.innerHTML = '<div class="notice notice-danger">Please continue with Google first.</div>'; return; }
-  
-  const userDoc = await getDoc(doc(db, "users", tempGoogleUser.uid));
-  if(!userDoc.exists()) { err.innerHTML = '<div class="notice notice-danger">User not found.</div>'; return; }
-  
-  const data = userDoc.data();
-  if(data.password !== pw) {
-    err.innerHTML = '<div class="notice notice-danger">Incorrect password.</div>';
+    if(name!==store.supervisor.name){
+      errEl.innerHTML='<div class="notice notice-danger">Invalid supervisor name. (Must be "Mam Madiha Ghazal")</div>';
+      return;
+    }
+    document.getElementById('loginForm').style.display='none';
+    if(store.supervisor.password){
+      document.getElementById('supPasswordLogin').style.display='block';
+    } else {
+      document.getElementById('supAreYou').style.display='block';
+    }
     return;
   }
-  
-  userData = data;
-  userData.id = tempGoogleUser.uid;
-  showToast("Welcome back!");
-  showView('dashboardView');
-  renderDashboard();
+
+  if(!name||!gmail||!upline||!fbo){
+    errEl.innerHTML='<div class="notice notice-danger">All four fields are required.</div>';
+    return;
+  }
+
+  const m=store.members.find(x=>x.name===name && x.gmail===gmail && x.uplineName===upline && x.fbo===fbo);
+  if(!m){
+    errEl.innerHTML='<div class="notice notice-danger">No match found. Your upline must add you first.</div>';
+    return;
+  }
+  if(m.status==='blocked'){
+    errEl.innerHTML='<div class="notice notice-danger">Your account is blocked. Contact your upline.</div>';
+    return;
+  }
+
+  document.getElementById('loginForm').style.display='none';
+  if(m.password){
+    pendingMember=m;
+    document.getElementById('memPasswordLogin').style.display='block';
+  } else {
+    pendingMember=m;
+    document.getElementById('memPasswordSetup').style.display='block';
+  }
 }
 
-function resetAuthUI() {
-  document.getElementById('authGmail').value = '';
-  document.getElementById('loginPassword').value = '';
-  document.getElementById('signupName').value = '';
-  document.getElementById('signupFbo').value = '';
-  document.getElementById('signupPassword').value = '';
-  document.getElementById('signupPassword2').value = '';
-  document.getElementById('signupPasswordGroup').style.display = 'none';
-  document.getElementById('btnNextSignup').textContent = 'Next';
-  document.getElementById('btnNextSignup').setAttribute('onclick', 'processSignup()');
-  document.getElementById('authFormArea').style.display = 'none';
-  document.getElementById('authError').innerHTML = '';
-  tempGoogleUser = null;
-  userData = null;
-  authMode = 'login';
+function verifySupAreYou(){
+  const code=document.getElementById('supAreYouCode').value.trim();
+  if(code!==store.supervisor.secretCode){ showToast('Invalid code'); return; }
+  document.getElementById('supAreYou').style.display='none';
+  document.getElementById('supPasswordSetup').style.display='block';
 }
 
-async function logout() {
-  await signOut(auth);
-  resetAuthUI();
+function saveSupPassword(){
+  const p1=document.getElementById('supPw1').value;
+  const p2=document.getElementById('supPw2').value;
+  if(!p1||p1.length<4){ showToast('Password must be at least 4 characters'); return; }
+  if(p1!==p2){ showToast('Passwords do not match'); return; }
+  store.supervisor.password=p1;
+  saveStore();
+  loginAsSupervisor();
+}
+
+function supLogin(){
+  const p=document.getElementById('supLoginPw').value;
+  if(p!==store.supervisor.password){ showToast('Invalid password'); return; }
+  loginAsSupervisor();
+}
+
+function loginAsSupervisor(){
+  isSupervisor=true;
+  currentMember=null;
+  stopKTViewTimer();
+  showToast('Welcome, Mam Madiha Ghazal');
+  renderSupervisorDashboard();
+  showView('supervisorDashboard');
+}
+
+function saveMemPassword(){
+  const p1=document.getElementById('memPw1').value;
+  const p2=document.getElementById('memPw2').value;
+  if(!p1||p1.length<4){ showToast('Password must be at least 4 characters'); return; }
+  if(p1!==p2){ showToast('Passwords do not match'); return; }
+  pendingMember.password=p1;
+  pendingMember.status='active';
+  if(!pendingMember.code){
+    pendingMember.code=String(store.nextCodeNumber).padStart(3,'0');
+    store.nextCodeNumber++;
+  }
+  saveStore();
+  loginAsMember(pendingMember);
+}
+
+function memLogin(){
+  const p=document.getElementById('memLoginPw').value;
+  if(!pendingMember || p!==pendingMember.password){ showToast('Invalid password'); return; }
+  loginAsMember(pendingMember);
+}
+
+function loginAsMember(m){
+  currentMember=m;
+  isSupervisor=false;
+  stopKTViewTimer();
+  showToast('Welcome, '+m.name);
+  renderMemberDashboard();
+  showView('memberDashboard');
+}
+
+function logout(){
+  currentMember=null;
+  isSupervisor=false;
+  pendingMember=null;
   goHome();
 }
 
-/* ============================================================
-   DASHBOARD LOGIC
-   ============================================================ */
-function renderDashboard() {
-  if(!userData) return;
-  
-  document.getElementById('dashHeader').innerHTML = `
-    <div class="name">${esc(userData.name)}</div>
-    <div class="role">${userData.code === '001' ? 'Supervisor — Team Head' : 'Member'}</div>
-    <div class="team-head-badge">Code: ${userData.code || 'Pending'}</div>
-  `;
-
-  const tabs = [
-    {id:'Profile', label:'My Profile'},
-    {id:'AddMember', label:'Add Member'},
-    {id:'MyMembers', label:'My Members'},
-    {id:'TestBuilder', label:'Test Builder'},
-    {id:'Reports', label:'Reports'}
-  ];
-
-  if(userData.code === '001') {
-    tabs.unshift({id:'Schedule', label:'Test Schedule'});
-  }
-
-  document.getElementById('dashTabs').innerHTML = tabs.map((t,i)=>`<div class="tab ${i===0?'active':''}" data-tab="${t.id}" onclick="switchDashTab('${t.id}')">${t.label}</div>`).join('');
-  document.querySelectorAll('#dashboardView .dash-tab').forEach(el=>el.style.display='none');
-  switchDashTab(tabs[0].id);
-
-  document.getElementById('profileContent').innerHTML = `
-    <div class="form-grid">
-      <div><label>Name</label><div><strong>${esc(userData.name)}</strong></div></div>
-      <div><label>Gmail</label><div>${esc(userData.gmail)}</div></div>
-      <div><label>FBO ID</label><div>${esc(userData.fbo)}</div></div>
-      <div><label>My Code</label><div><span class="badge badge-code">${userData.code}</span></div></div>
-    </div>
-  `;
-
-  loadMyMembers();
-  if(userData.code === '001') loadSchedule();
-  loadReports();
+function showMemForget(){
+  document.getElementById('memPasswordLogin').style.display='none';
+  document.getElementById('memForget').style.display='block';
 }
 
-function switchDashTab(id) {
-  document.querySelectorAll('#dashTabs .tab').forEach(t=>t.classList.remove('active'));
-  const active=document.querySelector(`#dashTabs .tab[data-tab="${id}"]`);
+function requestMemReset(){
+  const name=document.getElementById('mfName').value.trim();
+  const gmail=document.getElementById('mfGmail').value.trim();
+  const upline=document.getElementById('mfUpline').value.trim();
+  const fbo=document.getElementById('mfFbo').value.trim();
+  if(!name||!gmail||!upline||!fbo){ showToast('All fields required'); return; }
+  const m=store.members.find(x=>x.name===name && x.gmail===gmail && x.uplineName===upline && x.fbo===fbo);
+  if(!m){ showToast('No match found'); return; }
+  if(m.status==='blocked'){ showToast('Account is blocked'); return; }
+  m.pendingSecretCode='PENDING';
+  saveStore();
+  pendingMemberReset=m;
+  document.getElementById('memForget').style.display='none';
+  document.getElementById('memSecretEntry').style.display='block';
+  showToast('Request sent to your upline');
+}
+
+function verifyMemSecret(){
+  const gmail=document.getElementById('msGmail').value.trim();
+  const code=document.getElementById('msCode').value.trim();
+  if(!gmail||!code){ showToast('All fields required'); return; }
+  const m=store.members.find(x=>x.gmail===gmail);
+  if(!m || !m.pendingSecretCode || m.pendingSecretCode==='PENDING'){ showToast('No active request or code not set'); return; }
+  if(m.pendingSecretCode!==code){ showToast('Invalid secret code'); return; }
+  pendingMemberReset=m;
+  document.getElementById('memSecretEntry').style.display='none';
+  document.getElementById('memResetPassword').style.display='block';
+}
+
+function saveMemResetPassword(){
+  const p1=document.getElementById('mrPw1').value;
+  const p2=document.getElementById('mrPw2').value;
+  if(!p1||p1.length<4){ showToast('Password must be at least 4 characters'); return; }
+  if(p1!==p2){ showToast('Passwords do not match'); return; }
+  pendingMemberReset.password=p1;
+  pendingMemberReset.pendingSecretCode=null;
+  saveStore();
+  loginAsMember(pendingMemberReset);
+}
+
+/* ============================================================
+   SUPERVISOR DASHBOARD
+   ============================================================ */
+function renderSupervisorDashboard(){
+  const tabs=[
+    {id:'Schedule', label:'Test Schedule'},
+    {id:'AddMember', label:'Add Member'},
+    {id:'ReportMembers', label:'Report of My Members'},
+    {id:'ReportTeam', label:'Report of My Team'},
+    {id:'ChangePw', label:'Change Password'}
+  ];
+  const tabsEl=document.getElementById('supTabs');
+  tabsEl.innerHTML=tabs.map((t,i)=>`<div class="tab ${i===0?'active':''}" data-tab="${t.id}" onclick="switchSupTab('${t.id}')">${t.label}</div>`).join('');
+
+  document.querySelectorAll('#supervisorDashboard .dash-tab').forEach(el=>el.style.display='none');
+  switchSupTab('Schedule');
+
+  populateSupDropdowns();
+  renderScheduleList();
+  renderSupMembersList();
+  renderReportMembers();
+  renderReportTeam();
+}
+
+function switchSupTab(id){
+  document.querySelectorAll('#supTabs .tab').forEach(t=>t.classList.remove('active'));
+  const active=document.querySelector(`#supTabs .tab[data-tab="${id}"]`);
   if(active)active.classList.add('active');
-  document.querySelectorAll('#dashboardView .dash-tab').forEach(el=>el.style.display='none');
+  document.querySelectorAll('#supervisorDashboard .dash-tab').forEach(el=>el.style.display='none');
   const el=document.getElementById('tab'+id);
   if(el)el.style.display='block';
 }
 
-/* ============================================================
-   ADD MEMBER & MY MEMBERS
-   ============================================================ */
-async function addMember() {
-  const name = document.getElementById('amName').value.trim();
-  const fbo = document.getElementById('amFbo').value.trim();
-  if(!name || !fbo) { showToast("Name and FBO ID required"); return; }
-  
-  try {
-    await addDoc(collection(db, "users"), {
-      name: name,
-      fbo: fbo,
-      uplineId: userData.id,
-      uplineName: userData.name,
-      status: 'pending',
-      gmail: '',
-      uid: '',
-      password: '',
-      code: ''
-    });
-    showToast("Member added successfully. Ask them to Sign Up.");
-    document.getElementById('amName').value = '';
-    document.getElementById('amFbo').value = '';
-    loadMyMembers();
-  } catch(e) {
-    console.error(e);
-    showToast("Error adding member");
+function populateSupDropdowns(){
+  const allMembers=store.members;
+  const p=document.getElementById('schPrimary');
+  const s=document.getElementById('schSecondary');
+  if(!p||!s)return;
+  const opts='<option value="">-- Select --</option>'+allMembers.filter(m=>m.code).map(m=>`<option value="${m.id}">${esc(m.name)}</option>`).join('');
+  p.innerHTML=opts; s.innerHTML=opts;
+}
+
+function addSchedule(){
+  const date=document.getElementById('schDate').value.trim();
+  const primary=document.getElementById('schPrimary').value;
+  const secondary=document.getElementById('schSecondary').value;
+  if(!date||!primary){ showToast('Date and primary member required'); return; }
+  if(secondary && primary===secondary){ showToast('Primary and secondary must be different'); return; }
+  const existing=store.schedules.find(s=>s.date===date);
+  if(existing){
+    existing.primaryId=parseInt(primary);
+    existing.secondaryId=secondary?parseInt(secondary):null;
+  } else {
+    store.schedules.push({date, primaryId:parseInt(primary), secondaryId:secondary?parseInt(secondary):null});
   }
+  saveStore();
+  renderScheduleList();
+  showToast('Schedule saved');
 }
 
-async function loadMyMembers() {
-  const el = document.getElementById('membersList');
-  const q = query(collection(db, "users"), where("uplineId", "==", userData.id));
-  
-  onSnapshot(q, (snapshot) => {
-    if(snapshot.empty) {
-      el.innerHTML = '<div class="empty-state"><div class="big-text">No members yet</div>Add a member above.</div>';
-      return;
-    }
-    
-    let html = `<table class="data-table"><thead><tr><th>Name</th><th>Gmail</th><th>FBO</th><th>Code</th><th>Status</th></tr></thead><tbody>`;
-    snapshot.forEach(doc => {
-      const m = doc.data();
-      html += `
-        <tr>
-          <td data-label="Name">${esc(m.name)}</td>
-          <td data-label="Gmail">${esc(m.gmail) || '-'}</td>
-          <td data-label="FBO">${esc(m.fbo)}</td>
-          <td data-label="Code">${m.code ? `<span class="badge badge-code">${m.code}</span>` : '-'}</td>
-          <td data-label="Status">${m.status === 'active' ? '<span class="badge badge-active">Active</span>' : '<span class="badge badge-pending">Pending</span>'}</td>
-        </tr>
-      `;
-    });
-    html += `</tbody></table>`;
-    el.innerHTML = html;
-  });
+function renderScheduleList(){
+  const el=document.getElementById('scheduleList');
+  if(!el)return;
+  if(store.schedules.length===0){
+    el.innerHTML='<div class="empty-state"><div class="big-text">No schedules yet</div>Add a date, primary and secondary member above.</div>';
+    return;
+  }
+  el.innerHTML=store.schedules.slice().sort((a,b)=>a.date.localeCompare(b.date)).map(s=>{
+    const p=store.members.find(m=>m.id===s.primaryId);
+    const sec=s.secondaryId?store.members.find(m=>m.id===s.secondaryId):null;
+    const isToday=s.date===today();
+    return `
+      <div class="schedule-item" style="${isToday?'border-color:#10b981;background:#ecfdf5;':''}">
+        <div><strong>${esc(s.date)}</strong> ${isToday?'<span class="badge badge-active">Today</span>':''}</div>
+        <div>Primary: <strong>${p?esc(p.name):'N/A'}</strong></div>
+        <div>Backup: <strong>${sec?esc(sec.name):'None'}</strong></div>
+        <button class="btn btn-small btn-danger" onclick="removeSchedule('${esc(s.date)}')">Remove</button>
+      </div>
+    `;
+  }).join('');
+}
+
+function removeSchedule(date){
+  store.schedules=store.schedules.filter(s=>s.date!==date);
+  saveStore();
+  renderScheduleList();
+}
+
+function supAddMember(){
+  const name=document.getElementById('amName').value.trim();
+  const gmail=document.getElementById('amGmail').value.trim();
+  const fbo=document.getElementById('amFbo').value.trim();
+  if(!name||!gmail||!fbo){ showToast('All fields required'); return; }
+  if(store.members.some(m=>m.gmail===gmail)){ showToast('Gmail already registered'); return; }
+  const m={
+    id:Date.now(),
+    name, gmail, fbo,
+    uplineName:store.supervisor.name,
+    uplineId:null,
+    password:null,
+    status:'pending',
+    code:null,
+    pendingSecretCode:null
+  };
+  store.members.push(m);
+  saveStore();
+  document.getElementById('amName').value='';
+  document.getElementById('amGmail').value='';
+  document.getElementById('amFbo').value='';
+  renderSupMembersList();
+  populateSupDropdowns();
+  showToast('Member added');
+}
+
+function renderSupMembersList(){
+  const el=document.getElementById('supMembersList');
+  if(!el)return;
+  const list=store.members.filter(m=>m.uplineName===store.supervisor.name);
+  if(list.length===0){
+    el.innerHTML='<div class="empty-state"><div class="big-text">No direct members yet</div>Add your first member above.</div>';
+    return;
+  }
+  el.innerHTML=`
+    <table class="data-table">
+      <thead><tr><th>Name</th><th>Gmail</th><th>FBO</th><th>Code</th><th>Status</th><th>Actions</th></tr></thead>
+      <tbody>
+        ${list.map(m=>`
+          <tr>
+            <td>${esc(m.name)}</td>
+            <td>${esc(m.gmail)}</td>
+            <td>${esc(m.fbo)}</td>
+            <td>${m.code?`<span class="badge badge-code">${m.code}</span>`:'-'}</td>
+            <td>${statusBadge(m.status)}</td>
+            <td>
+              <button class="btn btn-small btn-danger" onclick="supDeleteMember(${m.id})">Delete</button>
+              ${m.status==='blocked'
+                ?`<button class="btn btn-small btn-success" onclick="supUnblock(${m.id})">Unblock</button>`
+                :`<button class="btn btn-small btn-warning" onclick="supBlock(${m.id})">Block</button>`}
+            </td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function statusBadge(s){
+  if(s==='pending')return '<span class="badge badge-pending">Pending</span>';
+  if(s==='active')return '<span class="badge badge-active">Active</span>';
+  if(s==='blocked')return '<span class="badge badge-blocked">Blocked</span>';
+  return s;
+}
+
+function supDeleteMember(id){
+  if(!confirm('Delete this member permanently?'))return;
+  store.members=store.members.filter(m=>m.id!==id);
+  saveStore();
+  renderSupMembersList(); populateSupDropdowns();
+  showToast('Member deleted');
+}
+function supBlock(id){ const m=store.members.find(x=>x.id===id); if(m){m.status='blocked';saveStore();renderSupMembersList();showToast('Blocked');} }
+function supUnblock(id){ const m=store.members.find(x=>x.id===id); if(m){m.status='active';saveStore();renderSupMembersList();showToast('Unblocked');} }
+
+function renderReportMembers(){
+  const el=document.getElementById('reportMembersContent');
+  if(!el)return;
+  const results=store.testResults.filter(r=>r.usedCode && store.members.find(m=>m.code===r.usedCode && m.uplineName===store.supervisor.name));
+  if(results.length===0){
+    el.innerHTML='<div class="empty-state"><div class="big-text">No attempts yet</div>Attempts using your direct members\' codes will appear here.</div>';
+    return;
+  }
+  el.innerHTML=renderResultTable(results);
+}
+
+function renderReportTeam(){
+  const el=document.getElementById('reportTeamContent');
+  if(!el)return;
+  const results=store.testResults.filter(r=>r.usedCode);
+  if(results.length===0){
+    el.innerHTML='<div class="empty-state"><div class="big-text">No attempts yet</div>Attempts using any team member\'s code will appear here.</div>';
+    return;
+  }
+  el.innerHTML=renderResultTable(results);
+}
+
+function renderResultTable(results){
+  return `
+    <table class="data-table">
+      <thead><tr><th>Test Taker</th><th>Upline (Code)</th><th>Score</th><th>Grade</th><th>Date</th><th>Time</th></tr></thead>
+      <tbody>
+        ${results.slice().reverse().map(r=>{
+          const uplineMember=store.members.find(m=>m.code===r.usedCode);
+          return `
+            <tr>
+              <td>${esc(r.takerName)}</td>
+              <td>${uplineMember?esc(uplineMember.name):'-'} ${r.usedCode?`<span class="badge badge-code">${r.usedCode}</span>`:''}</td>
+              <td>${r.correct}/${r.total} (${Math.round(r.correct/r.total*100)}%)</td>
+              <td><span class="grade-badge">${r.grade}</span></td>
+              <td>${esc(r.date)}</td>
+              <td>${esc(r.time)}</td>
+            </tr>
+          `;
+        }).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function supervisorChangePassword(){
+  const p1=document.getElementById('chPw1').value;
+  const p2=document.getElementById('chPw2').value;
+  if(!p1||p1.length<4){ showToast('Password must be at least 4 characters'); return; }
+  if(p1!==p2){ showToast('Passwords do not match'); return; }
+  store.supervisor.password=p1;
+  saveStore();
+  document.getElementById('chPw1').value='';
+  document.getElementById('chPw2').value='';
+  showToast('Password changed');
 }
 
 /* ============================================================
-   SCHEDULE (Supervisor Only)
+   MEMBER DASHBOARD
    ============================================================ */
-async function loadSchedule() {
-  const q = query(collection(db, "schedules"));
-  onSnapshot(q, (snap) => {
-    const pSel = document.getElementById('schPrimary');
-    const sSel = document.getElementById('schSecondary');
-    
-    // Populate dropdowns with active users
-    const uQ = query(collection(db, "users"), where("status", "==", "active"));
-    getDocs(uQ).then(uSnap => {
-      const opts = '<option value="">-- Select --</option>' + uSnap.docs.map(d => `<option value="${d.id}">${esc(d.data().name)}</option>`).join('');
-      pSel.innerHTML = opts;
-      sSel.innerHTML = opts;
-    });
+function renderMemberDashboard(){
+  const m=currentMember;
+  const tabs=[
+    {id:'Profile', label:'My Profile'},
+    {id:'AddMember', label:'Add Member'},
+    {id:'MyMembers', label:'My Members'},
+    {id:'Attempts', label:'Test Attempts'},
+    {id:'ResetRequests', label:'Reset Requests'},
+    {id:'TestBuilder', label:'Test Builder'}
+  ];
+  const tabsEl=document.getElementById('memTabs');
+  tabsEl.innerHTML=tabs.map((t,i)=>`<div class="tab ${i===0?'active':''}" data-tab="${t.id}" onclick="switchMemTab('${t.id}')">${t.label}</div>`).join('');
+  document.querySelectorAll('#memberDashboard .dash-tab').forEach(el=>el.style.display='none');
+  switchMemTab('Profile');
 
-    const el = document.getElementById('scheduleList');
-    if(snap.empty) { el.innerHTML = 'No schedules yet.'; return; }
-    
-    let html = '';
-    snap.forEach(doc => {
-      const s = doc.data();
-      html += `<div class="schedule-item">
-        <div><strong>${esc(s.date)}</strong></div>
-        <div>Primary: <strong>${esc(s.primaryName)}</strong></div>
-        <div>Backup: <strong>${esc(s.secondaryName) || 'None'}</strong></div>
-      </div>`;
-    });
-    el.innerHTML = html;
-  });
+  document.getElementById('memProfileContent').innerHTML=`
+    <div class="form-grid">
+      <div><label>Name</label><div style="padding:6px 0;"><strong>${esc(m.name)}</strong></div></div>
+      <div><label>Gmail</label><div style="padding:6px 0;">${esc(m.gmail)}</div></div>
+      <div><label>Upline</label><div style="padding:6px 0;">${esc(m.uplineName)}</div></div>
+      <div><label>FBO ID</label><div style="padding:6px 0;">${esc(m.fbo)}</div></div>
+      <div><label>My Code</label><div style="padding:6px 0;">${m.code?`<span class="badge badge-code">${m.code}</span>`:'-'}</div></div>
+      <div><label>Status</label><div style="padding:6px 0;">${statusBadge(m.status)}</div></div>
+    </div>
+    <div class="notice notice-info" style="margin-top:16px;text-align:left;font-weight:400;font-size:0.88rem;">
+      Share your code <strong>${m.code||''}</strong> with your new members. They must enter this code when taking the test.
+    </div>
+  `;
+
+  renderMemMembersList();
+  renderMemAttempts();
+  renderMemResetRequests();
 }
 
-async function addSchedule() {
-  const date = document.getElementById('schDate').value;
-  const pId = document.getElementById('schPrimary').value;
-  const sId = document.getElementById('schSecondary').value;
-  
-  if(!date || !pId) { showToast("Date and Primary required"); return; }
-  
-  const pName = document.getElementById('schPrimary').options[document.getElementById('schPrimary').selectedIndex].text;
-  const sName = sId ? document.getElementById('schSecondary').options[document.getElementById('schSecondary').selectedIndex].text : '';
-  
-  await setDoc(doc(db, "schedules", date), {
-    date: date,
-    primaryId: pId,
-    primaryName: pName,
-    secondaryId: sId,
-    secondaryName: sName
-  });
-  showToast("Schedule Saved");
+function switchMemTab(id){
+  document.querySelectorAll('#memTabs .tab').forEach(t=>t.classList.remove('active'));
+  const active=document.querySelector(`#memTabs .tab[data-tab="${id}"]`);
+  if(active)active.classList.add('active');
+  document.querySelectorAll('#memberDashboard .dash-tab').forEach(el=>el.style.display='none');
+  const el=document.getElementById('mtab'+id);
+  if(el)el.style.display='block';
+}
+
+function memAddMember(){
+  const name=document.getElementById('mmName').value.trim();
+  const gmail=document.getElementById('mmGmail').value.trim();
+  const fbo=document.getElementById('mmFbo').value.trim();
+  if(!name||!gmail||!fbo){ showToast('All fields required'); return; }
+  if(store.members.some(m=>m.gmail===gmail)){ showToast('Gmail already registered'); return; }
+  const me=currentMember;
+  const m={
+    id:Date.now(),
+    name, gmail, fbo,
+    uplineName:me.name,
+    uplineId:me.id,
+    password:null,
+    status:'pending',
+    code:null,
+    pendingSecretCode:null
+  };
+  store.members.push(m);
+  saveStore();
+  document.getElementById('mmName').value='';
+  document.getElementById('mmGmail').value='';
+  document.getElementById('mmFbo').value='';
+  renderMemMembersList();
+  populateSupDropdowns();
+  showToast('Member added');
+}
+
+function renderMemMembersList(){
+  const el=document.getElementById('memMembersList');
+  if(!el)return;
+  const me=currentMember;
+  const list=store.members.filter(m=>m.uplineName===me.name);
+  if(list.length===0){
+    el.innerHTML='<div class="empty-state"><div class="big-text">No members yet</div>Add your first member from the Add Member tab.</div>';
+    return;
+  }
+  el.innerHTML=`
+    <table class="data-table">
+      <thead><tr><th>Name</th><th>Gmail</th><th>Code</th><th>Status</th><th>Actions</th></tr></thead>
+      <tbody>
+        ${list.map(m=>`
+          <tr>
+            <td>${esc(m.name)}</td>
+            <td>${esc(m.gmail)}</td>
+            <td>${m.code?`<span class="badge badge-code">${m.code}</span>`:'-'}</td>
+            <td>${statusBadge(m.status)}</td>
+            <td>
+              <button class="btn btn-small btn-danger" onclick="memDeleteMember(${m.id})">Delete</button>
+              ${m.status==='blocked'
+                ?`<button class="btn btn-small btn-success" onclick="memUnblock(${m.id})">Unblock</button>`
+                :`<button class="btn btn-small btn-warning" onclick="memBlock(${m.id})">Block</button>`}
+            </td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function memDeleteMember(id){
+  if(!confirm('Delete this member permanently?'))return;
+  store.members=store.members.filter(m=>m.id!==id);
+  saveStore();
+  renderMemMembersList(); populateSupDropdowns();
+  showToast('Member deleted');
+}
+function memBlock(id){ const m=store.members.find(x=>x.id===id); if(m){m.status='blocked';saveStore();renderMemMembersList();showToast('Blocked');} }
+function memUnblock(id){ const m=store.members.find(x=>x.id===id); if(m){m.status='active';saveStore();renderMemMembersList();showToast('Unblocked');} }
+
+function renderMemAttempts(){
+  const el=document.getElementById('memAttemptsList');
+  if(!el)return;
+  const me=currentMember;
+  const results=store.testResults.filter(r=>r.usedCode===me.code);
+  if(results.length===0){
+    el.innerHTML='<div class="empty-state"><div class="big-text">No attempts yet</div>Attempts using your code will appear here.</div>';
+    return;
+  }
+  el.innerHTML=`
+    <table class="data-table">
+      <thead><tr><th>Test Taker</th><th>Score</th><th>Grade</th><th>Date</th><th>Time</th></tr></thead>
+      <tbody>
+        ${results.slice().reverse().map(r=>`
+          <tr>
+            <td>${esc(r.takerName)}</td>
+            <td>${r.correct}/${r.total} (${Math.round(r.correct/r.total*100)}%)</td>
+            <td><span class="grade-badge">${r.grade}</span></td>
+            <td>${esc(r.date)}</td>
+            <td>${esc(r.time)}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function renderMemResetRequests(){
+  const el=document.getElementById('memResetRequests');
+  if(!el)return;
+  const me=currentMember;
+  const reqs=store.members.filter(m=>m.uplineName===me.name && m.pendingSecretCode==='PENDING');
+  if(reqs.length===0){
+    el.innerHTML='<div class="empty-state"><div class="big-text">No pending requests</div>Password reset requests from your members will appear here.</div>';
+    return;
+  }
+  el.innerHTML=reqs.map(m=>`
+    <div class="schedule-item">
+      <div><strong>${esc(m.name)}</strong> (${esc(m.gmail)})</div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <input type="text" placeholder="Enter secret code" style="width:160px;padding:7px 10px;" id="memCode_${m.id}">
+        <button class="btn btn-small btn-primary" onclick="setMemberSecret(${m.id})">Set Code</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function setMemberSecret(id){
+  const inp=document.getElementById('memCode_'+id);
+  const code=inp?inp.value.trim():'';
+  if(!code){ showToast('Enter a code'); return; }
+  const m=store.members.find(x=>x.id===id);
+  if(m){ m.pendingSecretCode=code; saveStore(); renderMemResetRequests(); showToast('Code set. Share with '+m.name); }
 }
 
 /* ============================================================
-   REPORTS
+   TEST BUILDER
    ============================================================ */
-async function loadReports() {
-  const el = document.getElementById('reportsContent');
-  // If Supervisor, show all. If member, show only their team's results.
-  const q = query(collection(db, "results"));
-  onSnapshot(q, (snap) => {
-    if(snap.empty) { el.innerHTML = '<div class="empty-state">No test attempts yet.</div>'; return; }
-    let html = `<table class="data-table"><thead><tr><th>Taker</th><th>Upline</th><th>Score</th><th>Grade</th><th>Date</th></tr></thead><tbody>`;
-    snap.forEach(doc => {
-      const r = doc.data();
-      // Logic: Supervisor sees all. Member sees only where usedCode == their code.
-      if(userData.code === '001' || r.usedCode === userData.code) {
-        html += `<tr>
-          <td data-label="Taker">${esc(r.takerName)}</td>
-          <td data-label="Upline">${esc(r.uplineName)}</td>
-          <td data-label="Score">${r.correct}/${r.total} (${Math.round(r.correct/r.total*100)}%)</td>
-          <td data-label="Grade"><span class="grade-badge">${r.grade}</span></td>
-          <td data-label="Date">${esc(r.date)}</td>
-        </tr>`;
+let tbQuestions=[];
+let tbGrades=[
+  {letter:'A+',min:100},
+  {letter:'A',min:90},
+  {letter:'B+',min:80},
+  {letter:'B',min:70},
+  {letter:'C',min:60},
+  {letter:'D',min:50},
+  {letter:'E',min:40},
+  {letter:'F',min:0}
+];
+
+function openTestBuilder(){
+  document.getElementById('tbUserBadge').textContent='Test Builder: '+(currentMember?currentMember.name:'');
+  showView('testBuilderView');
+  if(tbQuestions.length===0)tbAddQuestion();
+  renderTBQuestions();
+  renderTBGrades();
+}
+function closeTestBuilder(){ showView('memberDashboard'); }
+
+function tbNewQuestion(){ return {text:'',type:'short',answer:'',options:['','','',''],correct:0}; }
+function tbAddQuestion(){ tbQuestions.push(tbNewQuestion()); renderTBQuestions(); }
+function tbRemoveQuestion(i){ if(tbQuestions.length<=1){showToast('At least 1 question');return;} tbQuestions.splice(i,1); renderTBQuestions(); }
+function tbToggleType(i){ tbQuestions[i].type=tbQuestions[i].type==='short'?'mcq':'short'; renderTBQuestions(); }
+function tbMakeAllMCQ(){ if(tbQuestions.length===0){showToast('Add a question first');return;} tbQuestions.forEach(q=>q.type='mcq'); renderTBQuestions(); showToast('All converted to MCQ'); }
+function tbUpdateText(i,v){ tbQuestions[i].text=v; }
+function tbUpdateAnswer(i,v){ tbQuestions[i].answer=v; }
+function tbUpdateOption(i,j,v){ tbQuestions[i].options[j]=v; }
+function tbSetCorrect(i,j){ tbQuestions[i].correct=j; renderTBQuestions(); }
+
+function renderTBQuestions(){
+  const el=document.getElementById('tbQuestionsContainer');
+  if(!el)return;
+  if(tbQuestions.length===0){ el.innerHTML='<div class="empty-state"><div class="big-text">No questions yet</div></div>'; return; }
+  el.innerHTML=tbQuestions.map((q,i)=>{
+    const isMCQ=q.type==='mcq';
+    return `
+      <div class="question-block">
+        <div class="q-header">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="q-num">${i+1}</span>
+            <span class="q-type-tag ${isMCQ?'mcq':'short'}">${isMCQ?'MCQ':'Short'}</span>
+          </div>
+          <div style="display:flex;gap:6px;">
+            <button class="btn btn-small btn-secondary" onclick="tbToggleType(${i})">${isMCQ?'Switch to Short':'Select Options'}</button>
+            <button class="btn btn-small btn-danger" onclick="tbRemoveQuestion(${i})">Remove</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Question Text</label>
+          <input type="text" value="${esc(q.text)}" oninput="tbUpdateText(${i},this.value)" placeholder="Enter question">
+        </div>
+        ${isMCQ?`
+          <label>Options (select correct)</label>
+          <div class="options-grid">
+            ${q.options.map((o,j)=>`
+              <div class="option-row">
+                <input type="radio" name="tbCorr_${i}" ${q.correct===j?'checked':''} onchange="tbSetCorrect(${i},${j})">
+                <input type="text" value="${esc(o)}" oninput="tbUpdateOption(${i},${j},this.value)" placeholder="Option ${String.fromCharCode(65+j)}">
+              </div>
+            `).join('')}
+          </div>
+        `:`
+          <div class="form-group">
+            <label>Correct Answer (short)</label>
+            <input type="text" value="${esc(q.answer)}" oninput="tbUpdateAnswer(${i},this.value)" placeholder="Expected answer">
+          </div>
+        `}
+      </div>
+    `;
+  }).join('');
+}
+
+function renderTBGrades(){
+  const el=document.getElementById('tbGradeRows');
+  if(!el)return;
+  el.innerHTML=tbGrades.map((g,i)=>`
+    <div class="grade-row">
+      <span class="grade-badge">${g.letter}</span>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <input type="number" min="0" max="100" value="${g.min}" style="width:90px;padding:6px 10px;text-align:center;" onchange="tbUpdateGrade(${i},this.value)">
+        <span style="color:#64748b;font-size:0.85rem;">% minimum</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function tbUpdateGrade(i,v){
+  let n=parseInt(v); if(isNaN(n))n=0; if(n<0)n=0; if(n>100)n=100;
+  tbGrades[i].min=n;
+  if(tbGrades[i].letter==='A+')tbGrades[i].min=100;
+  renderTBGrades();
+}
+
+/* ---------- Schedule + Time window helpers ---------- */
+function getScheduleForDate(dateStr){
+  return store.schedules.find(s=>s.date===dateStr) || null;
+}
+function isPrimaryForDate(dateStr, memberId){
+  const s=getScheduleForDate(dateStr); return s && s.primaryId===memberId;
+}
+function isSecondaryForDate(dateStr, memberId){
+  const s=getScheduleForDate(dateStr); return s && s.secondaryId===memberId;
+}
+function canPublishNow(member){
+  const t=store.timings;
+  const sM=parseHHMM(t.testStart);
+  const now=currentMinutes();
+  const todayStr=today();
+  const primStart=12*60;      // 12:00 PM
+  const primEnd=17*60+30;     // 5:30 PM
+  const secEnd=17*60+58;      // 5:58 PM
+  const testStartMin=sM;      // e.g., 18:00
+
+  const isPrim=isPrimaryForDate(todayStr, member.id);
+  const isSec=isSecondaryForDate(todayStr, member.id);
+
+  if(!isPrim && !isSec){
+    return {ok:false, msg:'You are not scheduled to make a test today.'};
+  }
+  if(isPrim){
+    if(now<primStart) return {ok:false, msg:'Primary window starts at 12:00 PM.'};
+    if(now>primEnd) return {ok:false, msg:'Primary window has ended. Backup window now (if you are backup).'};
+    return {ok:true};
+  }
+  if(isSec){
+    if(now<primEnd) return {ok:false, msg:'Backup window starts at 5:30 PM.'};
+    if(now>secEnd) return {ok:false, msg:'Backup window ended at 5:58 PM. Test cancelled for today.'};
+    return {ok:true};
+  }
+  return {ok:false, msg:'Not allowed.'};
+}
+
+function tbPublish(){
+  const me=currentMember;
+  if(!me){ showToast('Login required'); return; }
+  const check=canPublishNow(me);
+  if(!check.ok){ showToast(check.msg); return; }
+
+  if(tbQuestions.length===0){ showToast('Add at least one question'); return; }
+  for(let i=0;i<tbQuestions.length;i++){
+    const q=tbQuestions[i];
+    if(!q.text.trim()){ showToast(`Q${i+1}: question text empty`); return; }
+    if(q.type==='short'){
+      if(!q.answer.trim()){ showToast(`Q${i+1}: answer empty`); return; }
+    } else {
+      for(let j=0;j<4;j++){
+        if(!q.options[j].trim()){ showToast(`Q${i+1}: option ${String.fromCharCode(65+j)} empty`); return; }
       }
-    });
-    html += `</tbody></table>`;
-    el.innerHTML = html;
-  });
+    }
+  }
+  if(tbGrades[0].min!==100){ tbGrades[0].min=100; }
+  for(let i=0;i<tbGrades.length-1;i++){
+    if(tbGrades[i].min<tbGrades[i+1].min){ showToast(`Grade ${tbGrades[i].letter} must be >= ${tbGrades[i+1].letter}`); return; }
+  }
+
+  store.publishedTest={
+    title:document.getElementById('tbTitle').value.trim()||'Knowledge Test',
+    duration:parseFloat(document.getElementById('tbDuration').value),
+    questions:JSON.parse(JSON.stringify(tbQuestions)),
+    grades:JSON.parse(JSON.stringify(tbGrades)),
+    publishedBy:me.name,
+    publishedDate:today(),
+    publishedTime:nowHHMM()
+  };
+  saveStore();
+  showToast('Test published successfully for today');
 }
 
 /* ============================================================
-   KNOWLEDGE TEST PANEL (HOME)
+   KNOWLEDGE TEST VIEW (SEPARATE SECTION)
    ============================================================ */
 let attemptState=null;
 let attemptTimer=null;
-let ktTimer=null;
 
 function parseHHMM(s){
   if(!/^\d{1,2}:\d{2}$/.test(s))return null;
   const [h,m]=s.split(':').map(Number);
+  if(h<0||h>23||m<0||m>59)return null;
   return h*60+m;
 }
 function currentMinutes(){
   const d=new Date();
   return d.getHours()*60+d.getMinutes()+d.getSeconds()/60;
+}
+function isBetweenWrap(a,b,now){
+  return a<b ? (now>=a && now<b) : (now>=a || now<b);
 }
 
 function openKTView(){
@@ -904,17 +1433,16 @@ function stopKTViewTimer(){
   if(ktTimer){clearInterval(ktTimer);ktTimer=null;}
 }
 
-async function renderKT() {
+function renderKT(){
   const el=document.getElementById('ktContent');
-  const t = { testStart: "18:00", testDone: "20:00", noNotif: "10:00" }; // Hardcoded as per blueprint
-  
+  if(!el)return;
+  const t=store.timings;
   const sM=parseHHMM(t.testStart), dM=parseHHMM(t.testDone), nM=parseHHMM(t.noNotif);
+  if(sM==null||dM==null||nM==null){ el.innerHTML='<div class="notice notice-warning">Timings not configured.</div>'; return; }
   const now=currentMinutes();
-  
-  // Get published test
-  const testSnap = await getDoc(doc(db, "settings", "activeTest"));
-  const test = testSnap.exists() ? testSnap.data() : null;
+  const test=store.publishedTest;
 
+  // Test active window
   if(test && now>=sM){
     const activeEnd=sM+test.duration;
     if(now<activeEnd){
@@ -922,60 +1450,98 @@ async function renderKT() {
       return;
     }
     if(now<dM){
-      el.innerHTML=`<div class="notice notice-success" style="font-size:1.4rem;padding:40px;">Test Done</div>`;
+      el.innerHTML=`<div class="notice notice-success" style="font-size:1.4rem;padding:40px;">Test Done</div>
+        <div style="text-align:center;color:#64748b;margin-top:16px;">The test has ended. Thank you for participating.</div>`;
       return;
     }
   }
 
   if(!test && now>=sM && now<dM){
-    el.innerHTML=`<div class="notice notice-warning" style="font-size:1.4rem;padding:40px;">No Test</div>`;
+    el.innerHTML=`<div class="notice notice-warning" style="font-size:1.4rem;padding:40px;">No Test</div>
+      <div style="text-align:center;color:#64748b;margin-top:16px;">No test has been published for today.</div>`;
     return;
   }
 
-  // Countdown
-  const totalSec=Math.floor(((sM-now+1440)%1440)*60);
-  el.innerHTML=`
-    <div class="notice notice-info">The next test will be available at ${t.testStart}</div>
-    <div class="countdown-big">${String(Math.floor(totalSec/3600)).padStart(2,'0')} : ${String(Math.floor((totalSec%3600)/60)).padStart(2,'0')} : ${String(totalSec%60).padStart(2,'0')}</div>
-  `;
+  if(isBetweenWrap(dM,nM,now)){
+    el.innerHTML=`<div class="notice notice-info" style="font-size:1.15rem;padding:40px;">No Notification</div>`;
+    return;
+  }
+
+  if(isBetweenWrap(nM,sM,now)){
+    const totalSec=Math.floor(((sM-now+1440)%1440)*60);
+    const h=Math.floor(totalSec/3600);
+    const m=Math.floor((totalSec%3600)/60);
+    const s=totalSec%60;
+    el.innerHTML=`
+      <div class="notice notice-info">The next test will be available at ${esc(t.testStart)}</div>
+      <div class="countdown-big">${String(h).padStart(2,'0')} : ${String(m).padStart(2,'0')} : ${String(s).padStart(2,'0')}</div>
+      <div style="text-align:center;color:#64748b;">Time remaining until test starts</div>
+    `;
+    return;
+  }
+  el.innerHTML='<div class="notice notice-info">Please wait for the next test cycle.</div>';
 }
 
 function renderStartForm(test,activeEnd){
   const totalSec=Math.floor((activeEnd-currentMinutes())*60);
+  const h=Math.floor(totalSec/3600);
+  const m=Math.floor((totalSec%3600)/60);
+  const s=totalSec%60;
   return `
-    <div class="countdown-bar">Test active — time remaining: ${String(Math.floor(totalSec/60)).padStart(2,'0')} : ${String(totalSec%60).padStart(2,'0')}</div>
-    <div class="card">
+    <div class="countdown-bar">Test active — time remaining: ${String(h).padStart(2,'0')} : ${String(m).padStart(2,'0')} : ${String(s).padStart(2,'0')}</div>
+    <div class="card" style="margin-bottom:0;">
       <h2>Start Test</h2>
-      <div class="form-group"><label>Your Name</label><input type="text" id="ktName"></div>
-      <div class="form-group"><label>Upline Name</label><input type="text" id="ktUpline"></div>
-      <div class="form-group"><label>Upline Code</label><input type="text" id="ktCode" placeholder="e.g. 001"></div>
-      <div id="ktError"></div>
-      <div class="actions-bar"><button class="btn btn-primary" onclick="startAttempt()">Next</button></div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="ktName" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+          <label>Upline Name</label>
+          <input type="text" id="ktUpline" placeholder="Enter upline name">
+        </div>
+        <div class="form-group" style="grid-column:1/-1;">
+          <label>Upline Code</label>
+          <input type="text" id="ktCode" placeholder="Enter upline code (e.g. 001)">
+          <div class="hint">Code must match a registered member. Test will not start with an invalid code.</div>
+        </div>
+      </div>
+      <div id="ktError" style="margin-top:8px;"></div>
+      <div class="actions-bar">
+        <button class="btn btn-primary" onclick="startAttempt()">Next</button>
+      </div>
     </div>
   `;
 }
 
-async function startAttempt() {
-  const name = document.getElementById('ktName').value.trim();
-  const upline = document.getElementById('ktUpline').value.trim();
-  const code = document.getElementById('ktCode').value.trim();
-  const err = document.getElementById('ktError');
-  
-  if(!name || !upline || !code) { err.innerHTML = '<div class="notice notice-danger">All fields required</div>'; return; }
-  
-  // Verify Code
-  const q = query(collection(db, "users"), where("code", "==", code));
-  const snap = await getDocs(q);
-  if(snap.empty) { err.innerHTML = '<div class="notice notice-danger">Invalid Code!</div>'; return; }
+function startAttempt(){
+  const nameEl=document.getElementById('ktName');
+  const uplineEl=document.getElementById('ktUpline');
+  const codeEl=document.getElementById('ktCode');
+  const errEl=document.getElementById('ktError');
+  if(!nameEl||!uplineEl||!codeEl||!errEl)return;
+  const name=nameEl.value.trim();
+  const upline=uplineEl.value.trim();
+  const code=codeEl.value.trim();
+  if(!name||!upline||!code){ errEl.innerHTML='<div class="notice notice-danger">All fields are required.</div>'; return; }
+  const uplineMember=store.members.find(m=>m.code===code);
+  if(!uplineMember){ errEl.innerHTML='<div class="notice notice-danger">Invalid code. Enter the correct upline code.</div>'; return; }
 
-  const testSnap = await getDoc(doc(db, "settings", "activeTest"));
-  const test = testSnap.data();
-  
-  attemptState = {
-    takerName: name, uplineName: upline, usedCode: code, test,
-    answers: new Array(test.questions.length).fill(null),
-    submitAttempts: 0, submitted: false,
-    activeEndMin: parseHHMM("18:00") + test.duration
+  const test=store.publishedTest;
+  if(!test){ showToast('No test available'); return; }
+  const sM=parseHHMM(store.timings.testStart);
+  const activeEnd=sM+test.duration;
+  if(currentMinutes()>=activeEnd){ showToast('Test time has ended'); return; }
+
+  attemptState={
+    takerName:name,
+    uplineName:upline,
+    usedCode:code,
+    test,
+    answers:new Array(test.questions.length).fill(null),
+    submitAttempts:0,
+    submitted:false,
+    activeEndMin:activeEnd
   };
 
   stopKTViewTimer();
@@ -985,94 +1551,182 @@ async function startAttempt() {
   showView('attemptView');
 }
 
-// ... (Test attempt render, submit, finalize logic remains same as previous, just saves to Firestore)
-async function finalizeAttempt(timeout) {
+function updateAttemptTimer(){
+  if(!attemptState || attemptState.submitted)return;
+  const totalSec=Math.floor((attemptState.activeEndMin-currentMinutes())*60);
+  const el=document.getElementById('attemptTimer');
+  if(!el)return;
+  if(totalSec<=0){
+    el.textContent='00:00';
+    if(!attemptState.submitted){ attemptState.submitted=true; finalizeAttempt(true); }
+    return;
+  }
+  const m=Math.floor(totalSec/60);
+  const s=totalSec%60;
+  el.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+
+function renderAttempt(){
+  if(!attemptState)return;
+  const el=document.getElementById('attemptContent');
+  const test=attemptState.test;
+  el.innerHTML=`
+    <div class="countdown-bar">Time remaining: <span id="attemptTimer">--:--</span></div>
+    <div class="test-header">
+      <h2>${esc(test.title)}</h2>
+      <p>${test.questions.length} questions - ${test.duration} minutes</p>
+      <p style="margin-top:6px;">Test Taker: ${esc(attemptState.takerName)} | Upline: ${esc(attemptState.uplineName)}</p>
+    </div>
+    <div id="attemptQuestions">
+      ${test.questions.map((q,i)=>renderAttemptQ(q,i)).join('')}
+    </div>
+    <div id="attemptError" style="margin-top:12px;"></div>
+    <div class="actions-bar">
+      <button class="btn btn-success" onclick="submitAttempt()">Submit Test</button>
+    </div>
+  `;
+  updateAttemptTimer();
+}
+
+function renderAttemptQ(q,i){
+  if(q.type==='mcq'){
+    return `
+      <div class="test-question">
+        <h3>Q${i+1}. ${esc(q.text)}</h3>
+        ${q.options.map((o,j)=>`
+          <label class="test-option" onclick="selectMCQ(${i},${j},this)">
+            <input type="radio" name="ans_${i}" value="${j}">
+            <span>${esc(o)}</span>
+          </label>
+        `).join('')}
+      </div>
+    `;
+  }
+  return `
+    <div class="test-question">
+      <h3>Q${i+1}. ${esc(q.text)}</h3>
+      <textarea rows="2" placeholder="Write your answer here..." oninput="recordShort(${i},this.value)"></textarea>
+    </div>
+  `;
+}
+
+function selectMCQ(i,j,el){
+  const parent=el.closest('.test-question');
+  parent.querySelectorAll('.test-option').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  el.querySelector('input').checked=true;
+  attemptState.answers[i]={type:'mcq',value:j};
+}
+function recordShort(i,v){ attemptState.answers[i]={type:'short',value:v}; }
+
+function submitAttempt(){
+  if(!attemptState)return;
+  const unanswered=attemptState.answers.filter(a=>{
+    if(a===null)return true;
+    if(a.type==='short' && (!a.value||!a.value.trim()))return true;
+    return false;
+  }).length;
+
+  const errEl=document.getElementById('attemptError');
+  if(unanswered>0 && attemptState.submitAttempts===0){
+    attemptState.submitAttempts=1;
+    if(errEl)errEl.innerHTML=`<div class="notice notice-warning">${unanswered} question(s) unanswered. Click Submit again to submit anyway.</div>`;
+    return;
+  }
+  attemptState.submitted=true;
+  finalizeAttempt(false);
+}
+
+function finalizeAttempt(timeout){
   if(!attemptState)return;
   if(attemptTimer){clearInterval(attemptTimer);attemptTimer=null;}
   const test=attemptState.test;
   let correct=0;
-  
-  test.questions.forEach((q,i)=>{
+  const review=test.questions.map((q,i)=>{
     const a=attemptState.answers[i];
-    if(q.type==='mcq' && a && a.value===q.correct) correct++;
-    else if(q.type==='short' && a && a.value.trim().toLowerCase().includes(q.answer.toLowerCase())) correct++;
+    let isCorrect=false, sDisp='', tDisp='';
+    if(q.type==='mcq'){
+      if(a&&a.type==='mcq'){ isCorrect=(a.value===q.correct); sDisp=q.options[a.value]; }
+      else sDisp='(not answered)';
+      tDisp=q.options[q.correct];
+    } else {
+      const sT=(a&&a.value?a.value:'').trim().toLowerCase();
+      const tT=(q.answer||'').trim().toLowerCase();
+      isCorrect=(tT.length>0 && sT.includes(tT));
+      sDisp=(a&&a.value)||'(not answered)';
+      tDisp=q.answer;
+    }
+    if(isCorrect)correct++;
+    return {q,isCorrect,sDisp,tDisp};
   });
 
   const total=test.questions.length;
   const pct=Math.round(correct/total*100);
-  let grade = 'F';
-  test.grades.sort((a,b)=>b.min-a.min).forEach(g => { if(pct >= g.min && grade === 'F') grade = g.letter; });
+  const grade=calculateGrade(pct,test.grades);
 
-  // Save to Firestore
-  await addDoc(collection(db, "results"), {
-    takerName: attemptState.takerName,
-    uplineName: attemptState.uplineName,
-    usedCode: attemptState.usedCode,
-    correct, total, grade,
-    date: today(),
-    time: nowHHMM()
+  store.testResults.push({
+    takerName:attemptState.takerName,
+    uplineName:attemptState.uplineName,
+    usedCode:attemptState.usedCode,
+    testTitle:test.title,
+    correct, total, grade:grade.letter,
+    date:today(), time:nowHHMM(),
+    timeout:!!timeout
   });
+  saveStore();
 
-  document.getElementById('attemptContent').innerHTML = `<div class="result-box"><h2>Result</h2><div class="grade-display">${grade}</div><p>Score: ${correct}/${total} (${pct}%)</p><button class="btn btn-primary" onclick="goHome()">Back</button></div>`;
+  const el=document.getElementById('attemptContent');
+  el.innerHTML=`
+    <div class="result-box">
+      <div style="font-size:0.95rem;color:#64748b;font-weight:600;">RESULT</div>
+      <div style="font-size:1rem;color:#475569;margin-top:8px;">
+        Test Taker: <strong>${esc(attemptState.takerName)}</strong> | Upline: <strong>${esc(attemptState.uplineName)}</strong> (Code: ${esc(attemptState.usedCode)})
+      </div>
+      <div style="font-size:1.15rem;color:#475569;margin-top:12px;">
+        Correct: <strong>${correct} / ${total}</strong> (${pct}%)
+      </div>
+      <div class="grade-display">${grade.letter}</div>
+      ${timeout?'<div class="notice notice-danger" style="margin-top:16px;">Time expired. Test auto-submitted.</div>':''}
+    </div>
+    <div class="card" style="margin-top:20px;">
+      <h2>Answer Review</h2>
+      ${review.map((r,i)=>`
+        <div class="question-block" style="background:#fff;">
+          <div style="font-weight:700;color:#1e293b;margin-bottom:8px;">Q${i+1}. ${esc(r.q.text)}</div>
+          <div class="feedback-box ${r.isCorrect?'feedback-correct':'feedback-wrong'}">
+            <div class="feedback-label">${r.isCorrect?'Correct':'Incorrect'}</div>
+            <div><strong>Your answer:</strong> ${esc(r.sDisp)||'<em>No answer</em>'}</div>
+            ${!r.isCorrect?`<div style="margin-top:6px;"><strong>Correct answer:</strong> ${esc(r.tDisp)}</div>`:''}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="actions-bar">
+      <button class="btn btn-primary" onclick="goHome()">Back to Home</button>
+    </div>
+  `;
 }
 
-function cancelAttempt(){ attemptState=null; if(attemptTimer)clearInterval(attemptTimer); goHome(); }
+function calculateGrade(pct,rows){
+  const sorted=[...rows].sort((a,b)=>b.min-a.min);
+  for(const g of sorted){ if(pct>=g.min)return g; }
+  return rows[rows.length-1];
+}
+
+function cancelAttempt(){
+  if(attemptState && !attemptState.submitted){
+    if(!confirm('Leave the test? Progress will be lost.'))return;
+  }
+  attemptState=null;
+  if(attemptTimer){clearInterval(attemptTimer);attemptTimer=null;}
+  goHome();
+}
 
 /* ============================================================
-   TEST BUILDER (Simplified for space)
+   INIT
    ============================================================ */
-function openTestBuilder(){ showView('testBuilderView'); }
-function backToDashboard(){ showView('dashboardView'); }
-
-async function tbPublish() {
-  // Simplified publish logic
-  const title = document.getElementById('tbTitle').value;
-  const duration = parseFloat(document.getElementById('tbDuration').value);
-  
-  const questions = [
-    { text: "Sample Q1", type: "mcq", options: ["A", "B", "C", "D"], correct: 0 },
-    { text: "Sample Q2", type: "short", answer: "hello" }
-  ]; // In real app, capture from UI. I'm keeping it simple so it fits.
-
-  await setDoc(doc(db, "settings", "activeTest"), {
-    title, duration, questions,
-    grades: [{letter:'A+',min:100},{letter:'A',min:90},{letter:'F',min:0}],
-    publishedBy: userData.name,
-    publishedDate: today()
-  });
-  showToast("Test Published!");
-}
-
-// Global exposure
-window.goHome = goHome;
-window.goLogin = goLogin;
-window.signInWithGoogle = signInWithGoogle;
-window.switchAuthTab = switchAuthTab;
-window.processSignup = processSignup;
-window.completeSignup = completeSignup;
-window.doLogin = doLogin;
-window.logout = logout;
-window.addMember = addMember;
-window.switchDashTab = switchDashTab;
-window.addSchedule = addSchedule;
-window.openKTView = openKTView;
-window.startAttempt = startAttempt;
-window.cancelAttempt = cancelAttempt;
-window.openTestBuilder = openTestBuilder;
-window.backToDashboard = backToDashboard;
-window.tbPublish = tbPublish;
-window.tbAddQuestion = function(){}; // Dummy for now
-
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      currentUser = user;
-    } else {
-      currentUser = null;
-    }
-  });
-});
+loadStore();
+renderTBGrades();
 </script>
 </body>
-</html>
+  </html>
