@@ -129,10 +129,12 @@
     .app-header h1{font-size:1.8rem;}
     .actions-bar{justify-content:stretch;}
     .actions-bar .btn{flex:1;}
+    
+    /* Mobile Table Fix */
     .data-table, .data-table thead, .data-table tbody, .data-table th, .data-table td, .data-table tr {display: block;}
     .data-table thead tr {position: absolute;top: -9999px;left: -9999px;}
     .data-table tr {border: 1.5px solid #e2e8f0; border-radius: 12px; margin-bottom: 12px; background: #fff; padding:10px;}
-    .data-table td {border: none;border-bottom: 1px solid #f1f5f9;position: relative;padding-left: 50%;text-align: right;padding-top:10px;padding-bottom:10px; word-break: break-all;}
+    .data-table td {border: none;border-bottom: 1px solid #f1f5f9;position: relative;padding-left: 50%;text-align: right;padding-top:10px;padding-bottom:10px; word-wrap: break-word; overflow-wrap: break-word;}
     .data-table td:last-child {border-bottom: none;}
     .data-table td:before {position: absolute;top: 11px;left: 12px;width: 45%;padding-right: 10px;white-space: nowrap;text-align: left;font-weight: 700;color: #64748b;content: attr(data-label);}
   }
@@ -156,7 +158,6 @@
       </div>
     </div>
     
-    <!-- Knowledge Test Card with Live Timer -->
     <div class="home-test-card" onclick="openKTView()">
       <h2>Knowledge Test</h2>
       <p id="homeKtStatus">Click here to check test timings and start your test.</p>
@@ -319,7 +320,6 @@
       <div class="card"><h2>My Members</h2><div id="membersList"></div></div>
     </div>
 
-    <!-- Make Schedule (Supervisor Only) -->
     <div id="tabMakeSchedule" class="dash-tab" style="display:none;">
       <div class="card">
         <h2>Make Test Schedule</h2>
@@ -332,12 +332,10 @@
       </div>
     </div>
 
-    <!-- Test Schedule (Everyone) -->
     <div id="tabSchedule" class="dash-tab" style="display:none;">
       <div class="card"><h2>Test Schedule</h2><div id="scheduleList"></div></div>
     </div>
 
-    <!-- Test Builder (Not for Supervisor) -->
     <div id="tabTestBuilder" class="dash-tab" style="display:none;">
       <div class="card"><h2>Test Builder</h2><div id="testBuilderAccess"></div></div>
     </div>
@@ -445,11 +443,25 @@ async function signInWithGoogle() {
   try {
     const result = await signInWithPopup(auth, provider);
     tempGoogleUser = result.user;
-    const userDoc = await getDoc(doc(db, "users", tempGoogleUser.uid));
+    
+    // Check if user exists in DB by Gmail (More reliable than UID if UID mismatch)
+    const q = query(collection(db, "users"), where("gmail", "==", tempGoogleUser.email));
+    const snap = await getDocs(q);
+    
     document.getElementById('authGmail').value = tempGoogleUser.email;
     document.getElementById('authFormArea').style.display = 'block';
     
-    if (userDoc.exists()) {
+    if (!snap.empty) {
+      // User exists
+      const userDoc = snap.docs[0];
+      userData = userDoc.data();
+      userData.id = userDoc.id;
+      
+      // Update UID if it was missing or different
+      if(userData.uid !== tempGoogleUser.uid) {
+        await updateDoc(doc(db, "users", userDoc.id), { uid: tempGoogleUser.uid });
+      }
+      
       switchAuthTab('login');
     } else {
       switchAuthTab('signup');
@@ -521,7 +533,6 @@ async function completeSignup() {
   if(pw1 !== pw2) { err.innerHTML = '<div class="notice notice-danger">Passwords do not match.</div>'; return; }
 
   try {
-    // Generate Code Logic Fix: Get all active users and add 1
     const activeUsersQ = query(collection(db, "users"), where("status", "==", "active"));
     const activeSnap = await getDocs(activeUsersQ);
     let maxCode = 0;
@@ -552,10 +563,11 @@ async function completeSignup() {
 async function doLogin() {
   const err = document.getElementById('authError');
   const pw = document.getElementById('loginPassword').value;
-  const userDoc = await getDoc(doc(db, "users", tempGoogleUser.uid));
-  if(!userDoc.exists()) { err.innerHTML = '<div class="notice notice-danger">User not found.</div>'; return; }
-  if(userDoc.data().password !== pw) { err.innerHTML = '<div class="notice notice-danger">Incorrect password.</div>'; return; }
-  userData = userDoc.data(); userData.id = tempGoogleUser.uid;
+  
+  if(!userData) { err.innerHTML = '<div class="notice notice-danger">Please continue with Google first.</div>'; return; }
+  
+  if(userData.password !== pw) { err.innerHTML = '<div class="notice notice-danger">Incorrect password.</div>'; return; }
+  
   showToast("Welcome back!"); showView('dashboardView'); renderDashboard();
 }
 
@@ -646,7 +658,10 @@ function renderDashboard() {
 
   const tabs = [{id:'Profile', label:'My Profile'}, {id:'AddMember', label:'Add Member'}, {id:'MyMembers', label:'My Members'}, {id:'Schedule', label:'Test Schedule'}, {id:'Results', label:'Results'}];
   if(isSup) { tabs.unshift({id:'MakeSchedule', label:'Make Schedule'}); }
-  else { tabs.push({id:'TestBuilder', label:'Test Builder'}); tabs.push({id:'Requests', label:'Reset Requests'}); }
+  else { tabs.push({id:'TestBuilder', label:'Test Builder'}); }
+  
+  // Added for BOTH (Supervisor and Members)
+  tabs.push({id:'Requests', label:'Reset Requests'});
 
   document.getElementById('dashTabs').innerHTML = tabs.map((t,i)=>`<div class="tab ${i===0?'active':''}" data-tab="${t.id}" onclick="switchDashTab('${t.id}')">${t.label}</div>`).join('');
   document.querySelectorAll('#dashboardView .dash-tab').forEach(el=>el.style.display='none');
@@ -665,7 +680,8 @@ function renderDashboard() {
   if(isSup) loadMakeSchedule();
   loadScheduleList();
   loadResults();
-  if(!isSup) { loadTestBuilderAccess(); loadRequests(); }
+  if(!isSup) { loadTestBuilderAccess(); }
+  loadRequests(); // Loaded for everyone
 }
 
 function switchDashTab(id) {
@@ -696,7 +712,7 @@ function loadMyMembers() {
       const m = doc.data(); const id = doc.id;
       html += `<tr>
         <td data-label="Name">${esc(m.name)}</td>
-        <td data-label="Gmail" style="word-break:break-all;max-width:150px;">${esc(m.gmail) || '-'}</td>
+        <td data-label="Gmail" style="word-break:break-word;">${esc(m.gmail) || '-'}</td>
         <td data-label="FBO">${esc(m.fbo)}</td>
         <td data-label="Code">${m.code || '-'}</td>
         <td data-label="Status">${m.status==='active' ? '<span class="badge badge-active">Active</span>' : (m.status==='blocked'?'<span class="badge badge-blocked">Blocked</span>':'<span class="badge badge-pending">Pending</span>')}</td>
@@ -823,4 +839,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 </body>
-</html>
+         </html>
