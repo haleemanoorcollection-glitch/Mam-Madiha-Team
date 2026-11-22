@@ -1,983 +1,446 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Mam Madiha Ghazal Team</title>
 <style>
-  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}
-  body{background:linear-gradient(135deg,#f5f7fa 0%,#e8eef5 100%);min-height:100vh;color:#1a2332;padding:20px;display:flex;flex-direction:column;min-height:100vh;}
-  .container{max-width:1150px;margin:0 auto;width:100%;flex:1;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
+body{background:linear-gradient(135deg,#f5f7fa,#e8eef5);min-height:100vh;color:#1a2332;padding:20px;display:flex;flex-direction:column}
+.container{max-width:1100px;margin:0 auto;width:100%;flex:1}
+.app-header{text-align:center;padding:26px 10px 8px}
+.app-header h1{font-size:2.3rem;font-weight:800;background:linear-gradient(135deg,#2563eb,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.app-header p{color:#64748b;margin-top:6px;font-size:.92rem;font-style:italic}
+.footer{text-align:center;padding:18px;color:#94a3b8;font-size:.8rem;margin-top:26px;border-top:1px solid #e2e8f0}
+.card{background:#fff;border-radius:16px;padding:24px;box-shadow:0 4px 24px rgba(37,99,235,.08);border:1px solid #eef2f7;margin-bottom:18px}
+.card h2{font-size:1.15rem;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.card h2::before{content:'';width:5px;height:20px;border-radius:3px;background:linear-gradient(135deg,#2563eb,#7c3aed)}
+label{display:block;font-weight:600;margin-bottom:5px;color:#334155;font-size:.88rem}
+input[type=text],input[type=password],input[type=date],select{width:100%;padding:10px 13px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:.93rem;background:#f8fafc}
+input:focus,select:focus{outline:none;border-color:#2563eb;background:#fff}
+input:disabled{background:#e2e8f0;color:#64748b;font-weight:600}
+.btn{padding:10px 18px;border:none;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn-primary{background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff}
+.btn-secondary{background:#f1f5f9;color:#334155;border:1.5px solid #e2e8f0}
+.btn-danger{background:#fee2e2;color:#dc2626;border:1.5px solid #fecaca}
+.btn-success{background:linear-gradient(135deg,#10b981,#059669);color:#fff}
+.btn-small{padding:6px 12px;font-size:.8rem}
+.btn-google{background:#fff;color:#333;border:1.5px solid #ddd;width:100%;padding:12px}
+.btn-google img{width:20px;height:20px}
+.view{display:none}.view.active{display:block}
+.home-card{background:#fff;border-radius:20px;padding:34px 24px;text-align:center;max-width:520px;margin:26px auto;border:2px solid #eef2f7}
+.home-card .title{font-size:1.35rem;font-weight:800;margin-bottom:6px}
+.home-card .sub{color:#64748b;font-size:.9rem;margin-bottom:20px}
+.home-test-card{max-width:520px;margin:0 auto;text-align:center;padding:28px;background:#fff;border-radius:20px;border:2px solid #eef2f7;cursor:pointer}
+.home-test-card:hover{border-color:#bfdbfe}
+.home-test-card h3{font-size:1.25rem;margin-bottom:6px}
+.top-actions{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.form-group{margin-bottom:13px}
+.hint{font-size:.8rem;color:#94a3b8}
+.tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;border-bottom:2px solid #eef2f7;padding-bottom:12px}
+.tab{padding:8px 16px;border-radius:10px;cursor:pointer;font-weight:600;font-size:.86rem;color:#64748b;background:#f8fafc;border:1.5px solid #e2e8f0}
+.tab.active{background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border-color:transparent}
+.data-table{width:100%;border-collapse:collapse}
+.data-table th,.data-table td{padding:10px;text-align:left;border-bottom:1px solid #eef2f7;font-size:.86rem}
+.data-table th{background:#f8fafc;color:#475569}
+.badge{display:inline-block;padding:3px 10px;border-radius:7px;font-size:.75rem;font-weight:700}
+.badge-pending{background:#fef3c7;color:#b45309}.badge-active{background:#d1fae5;color:#065f46}
+.badge-code{background:#ede9fe;color:#6d28d9;font-family:monospace}
+.qb{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:14px;padding:16px;margin-bottom:12px}
+.opt-row{display:flex;align-items:center;gap:8px;margin-top:8px}
+.opt-row input[type=radio]{width:18px;height:18px;flex-shrink:0}
+.tq{background:#fff;border:1.5px solid #e2e8f0;border-radius:14px;padding:16px;margin-bottom:12px}
+.tq h3{font-size:.96rem;margin-bottom:10px}
+.to{display:flex;align-items:center;gap:10px;padding:10px 13px;border:1.5px solid #e2e8f0;border-radius:10px;margin-bottom:7px;cursor:pointer}
+.to:hover{background:#f0f7ff}
+.countdown-bar{background:#fef3c7;color:#92400e;padding:13px;border-radius:12px;text-align:center;font-weight:700;margin-bottom:18px;border:1.5px solid #fcd34d}
+.countdown-big{background:#eff6ff;color:#1e40af;padding:24px;border-radius:14px;text-align:center;font-size:2rem;font-weight:800;margin:18px 0;border:2px solid #bfdbfe}
+.result-box{text-align:center;padding:46px 20px;background:linear-gradient(135deg,#eff6ff,#f5f3ff);border-radius:16px}
+.empty-state{text-align:center;padding:40px 20px;color:#94a3b8}
+.notice{padding:16px 18px;border-radius:12px;text-align:center;font-weight:600;margin-bottom:16px}
+.notice-info{background:#eff6ff;color:#1e40af;border:1.5px solid #bfdbfe}
+.notice-success{background:#ecfdf5;color:#065f46;border:1.5px solid #a7f3d0}
+.notice-warning{background:#fef3c7;color:#92400e;border:1.5px solid #fcd34d}
+.notice-danger{background:#fef2f2;color:#991b1b;border:1.5px solid #fecaca}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:#1e293b;color:#fff;padding:13px 22px;border-radius:12px;opacity:0;transition:.3s;z-index:9999;max-width:90vw}
+.toast.show{transform:translateX(-50%);opacity:1}
+.actions-bar{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end;margin-top:16px;padding-top:16px;border-top:1.5px dashed #e2e8f0}
+.login-box{max-width:440px;margin:20px auto}
+.sch{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;margin-bottom:10px;flex-wrap:wrap;gap:10px}
+.dash-header{background:linear-gradient(135deg,#eff6ff,#f5f3ff);border-radius:16px;padding:22px;margin-bottom:18px;text-align:center;border:1.5px solid #dbeafe}
+.dash-header .name{font-size:1.5rem;font-weight:800}
+.grade-row{display:grid;grid-template-columns:70px 1fr;gap:12px;align-items:center;padding:6px 0}
+@media(max-width:820px){.form-grid,.form-grid-3{grid-template-columns:1fr}
+.data-table,.data-table thead,.data-table tbody,.data-table th,.data-table td,.data-table tr{display:block}
+.data-table thead tr{position:absolute;top:-9999px}
+.data-table tr{border:1.5px solid #e2e8f0;border-radius:12px;margin-bottom:10px;padding:8px}
+.data-table td{border:none;position:relative;padding-left:45%;text-align:right}
+.data-table td:before{position:absolute;left:10px;font-weight:700;color:#64748b;content:attr(data-label)}}
+</style></head>
+<body><div class="container">
+<div class="app-header"><h1>Mam Madiha Ghazal Team</h1><p>Knowledge grows when it is shared and tested with honesty</p></div>
 
-  .app-header{text-align:center;padding:30px 20px 8px;}
-  .app-header h1{font-size:2.5rem;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,#2563eb,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-  .app-header p{color:#64748b;margin-top:8px;font-size:0.95rem;font-style:italic;}
-
-  .footer{text-align:center;padding:20px;color:#94a3b8;font-size:0.82rem;margin-top:30px;border-top:1px solid #e2e8f0;}
-
-  .card{background:#fff;border-radius:18px;padding:26px;box-shadow:0 4px 24px rgba(37,99,235,0.08),0 1px 3px rgba(0,0,0,0.04);border:1px solid #eef2f7;margin-bottom:20px;}
-  .card h2{font-size:1.2rem;color:#1e293b;margin-bottom:16px;display:flex;align-items:center;gap:10px;font-weight:700;}
-  .card h2::before{content:'';width:5px;height:20px;border-radius:3px;background:linear-gradient(135deg,#2563eb,#7c3aed);}
-
-  label{display:block;font-weight:600;margin-bottom:6px;color:#334155;font-size:0.9rem;}
-  input[type="text"],input[type="password"],input[type="email"],input[type="number"],input[type="date"],select,textarea{width:100%;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.95rem;background:#f8fafc;color:#1e293b;font-family:inherit;transition:all 0.2s;resize:vertical;}
-  input:focus,select:focus,textarea:focus{outline:none;border-color:#2563eb;background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,0.12);}
-  input:disabled{background:#e2e8f0;color:#64748b;cursor:not-allowed;font-weight:600;}
-
-  .btn{padding:11px 20px;border:none;border-radius:10px;font-size:0.93rem;font-weight:600;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;}
-  .btn-primary{background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.3);}
-  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(37,99,235,0.4);}
-  .btn-secondary{background:#f1f5f9;color:#334155;border:1.5px solid #e2e8f0;}
-  .btn-secondary:hover{background:#e2e8f0;}
-  .btn-danger{background:#fee2e2;color:#dc2626;border:1.5px solid #fecaca;}
-  .btn-danger:hover{background:#fecaca;}
-  .btn-success{background:linear-gradient(135deg,#10b981,#059669);color:#fff;box-shadow:0 4px 14px rgba(16,185,129,0.3);}
-  .btn-success:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(16,185,129,0.4);}
-  .btn-warning{background:#fef3c7;color:#b45309;border:1.5px solid #fde68a;}
-  .btn-warning:hover{background:#fde68a;}
-  .btn-small{padding:6px 12px;font-size:0.8rem;border-radius:8px;}
-  .btn:disabled{opacity:0.5;cursor:not-allowed;transform:none!important;}
-  
-  .btn-google{background:#fff;color:#333;border:1.5px solid #ddd;box-shadow:0 2px 5px rgba(0,0,0,0.05);width:100%;font-size:1rem;padding:12px;}
-  .btn-google:hover{background:#f9f9f9;box-shadow:0 4px 10px rgba(0,0,0,0.1);}
-  .btn-google img{width:20px;height:20px;}
-
-  .view{display:none;}
-  .view.active{display:block;}
-
-  .home-card{background:#fff;border-radius:20px;padding:36px 26px;text-align:center;max-width:520px;margin:30px auto;border:2px solid #eef2f7;box-shadow:0 4px 20px rgba(37,99,235,0.06);}
-  .home-card .title{font-size:1.4rem;font-weight:800;color:#1e293b;margin-bottom:6px;}
-  .home-card .sub{color:#64748b;font-size:0.92rem;margin-bottom:22px;}
-
-  .top-actions{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;}
-  .user-badge{background:#eff6ff;color:#1e40af;padding:8px 16px;border-radius:10px;font-size:0.85rem;font-weight:600;border:1.5px solid #dbeafe;}
-
-  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-  .form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
-  .form-group{margin-bottom:14px;}
-  .hint{font-size:0.8rem;color:#94a3b8;margin-top:5px;}
-
-  .tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;border-bottom:2px solid #eef2f7;padding-bottom:12px;}
-  .tab{padding:9px 18px;border-radius:10px;cursor:pointer;font-weight:600;font-size:0.88rem;color:#64748b;background:#f8fafc;border:1.5px solid #e2e8f0;transition:all 0.2s;}
-  .tab:hover{background:#f1f5f9;}
-  .tab.active{background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border-color:transparent;}
-
-  .data-table{width:100%;border-collapse:collapse;}
-  .data-table th,.data-table td{padding:11px 12px;text-align:left;border-bottom:1px solid #eef2f7;font-size:0.88rem;}
-  .data-table th{background:#f8fafc;color:#475569;font-weight:700;}
-  .data-table tr:hover td{background:#f8fafc;}
-  .badge{display:inline-block;padding:3px 10px;border-radius:7px;font-size:0.75rem;font-weight:700;}
-  .badge-pending{background:#fef3c7;color:#b45309;}
-  .badge-active{background:#d1fae5;color:#065f46;}
-  .badge-blocked{background:#fee2e2;color:#991b1b;}
-  .badge-code{background:#ede9fe;color:#6d28d9;font-family:monospace;letter-spacing:1px;}
-
-  .question-block{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:14px;padding:18px;margin-bottom:14px;}
-  .q-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
-  .q-num{background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;}
-  .options-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
-  .option-row{display:flex;align-items:center;gap:8px;}
-  .option-row input[type="radio"]{width:18px;height:18px;accent-color:#2563eb;cursor:pointer;flex-shrink:0;}
-  .option-row input[type="text"]{flex:1;}
-
-  .grade-row{display:grid;grid-template-columns:70px 1fr;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid #eef2f7;}
-  .grade-badge{display:inline-block;padding:4px 14px;border-radius:8px;font-weight:700;font-size:0.85rem;background:linear-gradient(135deg,#dbeafe,#ede9fe);color:#2563eb;text-align:center;}
-
-  .test-header{text-align:center;padding:22px;background:linear-gradient(135deg,#eff6ff,#f5f3ff);border-radius:14px;margin-bottom:20px;}
-  .test-header h2{color:#1e40af;margin-bottom:6px;}
-  .test-header p{color:#64748b;font-size:0.9rem;}
-  .test-question{background:#fff;border:1.5px solid #e2e8f0;border-radius:14px;padding:18px;margin-bottom:14px;}
-  .test-question h3{font-size:0.98rem;color:#1e293b;margin-bottom:12px;font-weight:600;}
-  .test-option{display:flex;align-items:center;gap:10px;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;margin-bottom:8px;cursor:pointer;transition:all 0.15s;}
-  .test-option:hover{border-color:#93c5fd;background:#f0f7ff;}
-  .test-option input{accent-color:#2563eb;width:18px;height:18px;cursor:pointer;}
-  .test-option.selected{border-color:#2563eb;background:#eff6ff;}
-
-  .countdown-bar{background:linear-gradient(135deg,#fef3c7,#fde68a);color:#92400e;padding:14px 20px;border-radius:12px;text-align:center;font-weight:700;font-size:1.05rem;margin-bottom:20px;border:1.5px solid #fcd34d;}
-  .countdown-big{background:linear-gradient(135deg,#eff6ff,#dbeafe);color:#1e40af;padding:26px;border-radius:14px;text-align:center;font-size:2rem;font-weight:800;margin:20px 0;border:2px solid #bfdbfe;letter-spacing:2px;}
-
-  .result-box{text-align:center;padding:36px 20px;background:linear-gradient(135deg,#eff6ff,#f5f3ff);border-radius:16px;margin-top:20px;}
-  
-  .empty-state{text-align:center;padding:50px 20px;color:#94a3b8;}
-  .empty-state .big-text{font-size:1.15rem;font-weight:700;color:#64748b;margin-bottom:6px;}
-
-  .notice{padding:18px 20px;border-radius:12px;text-align:center;font-weight:600;font-size:1.05rem;margin-bottom:20px;}
-  .notice-info{background:#eff6ff;color:#1e40af;border:1.5px solid #bfdbfe;}
-  .notice-success{background:#ecfdf5;color:#065f46;border:1.5px solid #a7f3d0;}
-  .notice-warning{background:#fef3c7;color:#92400e;border:1.5px solid #fcd34d;}
-  .notice-danger{background:#fef2f2;color:#991b1b;border:1.5px solid #fecaca;}
-
-  .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:#1e293b;color:#fff;padding:14px 24px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.2);font-size:0.9rem;opacity:0;transition:all 0.3s;z-index:9999;max-width:90vw;}
-  .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
-
-  .actions-bar{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end;margin-top:18px;padding-top:18px;border-top:1.5px dashed #e2e8f0;}
-
-  .login-box{max-width:440px;margin:20px auto;}
-
-  .schedule-item{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;margin-bottom:10px;flex-wrap:wrap;gap:10px;}
-
-  .dash-header{background:linear-gradient(135deg,#eff6ff,#f5f3ff);border-radius:16px;padding:24px;margin-bottom:20px;text-align:center;border:1.5px solid #dbeafe;}
-  .dash-header .name{font-size:1.6rem;font-weight:800;color:#1e293b;margin-bottom:4px;}
-
-  .home-test-card{max-width:520px;margin:0 auto 30px;text-align:center;padding:30px;background:#fff;border-radius:20px;border:2px solid #eef2f7;box-shadow:0 4px 20px rgba(37,99,235,0.06);cursor:pointer;transition:all 0.2s;}
-  .home-test-card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(37,99,235,0.15);border-color:#bfdbfe;}
-  .home-test-card h2{justify-content:center;font-size:1.3rem;margin-bottom:8px;}
-  .home-test-card h2::before{display:none;}
-
-  @media (max-width:820px){
-    .form-grid,.form-grid-3,.options-grid{grid-template-columns:1fr;}
-    .app-header h1{font-size:1.8rem;}
-    .actions-bar{justify-content:stretch;}
-    .actions-bar .btn{flex:1;}
-    
-    .data-table, .data-table thead, .data-table tbody, .data-table th, .data-table td, .data-table tr {display: block;}
-    .data-table thead tr {position: absolute;top: -9999px;left: -9999px;}
-    .data-table tr {border: 1.5px solid #e2e8f0; border-radius: 12px; margin-bottom: 12px; background: #fff; padding:10px;}
-    .data-table td {border: none;border-bottom: 1px solid #f1f5f9;position: relative;padding-left: 50%;text-align: right;padding-top:10px;padding-bottom:10px; word-wrap: break-word; overflow-wrap: break-word;}
-    .data-table td:last-child {border-bottom: none;}
-    .data-table td:before {position: absolute;top: 11px;left: 12px;width: 45%;padding-right: 10px;white-space: nowrap;text-align: left;font-weight: 700;color: #64748b;content: attr(data-label);}
-  }
-</style>
-</head>
-<body>
-<div class="container">
-
-  <div class="app-header">
-    <h1>Mam Madiha Ghazal Team</h1>
-    <p>Knowledge grows when it is shared and tested with honesty</p>
-  </div>
-
-  <!-- HOME -->
-  <div id="homeView" class="view active">
-    <div class="home-card">
-      <div class="title">Welcome to Mam Madiha Ghazal Team</div>
-      <div class="sub">One system. One team. One goal — learn, test, grow.</div>
-      <div class="actions-bar" style="justify-content:center;border-top:none;padding-top:0;">
-        <button class="btn btn-primary" style="width:100%;" onclick="goLogin()">Login / Sign Up</button>
-      </div>
-    </div>
-    
-    <div class="home-test-card" onclick="openKTView()">
-      <h2>Knowledge Test</h2>
-      <p id="homeKtStatus">Click here to check test timings and start your test.</p>
-    </div>
-  </div>
-
-  <!-- LOGIN / SIGNUP -->
-  <div id="loginView" class="view">
-    <div class="login-box">
-      <div class="card" id="authCard">
-        <h2 style="text-align:center;justify-content:center;margin-bottom:20px;">Welcome</h2>
-        
-        <div id="authStepGoogle">
-          <button class="btn btn-google" onclick="signInWithGoogle()">
-            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G">
-            Continue with Google
-          </button>
-        </div>
-        
-        <div id="authFormArea" style="display:none; margin-top:20px;">
-          <div class="form-group">
-            <label>Gmail Address</label>
-            <input type="text" id="authGmail" disabled>
-          </div>
-          
-          <div class="tabs" style="margin-bottom:20px;">
-            <div class="tab active" id="tabLoginBtn" onclick="switchAuthTab('login')" style="flex:1;text-align:center;">Login</div>
-            <div class="tab" id="tabSignupBtn" onclick="switchAuthTab('signup')" style="flex:1;text-align:center;">Sign Up</div>
-          </div>
-
-          <div id="loginForm" style="display:none;">
-            <div class="form-group">
-              <label>Password</label>
-              <input type="password" id="loginPassword" placeholder="Enter your password">
-            </div>
-            <div class="actions-bar" style="border:none;padding-top:0;">
-              <button class="btn btn-primary" style="width:100%;" onclick="doLogin()">Login</button>
-            </div>
-            <div style="text-align:center;margin-top:14px;">
-              <span style="color:#2563eb;cursor:pointer;font-size:0.85rem;font-weight:600;" onclick="showForgotPassword()">Forgot Password?</span>
-            </div>
-          </div>
-
-          <div id="signupForm" style="display:none;">
-            <div class="form-group">
-              <label>Select Upline</label>
-              <select id="signupUpline">
-                <option value="">Loading uplines...</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Your Name</label>
-              <input type="text" id="signupName" placeholder="Enter your full name">
-            </div>
-            <div class="form-group">
-              <label>FBO ID</label>
-              <input type="text" id="signupFbo" placeholder="Enter your FBO ID">
-            </div>
-            <div class="actions-bar" style="border:none;padding-top:0;">
-              <button class="btn btn-primary" style="width:100%;" id="btnNextSignup" onclick="processSignup()">Next</button>
-            </div>
-          </div>
-
-          <div id="supervisorCodeForm" style="display:none;">
-            <div class="notice notice-info">Are You Supervisor?</div>
-            <div class="form-group">
-              <label>Enter Secret Code</label>
-              <input type="password" id="supSecretCode" placeholder="Enter code">
-            </div>
-            <div class="actions-bar" style="border:none;padding-top:0;">
-              <button class="btn btn-primary" style="width:100%;" onclick="verifySupervisorCode()">Verify</button>
-            </div>
-          </div>
-
-          <div id="passwordSetForm" style="display:none;">
-            <div class="notice notice-success">Set your password</div>
-            <div class="form-group">
-              <label>Create Password</label>
-              <input type="password" id="setupPassword" placeholder="Min 4 characters">
-            </div>
-            <div class="form-group">
-              <label>Confirm Password</label>
-              <input type="password" id="setupPassword2" placeholder="Confirm password">
-            </div>
-            <div class="actions-bar" style="border:none;padding-top:0;">
-              <button class="btn btn-success" style="width:100%;" onclick="completeSignup()">Save & Login</button>
-            </div>
-          </div>
-
-          <div id="forgotPasswordForm" style="display:none;">
-            <div class="notice notice-warning">Request Password Reset</div>
-            <div class="form-group" id="fpFboGroup">
-              <label>Your FBO ID</label>
-              <input type="text" id="fpFbo" placeholder="Enter your FBO ID">
-            </div>
-            <div id="fpSecretGroup" style="display:none;">
-              <div class="notice notice-info" id="fpWaitMsg" style="font-size:0.9rem;padding:12px;">Ask your Upline for the Secret Code.</div>
-              <div class="form-group">
-                <label>Secret Code</label>
-                <input type="text" id="fpSecret" placeholder="Enter code">
-              </div>
-            </div>
-            <div id="fpNewPwGroup" style="display:none;">
-              <div class="form-group">
-                <label>New Password</label>
-                <input type="password" id="fpNewPw" placeholder="New password">
-              </div>
-              <div class="form-group">
-                <label>Confirm New Password</label>
-                <input type="password" id="fpNewPw2" placeholder="Confirm password">
-              </div>
-            </div>
-            <div class="actions-bar" style="border:none;padding-top:0;">
-              <button class="btn btn-primary" style="width:100%;" id="btnFpAction" onclick="processForgotPassword()">Send Request</button>
-            </div>
-          </div>
-
-        </div>
-
-        <div id="authError" style="margin-top:12px;"></div>
-        <div class="actions-bar" style="justify-content:center;border:none;margin-top:10px;">
-          <button class="btn btn-secondary" onclick="goHome()">Back</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- DASHBOARD -->
-  <div id="dashboardView" class="view">
-    <div class="top-actions">
-      <button class="btn btn-secondary" onclick="goHome()">Back to Home</button>
-      <button class="btn btn-danger" onclick="logout()">Logout</button>
-    </div>
-
-    <div class="dash-header" id="dashHeader"></div>
-    <div class="tabs" id="dashTabs"></div>
-
-    <div id="tabProfile" class="dash-tab">
-      <div class="card"><h2>My Profile</h2><div id="profileContent"></div></div>
-    </div>
-
-    <div id="tabAddMember" class="dash-tab" style="display:none;">
-      <div class="card">
-        <h2>Add Member</h2>
-        <p class="hint" style="margin-bottom:12px;">Add member details here. They will sign up themselves using Google.</p>
-        <div class="form-grid-3">
-          <div class="form-group"><label>Member Name</label><input type="text" id="amName" placeholder="Member name"></div>
-          <div class="form-group"><label>Member FBO ID</label><input type="text" id="amFbo" placeholder="FBO ID"></div>
-        </div>
-        <div class="actions-bar"><button class="btn btn-primary" onclick="addMember()">Add Member</button></div>
-      </div>
-    </div>
-
-    <div id="tabMyMembers" class="dash-tab" style="display:none;">
-      <div class="card"><h2>My Members</h2><div id="membersList"></div></div>
-    </div>
-
-    <div id="tabMakeSchedule" class="dash-tab" style="display:none;">
-      <div class="card">
-        <h2>Make Test Schedule</h2>
-        <div class="form-grid-3">
-          <div class="form-group"><label>Date</label><input type="date" id="schDate"></div>
-          <div class="form-group"><label>Primary Member</label><select id="schPrimary"></select></div>
-          <div class="form-group"><label>Secondary Member (Backup)</label><select id="schSecondary"></select></div>
-        </div>
-        <div class="actions-bar"><button class="btn btn-primary" onclick="addSchedule()">Save Schedule</button></div>
-      </div>
-    </div>
-
-    <div id="tabSchedule" class="dash-tab" style="display:none;">
-      <div class="card"><h2>Test Schedule</h2><div id="scheduleList"></div></div>
-    </div>
-
-    <div id="tabTestBuilder" class="dash-tab" style="display:none;">
-      <div class="card"><h2>Test Builder</h2><div id="testBuilderAccess"></div></div>
-    </div>
-
-    <div id="tabResults" class="dash-tab" style="display:none;">
-      <div class="card"><h2>My Team Results</h2><div id="resultsContent"></div></div>
-    </div>
-
-    <div id="tabRequests" class="dash-tab" style="display:none;">
-      <div class="card"><h2>Password Reset Requests</h2><div id="requestsContent"></div></div>
-    </div>
-
-  </div>
-
-  <!-- TEST BUILDER VIEW -->
-  <div id="testBuilderView" class="view">
-    <div class="top-actions">
-      <button class="btn btn-secondary" onclick="backToDashboard()">Back</button>
-      <div class="user-badge" id="tbUserBadge"></div>
-    </div>
-    <div class="card">
-      <h2>Test Information</h2>
-      <div class="form-grid">
-        <div class="form-group"><label>Title</label><input type="text" id="tbTitle" value="Knowledge Test"></div>
-        <div class="form-group"><label>Duration (Min)</label><select id="tbDuration"><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
-      </div>
-    </div>
-    <div class="card">
-      <h2>Questions</h2>
-      <div class="top-actions"><button class="btn btn-secondary btn-small" onclick="tbAddQuestion()">+ Add Question</button></div>
-      <div id="tbQuestionsContainer"></div>
-    </div>
-    <div class="card">
-      <h2>Grades</h2>
-      <div id="tbGradeRows"></div>
-    </div>
-    <div class="actions-bar"><button class="btn btn-success" onclick="tbPublish()">Publish Test</button></div>
-  </div>
-
-  <!-- KNOWLEDGE TEST VIEW -->
-  <div id="ktView" class="view">
-    <div class="top-actions"><button class="btn btn-secondary" onclick="goHome()">Back to Home</button></div>
-    <div id="ktContent"></div>
-  </div>
-
-  <!-- TEST ATTEMPT VIEW -->
-  <div id="attemptView" class="view">
-    <div class="top-actions"><button class="btn btn-secondary" onclick="cancelAttempt()">Back</button></div>
-    <div id="attemptContent"></div>
-  </div>
-
+<div id="homeView" class="view active">
+ <div class="home-card"><div class="title">Welcome to Mam Madiha Ghazal Team</div><div class="sub">One system. One team. One goal — learn, test, grow.</div>
+ <button class="btn btn-primary" style="width:100%" onclick="goLogin()">Login / Sign Up</button></div>
+ <div class="home-test-card" onclick="openKTView()"><h3>Knowledge Test</h3><p>Click here to check test timings and start your test.</p></div>
 </div>
 
+<div id="loginView" class="view"><div class="login-box"><div class="card">
+ <h2 style="justify-content:center">Welcome</h2>
+ <div id="authStepGoogle"><button class="btn btn-google" onclick="signInWithGoogle()"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G">Continue with Google</button></div>
+ <div id="authFormArea" style="display:none;margin-top:18px">
+  <div class="form-group"><label>Gmail Address</label><input type="text" id="authGmail" disabled></div>
+  <div class="tabs"><div class="tab active" id="tabLoginBtn" onclick="switchAuthTab('login')" style="flex:1;text-align:center">Login</div><div class="tab" id="tabSignupBtn" onclick="switchAuthTab('signup')" style="flex:1;text-align:center">Sign Up</div></div>
+  <div id="loginForm"><div class="form-group"><label>Password</label><input type="password" id="loginPassword" placeholder="Enter your password"></div>
+   <button class="btn btn-primary" style="width:100%" onclick="doLogin()">Login</button>
+   <div style="text-align:center;margin-top:12px"><span style="color:#2563eb;cursor:pointer;font-size:.85rem;font-weight:600" onclick="showForgot()">Forgot Password?</span></div></div>
+  <div id="signupForm" style="display:none">
+   <div class="form-group"><label>Select Upline</label><select id="signupUpline"></select></div>
+   <div class="form-group"><label>Your Name</label><input type="text" id="signupName" placeholder="Full name"></div>
+   <div class="form-group"><label>FBO ID</label><input type="text" id="signupFbo" placeholder="FBO ID"></div>
+   <button class="btn btn-primary" style="width:100%" onclick="processSignup()">Next</button></div>
+  <div id="supCodeForm" style="display:none"><div class="notice notice-info">Are You Supervisor?</div>
+   <div class="form-group"><label>Enter Secret Code</label><input type="password" id="supSecretCode"></div>
+   <button class="btn btn-primary" style="width:100%" onclick="verifySupCode()">Verify</button></div>
+  <div id="pwSetForm" style="display:none"><div class="notice notice-success">Set your password</div>
+   <div class="form-group"><label>Create Password</label><input type="password" id="pw1" placeholder="Min 4 characters"></div>
+   <div class="form-group"><label>Confirm Password</label><input type="password" id="pw2"></div>
+   <button class="btn btn-success" style="width:100%" onclick="completeSignup()">Save &amp; Login</button></div>
+  <div id="fpForm" style="display:none"><div class="notice notice-warning">Password Reset</div>
+   <div id="fpS1"><div class="form-group"><label>Your FBO ID</label><input type="text" id="fpFbo"></div></div>
+   <div id="fpS2" style="display:none"><div class="notice notice-info" id="fpMsg" style="font-size:.88rem">Ask your Upline for the Secret Code.</div><div class="form-group"><label>Secret Code</label><input type="text" id="fpSecret"></div></div>
+   <div id="fpS3" style="display:none"><div class="form-group"><label>New Password</label><input type="password" id="fpN1"></div><div class="form-group"><label>Confirm</label><input type="password" id="fpN2"></div></div>
+   <button class="btn btn-primary" style="width:100%" id="fpBtn" onclick="processForgot()">Send Request</button></div>
+ </div>
+ <div id="authError" style="margin-top:12px"></div>
+ <div style="text-align:center;margin-top:10px"><button class="btn btn-secondary" onclick="goHome()">Back</button></div>
+</div></div></div>
+
+<div id="dashboardView" class="view">
+ <div class="top-actions"><button class="btn btn-secondary" onclick="goHome()">Back to Home</button><button class="btn btn-danger" onclick="logout()">Logout</button></div>
+ <div class="dash-header" id="dashHeader"></div><div class="tabs" id="dashTabs"></div>
+ <div id="tabProfile" class="dash-tab"><div class="card"><h2>My Profile</h2><div id="profileContent"></div></div></div>
+ <div id="tabAddMember" class="dash-tab" style="display:none"><div class="card"><h2>Add Member</h2><p class="hint" style="margin-bottom:12px">Member khud Google se sign up karega.</p>
+  <div class="form-grid"><div class="form-group"><label>Member Name</label><input type="text" id="amName"></div><div class="form-group"><label>Member FBO ID</label><input type="text" id="amFbo"></div></div>
+  <div class="actions-bar"><button class="btn btn-primary" onclick="addMember()">Add Member</button></div></div></div>
+ <div id="tabMyMembers" class="dash-tab" style="display:none"><div class="card"><h2>My Members</h2><div id="membersList"></div></div></div>
+ <div id="tabMakeSchedule" class="dash-tab" style="display:none"><div class="card"><h2>Make Test Schedule</h2>
+  <div class="form-grid-3"><div class="form-group"><label>Date</label><input type="date" id="schDate"></div><div class="form-group"><label>Primary</label><select id="schPrimary"></select></div><div class="form-group"><label>Secondary (Backup)</label><select id="schSecondary"></select></div></div>
+  <div class="actions-bar"><button class="btn btn-primary" onclick="addSchedule()">Save Schedule</button></div></div></div>
+ <div id="tabSchedule" class="dash-tab" style="display:none"><div class="card"><h2>Test Schedule</h2><div id="scheduleList"></div></div></div>
+ <div id="tabTestBuilder" class="dash-tab" style="display:none"><div class="card"><h2>Test Builder</h2><div id="tbAccess"></div></div></div>
+ <div id="tabResults" class="dash-tab" style="display:none"><div class="card"><h2>Results</h2><div id="resultsContent"></div></div></div>
+ <div id="tabRequests" class="dash-tab" style="display:none"><div class="card"><h2>Password Reset Requests</h2><div id="requestsContent"></div></div></div>
+</div>
+
+<div id="testBuilderView" class="view">
+ <div class="top-actions"><button class="btn btn-secondary" onclick="showView('dashboardView')">Back</button></div>
+ <div class="card"><h2>Test Information</h2><div class="form-grid">
+  <div class="form-group"><label>Title</label><input type="text" id="tbTitle" value="Knowledge Test"></div>
+  <div class="form-group"><label>Duration (Min)</label><select id="tbDuration"><option>2</option><option>3</option><option>4</option><option selected>5</option></select></div></div></div>
+ <div class="card"><h2>Questions (MCQ)</h2><div class="top-actions"><button class="btn btn-secondary btn-small" onclick="tbAdd()">+ Add Question</button></div><div id="tbQs"></div></div>
+ <div class="card"><h2>Grades (minimum % for each grade)</h2><div id="tbGrades"></div></div>
+ <div class="actions-bar"><button class="btn btn-success" onclick="tbPublish()">Publish Test</button></div>
+</div>
+
+<div id="ktView" class="view"><div class="top-actions"><button class="btn btn-secondary" onclick="goHome()">Back to Home</button></div><div id="ktContent"></div></div>
+<div id="attemptView" class="view"><div id="attemptContent"></div></div>
+</div>
 <div class="footer">Mam Madiha Ghazal Team — Supervisor System</div>
 <div class="toast" id="toast"></div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-import { getFirestore, collection, doc, getDoc, getDocs, setDoc, addDoc, updateDoc, deleteDoc, query, where, onSnapshot, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import {getAuth,signInWithPopup,GoogleAuthProvider,signOut} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+import {getFirestore,collection,doc,getDoc,getDocs,setDoc,addDoc,updateDoc,query,where,onSnapshot} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyD-bIXvnHh8NFRR0Tml8MG46yxW5YJc6Jo",
-  authDomain: "mam-madiha-team.firebaseapp.com",
-  projectId: "mam-madiha-team",
-  storageBucket: "mam-madiha-team.firebasestorage.app",
-  messagingSenderId: "22648340791",
-  appId: "1:22648340791:web:d6fae37067a1fed9ff1ab2"
-};
+const app=initializeApp({apiKey:"AIzaSyD-bIXvnHh8NFRR0Tml8MG46yxW5YJc6Jo",authDomain:"mam-madiha-team.firebaseapp.com",projectId:"mam-madiha-team",storageBucket:"mam-madiha-team.firebasestorage.app",messagingSenderId:"22648340791",appId:"1:22648340791:web:d6fae37067a1fed9ff1ab2"});
+const auth=getAuth(app),db=getFirestore(app),provider=new GoogleAuthProvider();
+provider.setCustomParameters({prompt:'select_account'});
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const provider = new GoogleAuthProvider();
+const SUP_CODE='9876';
+const TEST_START=18*60, TEST_DONE=20*60;          // test window 18:00 - 20:00 (minutes)
+const PRIMARY_WIN=[12*60,17*60+30], BACKUP_WIN=[17*60+30,17*60+58];
+let gUser=null,me=null,pendingDocId=null,isSupFlow=false,existingUser=null;
+let unsubs=[],ktTest=null,ktTimer=null,ktFetch=null,att=null,attTimer=null,tbQ=[];
 
-let currentUser = null; 
-let userData = null;    
-let tempGoogleUser = null; 
-let authMode = 'login';
-let isSupervisorFlow = false;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const pad=n=>String(n).padStart(2,'0');
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())};
+const nowMin=()=>{const d=new Date();return d.getHours()*60+d.getMinutes()};
+const nowSec=()=>{const d=new Date();return d.getHours()*3600+d.getMinutes()*60+d.getSeconds()};
+const hhmm=m=>pad(Math.floor(m/60))+':'+pad(m%60);
+const err=(id,m)=>$(id).innerHTML=m?`<div class="notice notice-danger">${esc(m)}</div>`:'';
+let tt;function showToast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),3200)}
+function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));$(id).classList.add('active');window.scrollTo(0,0)}
+function goHome(){stopKT();showView('homeView')}
+function goLogin(){resetAuth();showView('loginView')}
+function listen(q,cb){unsubs.push(onSnapshot(q,cb))}
+function clearListeners(){unsubs.forEach(u=>u());unsubs=[]}
+async function findByUid(uid){const s=await getDocs(query(collection(db,"users"),where("uid","==",uid)));return s.empty?null:{id:s.docs[0].id,...s.docs[0].data()}}
 
-/* UTILS */
-function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function today(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
-function nowHHMM(){ const d=new Date(); return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); }
-let toastTimer;
-function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),3200); }
-function showView(id){ document.querySelectorAll('.view').forEach(v=>v.classList.remove('active')); const v=document.getElementById(id); if(v)v.classList.add('active'); window.scrollTo(0,0); }
-function goHome(){ showView('homeView'); stopKTViewTimer(); updateHomeKTStatus(); }
-function goLogin(){ resetAuthUI(); showView('loginView'); }
-
-/* HOME KT STATUS */
-async function updateHomeKTStatus() {
-  const el = document.getElementById('homeKtStatus');
-  const testSnap = await getDoc(doc(db, "settings", "activeTest"));
-  if(testSnap.exists()) {
-    el.innerHTML = `<span style="color:#10b981;font-weight:bold;">Test is Published. Click to view timings.</span>`;
-  } else {
-    el.textContent = "Click here to check test timings and start your test.";
+/* ---------- AUTH ---------- */
+async function signInWithGoogle(){
+ try{
+  const r=await signInWithPopup(auth,provider);gUser=r.user;
+  existingUser=await findByUid(gUser.uid);
+  $('authGmail').value=gUser.email;$('authFormArea').style.display='block';$('authStepGoogle').style.display='none';
+  if(existingUser)switchAuthTab('login');else{switchAuthTab('signup');loadUplines()}
+ }catch(e){err('authError','Google login failed: '+e.message)}
+}
+function switchAuthTab(m){
+ $('tabLoginBtn').classList.toggle('active',m==='login');$('tabSignupBtn').classList.toggle('active',m==='signup');
+ $('loginForm').style.display=m==='login'?'block':'none';$('signupForm').style.display=m==='signup'?'block':'none';
+ ['supCodeForm','pwSetForm','fpForm'].forEach(i=>$(i).style.display='none');err('authError','');
+ if(m==='signup')loadUplines();
+}
+async function loadUplines(){
+ const s=await getDocs(query(collection(db,"users"),where("status","==","active")));
+ $('signupUpline').innerHTML='<option value="">-- Select Upline (empty if Supervisor) --</option>'+s.docs.map(d=>`<option value="${d.id}">${esc(d.data().name)} (Code: ${esc(d.data().code)})</option>`).join('');
+}
+async function processSignup(){
+ err('authError','');
+ if(existingUser){err('authError','Is Gmail ka account pehle se hai. Login karein.');return}
+ const up=$('signupUpline').value,name=$('signupName').value.trim(),fbo=$('signupFbo').value.trim();
+ if(name==='Supervisor'&&!fbo&&!up){
+  const s=await getDocs(query(collection(db,"users"),where("code","==","001")));
+  if(!s.empty){err('authError','Supervisor account pehle se bana hua hai.');return}
+  isSupFlow=true;$('signupForm').style.display='none';$('supCodeForm').style.display='block';return;
+ }
+ if(!up||!name||!fbo){err('authError','All fields are required.');return}
+ const s=await getDocs(query(collection(db,"users"),where("uplineId","==",up),where("fbo","==",fbo),where("status","==","pending")));
+ if(s.empty){err('authError','Invalid FBO ID or not added by the selected Upline.');return}
+ pendingDocId=s.docs[0].id;isSupFlow=false;
+ $('signupForm').style.display='none';$('pwSetForm').style.display='block';
+}
+function verifySupCode(){
+ if($('supSecretCode').value!==SUP_CODE){showToast('Invalid Supervisor Code');return}
+ $('supCodeForm').style.display='none';$('pwSetForm').style.display='block';
+}
+async function nextCode(){
+ const s=await getDocs(collection(db,"users"));let mx=0;
+ s.forEach(d=>{const c=parseInt(d.data().code);if(!isNaN(c)&&c>mx)mx=c});
+ return pad(mx+1).padStart(3,'0');
+}
+async function completeSignup(){
+ const a=$('pw1').value,b=$('pw2').value;
+ if(a.length<4){err('authError','Password min 4 chars.');return}
+ if(a!==b){err('authError','Passwords do not match.');return}
+ try{
+  if(isSupFlow){
+   const d={name:"Mam Madiha Ghazal",gmail:gUser.email,uid:gUser.uid,fbo:"SUPERVISOR",uplineId:null,uplineName:'',code:"001",status:"active",password:a,resetReq:null};
+   await setDoc(doc(db,"users",gUser.uid),d);me={id:gUser.uid,...d};
+  }else{
+   const code=await nextCode();
+   await updateDoc(doc(db,"users",pendingDocId),{uid:gUser.uid,gmail:gUser.email,password:a,status:"active",code});
+   const s=await getDoc(doc(db,"users",pendingDocId));me={id:pendingDocId,...s.data()};
   }
+  showToast('Account activated!');showView('dashboardView');renderDashboard();
+ }catch(e){err('authError','Signup failed: '+e.message)}
+}
+async function doLogin(){
+ if(!existingUser){err('authError','User not found. Sign Up karein.');return}
+ if(existingUser.password!==$('loginPassword').value){err('authError','Incorrect password.');return}
+ me=existingUser;showToast('Welcome back!');showView('dashboardView');renderDashboard();
+}
+function resetAuth(){
+ ['authGmail','loginPassword','signupName','signupFbo','pw1','pw2','supSecretCode'].forEach(i=>$(i).value='');
+ $('authFormArea').style.display='none';$('authStepGoogle').style.display='block';err('authError','');
+ gUser=null;existingUser=null;isSupFlow=false;
+}
+async function logout(){clearListeners();await signOut(auth);me=null;resetAuth();goHome()}
+
+/* ---------- FORGOT PASSWORD ---------- */
+let fpStep=1;
+function showForgot(){
+ if(!existingUser){err('authError','Pehle Google se sign in karein aur account hona zaroori hai.');return}
+ $('loginForm').style.display='none';$('fpForm').style.display='block';fpStep=1;
+ $('fpS1').style.display='block';$('fpS2').style.display='none';$('fpS3').style.display='none';$('fpBtn').textContent='Send Request';
+ if(existingUser.code==='001'){$('fpS1').style.display='none';$('fpS2').style.display='block';$('fpMsg').textContent='Enter the Supervisor secret code.';$('fpBtn').textContent='Verify Code';fpStep=2}
+}
+async function processForgot(){
+ err('authError','');const isSup=existingUser.code==='001';
+ if(fpStep===1){
+  if($('fpFbo').value.trim()!==existingUser.fbo){err('authError','FBO ID is account se match nahi karti.');return}
+  await updateDoc(doc(db,"users",existingUser.id),{resetReq:'PENDING'});
+  $('fpS1').style.display='none';$('fpS2').style.display='block';$('fpBtn').textContent='Verify Code';fpStep=2;
+ }else if(fpStep===2){
+  const c=$('fpSecret').value.trim();if(!c){err('authError','Enter code');return}
+  if(isSup){if(c!==SUP_CODE){err('authError','Invalid code');return}}
+  else{const s=await getDoc(doc(db,"users",existingUser.id));if(!s.data().secretCode||s.data().secretCode!==c){err('authError','Invalid code given by Upline');return}}
+  $('fpS2').style.display='none';$('fpS3').style.display='block';$('fpBtn').textContent='Change Password';fpStep=3;
+ }else{
+  const a=$('fpN1').value,b=$('fpN2').value;
+  if(a.length<4){err('authError','Min 4 chars');return}if(a!==b){err('authError','Passwords do not match');return}
+  await updateDoc(doc(db,"users",existingUser.id),{password:a,resetReq:null,secretCode:null});
+  showToast('Password changed! Login now.');existingUser.password=a;switchAuthTab('login');
+ }
 }
 
-/* AUTH */
-async function signInWithGoogle() {
-  try {
-    const result = await signInWithPopup(auth, provider);
-    tempGoogleUser = result.user;
-    
-    const q = query(collection(db, "users"), where("gmail", "==", tempGoogleUser.email));
-    const snap = await getDocs(q);
-    
-    document.getElementById('authGmail').value = tempGoogleUser.email;
-    document.getElementById('authFormArea').style.display = 'block';
-    
-    if (!snap.empty) {
-      const userDoc = snap.docs[0];
-      userData = userDoc.data();
-      userData.id = userDoc.id;
-      
-      if(userData.uid !== tempGoogleUser.uid) {
-        await updateDoc(doc(db, "users", userDoc.id), { uid: tempGoogleUser.uid });
-      }
-      
-      switchAuthTab('login');
-    } else {
-      switchAuthTab('signup');
-      loadUplinesForSignup();
-    }
-  } catch (error) {
-    document.getElementById('authError').innerHTML = `<div class="notice notice-danger">Google login failed. ${error.message}</div>`;
-  }
+/* ---------- DASHBOARD ---------- */
+function renderDashboard(){
+ clearListeners();const isSup=me.code==='001';
+ $('dashHeader').innerHTML=`<div class="name">${esc(me.name)}</div><div style="color:#64748b">${isSup?'Supervisor — Team Head':'Member'}</div><div style="margin-top:8px"><span class="badge badge-code">Code: ${esc(me.code)}</span></div>`;
+ const tabs=[{id:'Profile',l:'My Profile'},{id:'AddMember',l:'Add Member'},{id:'MyMembers',l:'My Members'},{id:'Schedule',l:'Test Schedule'},{id:'TestBuilder',l:'Test Builder'},{id:'Results',l:'Results'},{id:'Requests',l:'Reset Requests'}];
+ if(isSup)tabs.unshift({id:'MakeSchedule',l:'Make Schedule'});
+ $('dashTabs').innerHTML=tabs.map(t=>`<div class="tab" data-tab="${t.id}" onclick="switchDashTab('${t.id}')">${t.l}</div>`).join('');
+ switchDashTab(tabs[0].id);
+ $('profileContent').innerHTML=`<div class="form-grid"><div><label>Name</label><strong>${esc(me.name)}</strong></div><div><label>Gmail</label>${esc(me.gmail)}</div><div><label>FBO ID</label>${esc(me.fbo)}</div><div><label>My Code</label><span class="badge badge-code">${esc(me.code)}</span></div></div>`;
+ loadMembers();if(isSup)loadMakeSchedule();loadSchedule();loadTbAccess();loadResults();loadRequests();
+}
+function switchDashTab(id){
+ document.querySelectorAll('#dashTabs .tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===id));
+ document.querySelectorAll('.dash-tab').forEach(e=>e.style.display='none');$('tab'+id).style.display='block';
+}
+async function addMember(){
+ const name=$('amName').value.trim(),fbo=$('amFbo').value.trim();
+ if(!name||!fbo){showToast('Name and FBO required');return}
+ const dup=await getDocs(query(collection(db,"users"),where("fbo","==",fbo)));
+ if(!dup.empty){showToast('Ye FBO ID pehle se maujood hai');return}
+ await addDoc(collection(db,"users"),{name,fbo,uplineId:me.id,uplineName:me.name,status:'pending',gmail:'',uid:'',password:'',code:'',resetReq:null});
+ showToast('Member added to Pending.');$('amName').value='';$('amFbo').value='';
+}
+function loadMembers(){
+ listen(query(collection(db,"users"),where("uplineId","==",me.id)),snap=>{
+  const el=$('membersList');if(snap.empty){el.innerHTML='<div class="empty-state">No members yet.</div>';return}
+  el.innerHTML=`<table class="data-table"><thead><tr><th>Name</th><th>Gmail</th><th>FBO</th><th>Code</th><th>Status</th></tr></thead><tbody>${snap.docs.map(d=>{const m=d.data();return `<tr><td data-label="Name">${esc(m.name)}</td><td data-label="Gmail">${esc(m.gmail)||'-'}</td><td data-label="FBO">${esc(m.fbo)}</td><td data-label="Code">${esc(m.code)||'-'}</td><td data-label="Status"><span class="badge ${m.status==='active'?'badge-active':'badge-pending'}">${m.status==='active'?'Active':'Pending'}</span></td></tr>`}).join('')}</tbody></table>`;
+ });
+}
+async function loadMakeSchedule(){
+ const s=await getDocs(query(collection(db,"users"),where("status","==","active")));
+ const o='<option value="">-- Select --</option>'+s.docs.map(d=>`<option value="${d.id}">${esc(d.data().name)}</option>`).join('');
+ $('schPrimary').innerHTML=o;$('schSecondary').innerHTML=o;
+}
+async function addSchedule(){
+ const date=$('schDate').value,p=$('schPrimary'),s=$('schSecondary');
+ if(!date||!p.value){showToast('Date and Primary required');return}
+ if(p.value===s.value){showToast('Primary aur Backup alag hon');return}
+ await setDoc(doc(db,"schedules",date),{date,primaryId:p.value,primaryName:p.options[p.selectedIndex].text,secondaryId:s.value,secondaryName:s.value?s.options[s.selectedIndex].text:''});
+ showToast('Schedule Saved');
+}
+function loadSchedule(){
+ listen(collection(db,"schedules"),snap=>{
+  const el=$('scheduleList');if(snap.empty){el.innerHTML='<div class="empty-state">No schedules.</div>';return}
+  el.innerHTML=snap.docs.map(d=>d.data()).sort((a,b)=>a.date<b.date?-1:1).map(s=>`<div class="sch" ${s.date===today()?'style="border-color:#2563eb;background:#eff6ff"':''}><strong>${esc(s.date)}${s.date===today()?' (Today)':''}</strong><div>Primary: <strong>${esc(s.primaryName)}</strong></div><div>Backup: <strong>${esc(s.secondaryName)||'None'}</strong></div></div>`).join('');
+ });
 }
 
-function switchAuthTab(mode) {
-  authMode = mode;
-  document.getElementById('tabLoginBtn').classList.toggle('active', mode === 'login');
-  document.getElementById('tabSignupBtn').classList.toggle('active', mode === 'signup');
-  document.getElementById('loginForm').style.display = mode === 'login' ? 'block' : 'none';
-  document.getElementById('signupForm').style.display = mode === 'signup' ? 'block' : 'none';
-  document.getElementById('supervisorCodeForm').style.display = 'none';
-  document.getElementById('passwordSetForm').style.display = 'none';
-  document.getElementById('forgotPasswordForm').style.display = 'none';
+/* ---------- TEST BUILDER ACCESS ---------- */
+function myRole(s){return s.primaryId===me.id?'primary':(s.secondaryId===me.id?'secondary':null)}
+function inWindow(role){const w=role==='primary'?PRIMARY_WIN:BACKUP_WIN,n=nowMin();return n>=w[0]&&n<w[1]}
+function loadTbAccess(){
+ listen(doc(db,"schedules",today()),snap=>{
+  const el=$('tbAccess');
+  if(!snap.exists()){el.innerHTML='<div class="notice notice-warning">Aaj ka koi schedule nahi hai.</div>';return}
+  const s=snap.data(),role=myRole(s);
+  if(!role){el.innerHTML=`<div class="notice notice-danger">Aaj aapki barri nahi hai. Aaj ${esc(s.primaryName)} ki barri hai.</div>`;return}
+  const w=role==='primary'?PRIMARY_WIN:BACKUP_WIN;
+  el.innerHTML=`<div class="notice notice-success">Aaj aapki barri hai! (${role==='primary'?'Primary':'Backup'}) Publish time: ${hhmm(w[0])} - ${hhmm(w[1])}</div><button class="btn btn-primary" onclick="openTestBuilder()">Next / Create Test</button>`;
+ });
+}
+const DEF_GRADES=[['A+',90],['A',80],['B',70],['C',60],['D',50],['F',0]];
+async function openTestBuilder(){
+ const s=await getDoc(doc(db,"schedules",today()));
+ if(!s.exists()||!myRole(s.data())){showToast('Aaj aapki barri nahi hai');return}
+ if(!tbQ.length)tbQ=[{q:'',o:['','','',''],c:-1}];
+ renderTbQs();$('tbGrades').innerHTML=DEF_GRADES.map((g,i)=>`<div class="grade-row"><span class="badge badge-code">${g[0]}</span><input type="text" class="gr" data-g="${g[0]}" value="${g[1]}"${i===DEF_GRADES.length-1?' disabled':''}></div>`).join('');
+ showView('testBuilderView');
+}
+function renderTbQs(){
+ $('tbQs').innerHTML=tbQ.map((q,i)=>`<div class="qb"><div class="top-actions" style="margin-bottom:8px"><strong>Q${i+1}</strong>${tbQ.length>1?`<button class="btn btn-danger btn-small" onclick="tbDel(${i})">Remove</button>`:''}</div>
+ <input type="text" placeholder="Question" value="${esc(q.q)}" oninput="tbQ_(${i},-1,this.value)">
+ ${q.o.map((o,j)=>`<div class="opt-row"><input type="radio" name="c${i}" ${q.c===j?'checked':''} onchange="tbC(${i},${j})"><input type="text" placeholder="Option ${j+1}" value="${esc(o)}" oninput="tbQ_(${i},${j},this.value)"></div>`).join('')}
+ <div class="hint" style="margin-top:6px">Sahi jawab ke saamne radio select karein.</div></div>`).join('');
+}
+function tbAdd(){tbQ.push({q:'',o:['','','',''],c:-1});renderTbQs()}
+function tbDel(i){tbQ.splice(i,1);renderTbQs()}
+function tbQ_(i,j,v){if(j<0)tbQ[i].q=v;else tbQ[i].o[j]=v}
+function tbC(i,j){tbQ[i].c=j}
+async function tbPublish(){
+ const s=await getDoc(doc(db,"schedules",today()));
+ if(!s.exists()){showToast('Aaj ka schedule nahi');return}
+ const role=myRole(s.data());if(!role){showToast('Aaj aapki barri nahi hai');return}
+ if(!inWindow(role)){const w=role==='primary'?PRIMARY_WIN:BACKUP_WIN;showToast(`Publish time ${hhmm(w[0])} - ${hhmm(w[1])} hai`);return}
+ for(const q of tbQ){if(!q.q.trim()||q.o.some(o=>!o.trim())||q.c<0){showToast('Har question: text, 4 options aur sahi jawab zaroori hain');return}}
+ const grades=[...document.querySelectorAll('.gr')].map(i=>({g:i.dataset.g,min:parseInt(i.value)||0})).sort((a,b)=>b.min-a.min);
+ const ex=await getDoc(doc(db,"settings","activeTest"));
+ if(ex.exists()&&ex.data().date===today()&&!confirm('Aaj ka test pehle se published hai. Replace karein?'))return;
+ await setDoc(doc(db,"settings","activeTest"),{date:today(),title:$('tbTitle').value.trim()||'Knowledge Test',duration:parseInt($('tbDuration').value),questions:tbQ.map(q=>({q:q.q.trim(),o:q.o.map(o=>o.trim()),correct:q.c})),grades,publishedBy:me.name});
+ tbQ=[];showToast('Test Published!');showView('dashboardView');
 }
 
-async function loadUplinesForSignup() {
-  const sel = document.getElementById('signupUpline');
-  sel.innerHTML = '<option value="">Loading...</option>';
-  const q = query(collection(db, "users"), where("status", "==", "active"));
-  const snap = await getDocs(q);
-  let opts = '<option value="">-- Select Upline (Leave empty if Supervisor) --</option>';
-  snap.forEach(doc => { opts += `<option value="${doc.id}">${esc(doc.data().name)} (Code: ${doc.data().code})</option>`; });
-  sel.innerHTML = opts;
+/* ---------- RESULTS & REQUESTS ---------- */
+function loadResults(){
+ const q=me.code==='001'?collection(db,"results"):query(collection(db,"results"),where("usedCode","==",me.code));
+ listen(q,snap=>{
+  const el=$('resultsContent');if(snap.empty){el.innerHTML='<div class="empty-state">No results yet.</div>';return}
+  const rows=snap.docs.map(d=>d.data()).sort((a,b)=>(b.date+b.time)>(a.date+a.time)?1:-1);
+  el.innerHTML=`<table class="data-table"><thead><tr><th>Date</th><th>Taker</th><th>Upline</th><th>Code</th><th>Score</th><th>Grade</th></tr></thead><tbody>${rows.map(r=>`<tr><td data-label="Date">${esc(r.date)} ${esc(r.time)}</td><td data-label="Taker">${esc(r.takerName)}</td><td data-label="Upline">${esc(r.uplineName)}</td><td data-label="Code">${esc(r.usedCode)}</td><td data-label="Score">${r.correct}/${r.total} (${r.pct}%)</td><td data-label="Grade"><span class="badge badge-code">${esc(r.grade)}</span></td></tr>`).join('')}</tbody></table>`;
+ });
+}
+function loadRequests(){
+ listen(query(collection(db,"users"),where("uplineId","==",me.id),where("resetReq","==","PENDING")),snap=>{
+  const el=$('requestsContent');if(snap.empty){el.innerHTML='<div class="empty-state">No pending requests.</div>';return}
+  el.innerHTML=snap.docs.map(d=>{const m=d.data();return `<div class="sch"><div><strong>${esc(m.name)}</strong> (${esc(m.fbo)})</div><div style="display:flex;gap:8px"><input type="text" id="sec_${d.id}" placeholder="Secret Code" style="width:130px" value="${esc(m.secretCode||'')}"><button class="btn btn-small btn-primary" onclick="setSecret('${d.id}')">Set Code</button></div></div>`}).join('');
+ });
+}
+async function setSecret(id){
+ const c=$('sec_'+id).value.trim();if(!c)return;
+ await updateDoc(doc(db,"users",id),{secretCode:c});showToast('Code set. Member ko WhatsApp par bhejein.');
 }
 
-async function processSignup() {
-  const err = document.getElementById('authError');
-  err.innerHTML = '';
-  const uplineId = document.getElementById('signupUpline').value;
-  const name = document.getElementById('signupName').value.trim();
-  const fbo = document.getElementById('signupFbo').value.trim();
-  
-  if(name === 'Supervisor' && fbo === '' && uplineId === '') {
-     isSupervisorFlow = true;
-     document.getElementById('signupForm').style.display = 'none';
-     document.getElementById('supervisorCodeForm').style.display = 'block';
-     return;
-  }
-
-  if(!uplineId || !name || !fbo) { err.innerHTML = '<div class="notice notice-danger">All fields required.</div>'; return; }
-
-  const q = query(collection(db, "users"), where("uplineId", "==", uplineId), where("fbo", "==", fbo), where("status", "==", "pending"));
-  const snap = await getDocs(q);
-  if(snap.empty) { err.innerHTML = '<div class="notice notice-danger">Invalid FBO ID or not added by Upline.</div>'; return; }
-
-  window.pendingMemberDocId = snap.docs[0].id;
-  isSupervisorFlow = false;
-  document.getElementById('signupForm').style.display = 'none';
-  document.getElementById('passwordSetForm').style.display = 'block';
+/* ---------- KNOWLEDGE TEST (public) ---------- */
+async function fetchTest(){try{const s=await getDoc(doc(db,"settings","activeTest"));ktTest=s.exists()?s.data():null}catch(e){ktTest=null}}
+function openKTView(){showView('ktView');$('ktContent').dataset.mode='';fetchTest().then(renderKT);ktTimer=setInterval(renderKT,1000);ktFetch=setInterval(fetchTest,20000)}
+function stopKT(){clearInterval(ktTimer);clearInterval(ktFetch);ktTimer=ktFetch=null}
+function renderKT(){
+ const el=$('ktContent'),n=nowSec(),s=TEST_START*60,d=TEST_DONE*60;
+ const t=ktTest&&ktTest.date===today()?ktTest:null;
+ const setMode=(m,h)=>{if(el.dataset.mode!==m){el.dataset.mode=m;el.innerHTML=h}};
+ if(t&&n>=s&&n<s+t.duration*60){
+  setMode('form',`<div class="countdown-bar">Time remaining: <span id="ktRem"></span></div><div class="card"><h2>${esc(t.title)}</h2>
+  <div class="form-group"><label>Your Name</label><input type="text" id="ktName"></div>
+  <div class="form-group"><label>Upline Name</label><input type="text" id="ktUpline"></div>
+  <div class="form-group"><label>Upline Code</label><input type="text" id="ktCode" placeholder="e.g. 001"></div>
+  <div id="ktError"></div><div class="actions-bar"><button class="btn btn-primary" onclick="startAttempt()">Next</button></div></div>`);
+  const r=s+t.duration*60-n;$('ktRem').textContent=pad(Math.floor(r/60))+' : '+pad(r%60);return;
+ }
+ if(t&&n>=s+t.duration*60&&n<d){setMode('done','<div class="notice notice-success" style="font-size:1.4rem;padding:40px">Test Done</div>');return}
+ if(!t&&n>=s&&n<d){setMode('none','<div class="notice notice-warning" style="font-size:1.4rem;padding:40px">No Test</div>');return}
+ const tot=((s-n)%86400+86400)%86400;el.dataset.mode='wait';
+ el.innerHTML=`<div class="notice notice-info">Next test at ${hhmm(TEST_START)}</div><div class="countdown-big">${pad(Math.floor(tot/3600))} : ${pad(Math.floor(tot%3600/60))} : ${pad(tot%60)}</div>`;
 }
-
-function verifySupervisorCode() {
-  if(document.getElementById('supSecretCode').value !== '9876') { showToast("Invalid Code"); return; }
-  document.getElementById('supervisorCodeForm').style.display = 'none';
-  document.getElementById('passwordSetForm').style.display = 'block';
-}
-
-async function completeSignup() {
-  const err = document.getElementById('authError');
-  const pw1 = document.getElementById('setupPassword').value;
-  const pw2 = document.getElementById('setupPassword2').value;
-  if(pw1.length < 4) { err.innerHTML = '<div class="notice notice-danger">Min 4 chars.</div>'; return; }
-  if(pw1 !== pw2) { err.innerHTML = '<div class="notice notice-danger">Passwords do not match.</div>'; return; }
-
-  try {
-    const activeUsersQ = query(collection(db, "users"), where("status", "==", "active"));
-    const activeSnap = await getDocs(activeUsersQ);
-    let maxCode = 0;
-    activeSnap.forEach(d => {
-       const c = parseInt(d.data().code || 0);
-       if(c > maxCode) maxCode = c;
-    });
-    const nextCode = String(maxCode + 1).padStart(3, '0');
-
-    const gmail = tempGoogleUser.email;
-    const uid = tempGoogleUser.uid;
-
-    if(isSupervisorFlow) {
-      const supData = { name: "Mam Madiha Ghazal", gmail: gmail, uid: uid, fbo: "SUPERVISOR", uplineId: null, code: "001", status: "active", password: pw1 };
-      await setDoc(doc(db, "users", uid), supData);
-      userData = supData; userData.id = uid;
-    } else {
-      const pendingDocId = window.pendingMemberDocId;
-      const updateData = { uid: uid, gmail: gmail, password: pw1, status: "active", code: nextCode };
-      await updateDoc(doc(db, "users", pendingDocId), updateData);
-      const docSnap = await getDoc(doc(db, "users", pendingDocId));
-      userData = docSnap.data(); userData.id = pendingDocId;
-    }
-    showToast("Account activated!"); showView('dashboardView'); renderDashboard();
-  } catch(e) { err.innerHTML = '<div class="notice notice-danger">Signup failed.</div>'; }
-}
-
-async function doLogin() {
-  const err = document.getElementById('authError');
-  const pw = document.getElementById('loginPassword').value;
-  
-  if(!userData) { err.innerHTML = '<div class="notice notice-danger">Please continue with Google first.</div>'; return; }
-  
-  if(userData.password !== pw) { err.innerHTML = '<div class="notice notice-danger">Incorrect password.</div>'; return; }
-  
-  localStorage.setItem('mamMadihaLoggedIn', JSON.stringify(userData));
-  showToast("Welcome back!"); showView('dashboardView'); renderDashboard();
-}
-
-function resetAuthUI() {
-  document.getElementById('authGmail').value = '';
-  document.getElementById('loginPassword').value = '';
-  document.getElementById('signupName').value = '';
-  document.getElementById('signupFbo').value = '';
-  document.getElementById('setupPassword').value = '';
-  document.getElementById('setupPassword2').value = '';
-  document.getElementById('authFormArea').style.display = 'none';
-  document.getElementById('authError').innerHTML = '';
-  switchAuthTab('login'); tempGoogleUser = null; userData = null;
-}
-
-async function logout() { 
-  await signOut(auth); 
-  localStorage.removeItem('mamMadihaLoggedIn');
-  resetAuthUI(); 
-  goHome(); 
-}
-
-/* FORGOT PASSWORD */
-let fpStep = 0; let fpData = {};
-function showForgotPassword() {
-  document.getElementById('loginForm').style.display = 'none';
-  document.getElementById('forgotPasswordForm').style.display = 'block';
-  fpStep = 1; document.getElementById('btnFpAction').textContent = 'Send Request';
-  document.getElementById('fpFboGroup').style.display = 'block';
-  document.getElementById('fpSecretGroup').style.display = 'none';
-  document.getElementById('fpNewPwGroup').style.display = 'none';
-}
-
-async function processForgotPassword() {
-  const err = document.getElementById('authError'); err.innerHTML = '';
-  if(fpStep === 1) {
-    const fbo = document.getElementById('fpFbo').value.trim();
-    if(!fbo) { err.innerHTML = '<div class="notice notice-danger">Enter FBO ID</div>'; return; }
-    if(fbo === 'SUPERVISOR') {
-       fpData = { isSupervisor: true };
-       document.getElementById('fpFboGroup').style.display = 'none';
-       document.getElementById('fpSecretGroup').style.display = 'block';
-       document.getElementById('fpWaitMsg').textContent = 'Enter master code 9876.';
-       document.getElementById('btnFpAction').textContent = 'Verify Code';
-       fpStep = 2; return;
-    }
-    const q = query(collection(db, "users"), where("fbo", "==", fbo), where("status", "==", "active"));
-    const snap = await getDocs(q);
-    if(snap.empty) { err.innerHTML = '<div class="notice notice-danger">FBO not found.</div>'; return; }
-    fpData = { docId: snap.docs[0].id };
-    await updateDoc(doc(db, "users", snap.docs[0].id), { resetReq: 'PENDING' });
-    document.getElementById('fpFboGroup').style.display = 'none';
-    document.getElementById('fpSecretGroup').style.display = 'block';
-    document.getElementById('fpWaitMsg').textContent = 'Ask your Upline for the secret code.';
-    document.getElementById('btnFpAction').textContent = 'Verify Code';
-    fpStep = 2;
-  } else if(fpStep === 2) {
-    const code = document.getElementById('fpSecret').value.trim();
-    if(!code) { err.innerHTML = '<div class="notice notice-danger">Enter code</div>'; return; }
-    if(fpData.isSupervisor) {
-       if(code !== '9876') { err.innerHTML = '<div class="notice notice-danger">Invalid Code</div>'; return; }
-    } else {
-       const snap = await getDoc(doc(db, "users", fpData.docId));
-       if(snap.data().secretCode !== code) { err.innerHTML = '<div class="notice notice-danger">Invalid Code</div>'; return; }
-    }
-    document.getElementById('fpSecretGroup').style.display = 'none';
-    document.getElementById('fpNewPwGroup').style.display = 'block';
-    document.getElementById('btnFpAction').textContent = 'Change Password';
-    fpStep = 3;
-  } else if(fpStep === 3) {
-    const pw1 = document.getElementById('fpNewPw').value;
-    const pw2 = document.getElementById('fpNewPw2').value;
-    if(pw1.length < 4) { err.innerHTML = '<div class="notice notice-danger">Min 4 chars</div>'; return; }
-    if(pw1 !== pw2) { err.innerHTML = '<div class="notice notice-danger">Passwords do not match</div>'; return; }
-    if(fpData.isSupervisor) { err.innerHTML = '<div class="notice notice-danger">Supervisor must login with Google.</div>'; }
-    else {
-       await updateDoc(doc(db, "users", fpData.docId), { password: pw1, resetReq: null, secretCode: null });
-       showToast("Password Changed! Login now."); resetAuthUI();
-    }
-  }
-}
-
-/* DASHBOARD */
-function renderDashboard() {
-  if(!userData) return;
-  const isSup = userData.code === '001';
-  
-  document.getElementById('dashHeader').innerHTML = `
-    <div class="name">${esc(userData.name)}</div>
-    <div class="role">${isSup ? 'Supervisor — Team Head' : 'Member'}</div>
-    <div class="team-head-badge">Code: ${userData.code}</div>
-  `;
-
-  const tabs = [{id:'Profile', label:'My Profile'}, {id:'AddMember', label:'Add Member'}, {id:'MyMembers', label:'My Members'}, {id:'Schedule', label:'Test Schedule'}, {id:'Results', label:'Results'}];
-  if(isSup) { tabs.unshift({id:'MakeSchedule', label:'Make Schedule'}); }
-  else { tabs.push({id:'TestBuilder', label:'Test Builder'}); }
-  tabs.push({id:'Requests', label:'Reset Requests'});
-
-  document.getElementById('dashTabs').innerHTML = tabs.map((t,i)=>`<div class="tab ${i===0?'active':''}" data-tab="${t.id}" onclick="switchDashTab('${t.id}')">${t.label}</div>`).join('');
-  document.querySelectorAll('#dashboardView .dash-tab').forEach(el=>el.style.display='none');
-  switchDashTab(tabs[0].id);
-
-  document.getElementById('profileContent').innerHTML = `
-    <div class="form-grid">
-      <div><label>Name</label><div><strong>${esc(userData.name)}</strong></div></div>
-      <div><label>Gmail</label><div style="word-break:break-all;">${esc(userData.gmail)}</div></div>
-      <div><label>FBO ID</label><div>${esc(userData.fbo)}</div></div>
-      <div><label>My Code</label><div><span class="badge badge-code">${userData.code}</span></div></div>
-    </div>
-  `;
-
-  loadMyMembers();
-  if(isSup) loadMakeSchedule();
-  loadScheduleList();
-  loadResults();
-  if(!isSup) { loadTestBuilderAccess(); }
-  loadRequests(); 
-}
-
-function switchDashTab(id) {
-  document.querySelectorAll('#dashTabs .tab').forEach(t=>t.classList.remove('active'));
-  const active=document.querySelector(`#dashTabs .tab[data-tab="${id}"]`);
-  if(active)active.classList.add('active');
-  document.querySelectorAll('#dashboardView .dash-tab').forEach(el=>el.style.display='none');
-  const el=document.getElementById('tab'+id);
-  if(el)el.style.display='block';
-}
-
-/* MEMBER MGMT */
-async function addMember() {
-  const name = document.getElementById('amName').value.trim();
-  const fbo = document.getElementById('amFbo').value.trim();
-  if(!name || !fbo) { showToast("Name and FBO required"); return; }
-  await addDoc(collection(db, "users"), { name, fbo, uplineId: userData.id, uplineName: userData.name, status: 'pending', gmail: '', uid: '', password: '', code: '', resetReq: null });
-  showToast("Added to Pending."); document.getElementById('amName').value = ''; document.getElementById('amFbo').value = ''; loadMyMembers();
-}
-
-function loadMyMembers() {
-  const el = document.getElementById('membersList');
-  const q = query(collection(db, "users"), where("uplineId", "==", userData.id));
-  onSnapshot(q, (snap) => {
-    if(snap.empty) { el.innerHTML = '<div class="empty-state">No members yet.</div>'; return; }
-    let html = `<table class="data-table"><thead><tr><th>Name</th><th>Gmail</th><th>FBO</th><th>Code</th><th>Status</th><th>Actions</th></tr></thead><tbody>`;
-    snap.forEach(doc => {
-      const m = doc.data(); const id = doc.id;
-      html += `<tr>
-        <td data-label="Name">${esc(m.name)}</td>
-        <td data-label="Gmail" style="word-break:break-word;">${esc(m.gmail) || '-'}</td>
-        <td data-label="FBO">${esc(m.fbo)}</td>
-        <td data-label="Code">${m.code || '-'}</td>
-        <td data-label="Status">${m.status==='active' ? '<span class="badge badge-active">Active</span>' : (m.status==='blocked'?'<span class="badge badge-blocked">Blocked</span>':'<span class="badge badge-pending">Pending</span>')}</td>
-        <td data-label="Actions">
-          <button class="btn btn-small btn-danger" onclick="deleteMember('${id}')">Delete</button>
-          ${m.status==='blocked' 
-            ? `<button class="btn btn-small btn-success" onclick="unblockMember('${id}')">Unblock</button>` 
-            : `<button class="btn btn-small btn-warning" onclick="blockMember('${id}')">Block</button>`}
-        </td>
-      </tr>`;
-    });
-    el.innerHTML = html + `</tbody></table>`;
-  });
-}
-
-async function deleteMember(id) { if(confirm('Delete permanently?')) { await deleteDoc(doc(db, "users", id)); showToast("Deleted"); } }
-async function blockMember(id) { await updateDoc(doc(db, "users", id), { status: 'blocked' }); showToast("Blocked"); }
-async function unblockMember(id) { await updateDoc(doc(db, "users", id), { status: 'active' }); showToast("Unblocked"); }
-
-/* SCHEDULE */
-async function loadMakeSchedule() {
-  const uSnap = await getDocs(query(collection(db, "users"), where("status", "==", "active")));
-  const opts = '<option value="">-- Select --</option>' + uSnap.docs.map(d => `<option value="${d.id}">${esc(d.data().name)}</option>`).join('');
-  document.getElementById('schPrimary').innerHTML = opts; document.getElementById('schSecondary').innerHTML = opts;
-}
-async function addSchedule() {
-  const date = document.getElementById('schDate').value; const pId = document.getElementById('schPrimary').value; const sId = document.getElementById('schSecondary').value;
-  if(!date || !pId) { showToast("Date and Primary required"); return; }
-  const pName = document.getElementById('schPrimary').options[document.getElementById('schPrimary').selectedIndex].text;
-  const sName = sId ? document.getElementById('schSecondary').options[document.getElementById('schSecondary').selectedIndex].text : '';
-  await setDoc(doc(db, "schedules", date), { date, primaryId: pId, primaryName: pName, secondaryId: sId, secondaryName: sName });
-  showToast("Schedule Saved");
-}
-function loadScheduleList() {
-  const el = document.getElementById('scheduleList');
-  onSnapshot(collection(db, "schedules"), (snap) => {
-    if(snap.empty) { el.innerHTML = 'No schedules.'; return; }
-    let html = ''; snap.forEach(doc => { const s = doc.data(); html += `<div class="schedule-item"><div><strong>${esc(s.date)}</strong></div><div>Primary: <strong>${esc(s.primaryName)}</strong></div><div>Backup: <strong>${esc(s.secondaryName) || 'None'}</strong></div></div>`; });
-    el.innerHTML = html;
-  });
-}
-
-/* TEST BUILDER ACCESS */
-function loadTestBuilderAccess() {
-  const el = document.getElementById('testBuilderAccess');
-  onSnapshot(doc(db, "schedules", today()), (docSnap) => {
-    if(!docSnap.exists()) { el.innerHTML = `<div class="notice notice-warning">No schedule for today.</div>`; return; }
-    const s = docSnap.data();
-    if(s.primaryId === userData.id || s.secondaryId === userData.id) {
-      el.innerHTML = `<div class="notice notice-success">Aaj aapki barri hai!</div><div class="actions-bar" style="justify-content:flex-start;"><button class="btn btn-primary" onclick="openTestBuilder()">Next / Create Test</button></div>`;
-    } else {
-      el.innerHTML = `<div class="notice notice-danger">Aaj aapki barri nahi hai. Aaj ${esc(s.primaryName)} ki barri hai.</div>`;
-    }
-  });
-}
-function openTestBuilder() { showView('testBuilderView'); }
-function backToDashboard() { showView('dashboardView'); }
-
-/* TEST BUILDER LOGIC */
-let tbQuestions = [];
-let tbGrades = [{letter:'A+',min:100},{letter:'A',min:90},{letter:'F',min:0}];
-
-function openTestBuilder() {
-  document.getElementById('tbUserBadge').textContent = 'Test Builder: ' + userData.name;
-  showView('testBuilderView');
-  if(tbQuestions.length === 0) tbAddQuestion();
-  renderTBQuestions();
-  renderTBGrades();
-}
-
-function tbAddQuestion() { tbQuestions.push({ text: '', type: 'short', answer: '', options: ['', '', '', ''], correct: 0 }); renderTBQuestions(); }
-
-function renderTBQuestions() {
-  const el = document.getElementById('tbQuestionsContainer');
-  el.innerHTML = tbQuestions.map((q, i) => `
-    <div class="question-block">
-      <div class="q-header"><span class="q-num">${i+1}</span></div>
-      <div class="form-group">
-        <label>Question Text</label>
-        <input type="text" value="${esc(q.text)}" oninput="tbQuestions[${i}].text = this.value" placeholder="Enter question">
-      </div>
-      ${q.type === 'mcq' ? `
-        <label>Options</label>
-        <div class="options-grid">
-          ${q.options.map((o, j) => `
-            <div class="option-row">
-              <input type="radio" name="tbCorr_${i}" ${q.correct===j?'checked':''} onchange="tbQuestions[${i}].correct = ${j}">
-              <input type="text" value="${esc(o)}" oninput="tbQuestions[${i}].options[${j}] = this.value" placeholder="Option ${String.fromCharCode(65+j)}">
-            </div>
-          `).join('')}
-        </div>
-      ` : `
-        <div class="form-group">
-          <label>Correct Answer (Short)</label>
-          <input type="text" value="${esc(q.answer)}" oninput="tbQuestions[${i}].answer = this.value" placeholder="Expected answer">
-        </div>
-      `}
-    </div>
-  `).join('');
-}
-
-function renderTBGrades() {
-  const el = document.getElementById('tbGradeRows');
-  el.innerHTML = tbGrades.map((g, i) => `
-    <div class="grade-row">
-      <span class="grade-badge">${g.letter}</span>
-      <div style="display:flex;align-items:center;gap:10px;">
-        <input type="number" min="0" max="100" value="${g.min}" style="width:90px;padding:6px;text-align:center;" onchange="tbGrades[${i}].min = parseInt(this.value)">
-        <span style="color:#64748b;font-size:0.85rem;">% minimum</span>
-      </div>
-    </div>
-  `).join('');
-}
-
-async function tbPublish() {
-  for(let i=0; i<tbQuestions.length; i++) {
-    if(!tbQuestions[i].text.trim()) { showToast("Question text empty!"); return; }
-  }
-  
-  await setDoc(doc(db, "settings", "activeTest"), {
-    title: document.getElementById('tbTitle').value || 'Knowledge Test',
-    duration: parseFloat(document.getElementById('tbDuration').value),
-    questions: tbQuestions,
-    grades: tbGrades,
-    publishedBy: userData.name,
-    publishedDate: today()
-  });
-  showToast("Test Published Successfully!");
-  backToDashboard();
-}
-
-/* RESULTS & REQUESTS */
-function loadResults() {
-  const el = document.getElementById('resultsContent');
-  const isSup = userData.code === '001';
-  let q = isSup ? collection(db, "results") : query(collection(db, "results"), where("usedCode", "==", userData.code));
-  onSnapshot(q, (snap) => {
-    if(snap.empty) { el.innerHTML = '<div class="empty-state">No results yet.</div>'; return; }
-    let html = `<table class="data-table"><thead><tr><th>Date</th><th>Taker</th><th>Upline</th><th>Score</th><th>Grade</th></tr></thead><tbody>`;
-    snap.forEach(doc => { const r = doc.data(); html += `<tr><td data-label="Date">${esc(r.date)}</td><td data-label="Taker">${esc(r.takerName)}</td><td data-label="Upline">${esc(r.uplineName)}</td><td data-label="Score">${r.correct}/${r.total}</td><td data-label="Grade">${r.grade}</td></tr>`; });
-    el.innerHTML = html + `</tbody></table>`;
-  });
-}
-function loadRequests() {
-  const el = document.getElementById('requestsContent');
-  const q = query(collection(db, "users"), where("uplineId", "==", userData.id), where("resetReq", "==", "PENDING"));
-  onSnapshot(q, (snap) => {
-    if(snap.empty) { el.innerHTML = '<div class="empty-state">No pending requests.</div>'; return; }
-    let html = '';
-    snap.forEach(doc => { const m = doc.data(); html += `<div class="schedule-item"><div><strong>${esc(m.name)}</strong> (${esc(m.fbo)})</div><div style="display:flex;gap:8px;"><input type="text" id="sec_${doc.id}" placeholder="Secret Code" style="width:120px;padding:6px;"><button class="btn btn-small btn-primary" onclick="setSecret('${doc.id}')">Set Code</button></div></div>`; });
-    el.innerHTML = html;
-  });
-}
-async function setSecret(id) { const code = document.getElementById('sec_'+id).value.trim(); if(!code) return; await updateDoc(doc(db, "users", id), { secretCode: code }); showToast("Code set."); }
-
-/* KNOWLEDGE TEST */
-let attemptState=null; let attemptTimer=null; let ktTimer=null;
-function openKTView() { showView('ktView'); renderKT(); ktTimer = setInterval(renderKT, 1000); }
-function stopKTViewTimer() { if(ktTimer) clearInterval(ktTimer); }
-async function renderKT() {
-  const el = document.getElementById('ktContent');
-  const t = { testStart: "18:00", testDone: "20:00" };
-  const sM=parseHHMM(t.testStart), dM=parseHHMM(t.testDone); const now = currentMinutes();
-  const testSnap = await getDoc(doc(db, "settings", "activeTest")); const test = testSnap.exists() ? testSnap.data() : null;
-  if(test && now>=sM){
-    const activeEnd=sM+test.duration;
-    if(now<activeEnd){ el.innerHTML=renderStartForm(test,activeEnd); return; }
-    if(now<dM){ el.innerHTML=`<div class="notice notice-success" style="font-size:1.4rem;padding:40px;">Test Done</div>`; return; }
-  }
-  if(!test && now>=sM && now<dM){ el.innerHTML=`<div class="notice notice-warning" style="font-size:1.4rem;padding:40px;">No Test</div>`; return; }
-  const totalSec=Math.floor(((sM-now+1440)%1440)*60);
-  el.innerHTML=`<div class="notice notice-info">Next test at ${t.testStart}</div><div class="countdown-big">${String(Math.floor(totalSec/3600)).padStart(2,'0')} : ${String(Math.floor((totalSec%3600)/60)).padStart(2,'0')} : ${String(totalSec%60).padStart(2,'0')}</div>`;
-}
-function renderStartForm(test,activeEnd){
-  const totalSec=Math.floor((activeEnd-currentMinutes())*60);
-  return `<div class="countdown-bar">Time remaining: ${String(Math.floor(totalSec/60)).padStart(2,'0')} : ${String(totalSec%60).padStart(2,'0')}</div><div class="card"><h2>Start Test</h2><div class="form-group"><label>Your Name</label><input type="text" id="ktName"></div><div class="form-group"><label>Upline Name</label><input type="text" id="ktUpline"></div><div class="form-group"><label>Upline Code</label><input type="text" id="ktCode" placeholder="e.g. 001"></div><div id="ktError"></div><div class="actions-bar"><button class="btn btn-primary" onclick="startAttempt()">Next</button></div></div>`;
-}
-async function startAttempt() {
-  const name = document.getElementById('ktName').value.trim(); const upline = document.getElementById('ktUpline').value.trim(); const code = document.getElementById('ktCode').value.trim(); const err = document.getElementById('ktError');
-  if(!name || !upline || !code) { err.innerHTML = '<div class="notice notice-danger">All fields required</div>'; return; }
-  const snap = await getDocs(query(collection(db, "users"), where("code", "==", code)));
-  if(snap.empty) { err.innerHTML = '<div class="notice notice-danger">Invalid Code!</div>'; return; }
-  const test = (await getDoc(doc(db, "settings", "activeTest"))).data();
-  attemptState = { takerName: name, uplineName: upline, usedCode: code, test, answers: new Array(test.questions.length).fill(null), submitted: false };
-  stopKTViewTimer(); if(attemptTimer)clearInterval(attemptTimer); attemptTimer=setInterval(updateAttemptTimer,1000);
-  renderAttempt(); showView('attemptView');
-}
-function updateAttemptTimer(){
-  if(!attemptState || attemptState.submitted)return;
-  const el=document.getElementById('attemptTimer');
-  if(!el)return;
-  const totalSec=Math.floor((attemptState.activeEndMin-currentMinutes())*60);
-  if(totalSec<=0){ el.textContent='00:00'; if(!attemptState.submitted){ attemptState.submitted=true; finalizeAttempt(true); } return; }
-  el.textContent=`${String(Math.floor(totalSec/60)).padStart(2,'0')}:${String(totalSec%60).padStart(2,'0')}`;
+async function startAttempt(){
+ const name=$('ktName').value.trim(),upline=$('ktUpline').value.trim(),code=$('ktCode').value.trim();
+ if(!name||!upline||!code){err('ktError','All fields required');return}
+ const s=await getDocs(query(collection(db,"users"),where("code","==",code),where("status","==","active")));
+ if(s.empty){err('ktError','Invalid Code!');return}
+ await fetchTest();
+ if(!ktTest||ktTest.date!==today()){err('ktError','Test available nahi hai');return}
+ att={name,upline,code,test:ktTest,answers:new Array(ktTest.questions.length).fill(null),done:false,end:TEST_START*60+ktTest.duration*60};
+ stopKT();clearInterval(attTimer);attTimer=setInterval(tick,1000);renderAttempt();showView('attemptView');
 }
 function renderAttempt(){
-  if(!attemptState)return;
-  const el=document.getElementById('attemptContent');
-  const test=attemptState.test;
-  el.innerHTML=`
-    <div class="countdown-bar">Time remaining: <span id="attemptTimer">--:--</span></div>
-    <div class="test-header"><h2>${esc(test.title)}</h2><p>${test.questions.length} questions - ${test.duration} minutes</p></div>
-    <div id="attemptQuestions">${test.questions.map((q,i)=>renderAttemptQ(q,i)).join('')}</div>
-    <div id="attemptError" style="margin-top:12px;"></div>
-    <div class="actions-bar"><button class="btn btn-success" onclick="submitAttempt()">Submit Test</button></div>
-  `;
-  updateAttemptTimer();
+ $('attemptContent').innerHTML=`<div class="countdown-bar">Time remaining: <span id="attRem"></span></div><div class="card"><h2>${esc(att.test.title)}</h2>
+ ${att.test.questions.map((q,i)=>`<div class="tq"><h3>${i+1}. ${esc(q.q)}</h3>${q.o.map((o,j)=>`<label class="to"><input type="radio" name="a${i}" onchange="ans(${i},${j})"> ${esc(o)}</label>`).join('')}</div>`).join('')}
+ <div class="actions-bar"><button class="btn btn-success" onclick="finalizeAttempt()">Submit Test</button></div></div>`;tick();
 }
-function renderAttemptQ(q,i){
-  if(q.type==='mcq'){
-    return `<div class="test-question"><h3>Q${i+1}. ${esc(q.text)}</h3>${q.options.map((o,j)=>`<label class="test-option" onclick="selectMCQ(${i},${j},this)"><input type="radio" name="ans_${i}" value="${j}"><span>${esc(o)}</span></label>`).join('')}</div>`;
-  }
-  return `<div class="test-question"><h3>Q${i+1}. ${esc(q.text)}</h3><textarea rows="2" placeholder="Write your answer here..." oninput="attemptState.answers[${i}]={type:'short',value:this.value}"></textarea></div>`;
+function ans(i,j){att.answers[i]=j}
+function tick(){
+ if(!att||att.done)return;const r=att.end-nowSec();
+ if(r<=0){finalizeAttempt();return}
+ const e=$('attRem');if(e)e.textContent=pad(Math.floor(r/60))+' : '+pad(r%60);
 }
-function selectMCQ(i,j,el){
-  const parent=el.closest('.test-question');
-  parent.querySelectorAll('.test-option').forEach(o=>o.classList.remove('selected'));
-  el.classList.add('selected'); el.querySelector('input').checked=true;
-  attemptState.answers[i]={type:'mcq',value:j};
+function cancelAttempt(){att=null;clearInterval(attTimer);goHome()}
+async function finalizeAttempt(){
+ if(!att||att.done)return;att.done=true;clearInterval(attTimer);
+ const t=att.test;let correct=0;t.questions.forEach((q,i)=>{if(att.answers[i]===q.correct)correct++});
+ const total=t.questions.length,pct=Math.round(correct/total*100);
+ const g=(t.grades||[]).find(x=>pct>=x.min);const grade=g?g.g:'-';
+ try{await addDoc(collection(db,"results"),{takerName:att.name,uplineName:att.upline,usedCode:att.code,correct,total,pct,grade,date:today(),time:hhmm(nowMin())})}catch(e){showToast('Result save nahi hua: '+e.message)}
+ $('attemptContent').innerHTML=`<div class="result-box"><h2 style="color:#10b981;font-size:2rem">Test Done!</h2><p style="font-size:1.1rem;color:#475569;margin-top:10px">Meet your Upline for your result.</p><button class="btn btn-primary" style="margin-top:20px" onclick="cancelAttempt()">Back to Home</button></div>`;
 }
-function submitAttempt(){
-  attemptState.submitted=true; finalizeAttempt(false);
-}
-async function finalizeAttempt(timeout){
-  if(!attemptState)return;
-  if(attemptTimer){clearInterval(attemptTimer);attemptTimer=null;}
-  const test=attemptState.test;
-  let correct=0;
-  test.questions.forEach((q,i)=>{
-    const a=attemptState.answers[i];
-    if(q.type==='mcq' && a && a.value===q.correct) correct++;
-    else if(q.type==='short' && a && a.value.trim().toLowerCase().includes(q.answer.toLowerCase())) correct++;
-  });
-  const total=test.questions.length;
-  const pct=Math.round(correct/total*100);
-  let grade = 'F';
-  test.grades.sort((a,b)=>b.min-a.min).forEach(g => { if(pct >= g.min && grade === 'F') grade = g.letter; });
 
-  await addDoc(collection(db, "results"), {
-    takerName: attemptState.takerName, uplineName: attemptState.uplineName, usedCode: attemptState.usedCode,
-    correct, total, grade, date: today(), time: nowHHMM()
-  });
-
-  document.getElementById('attemptContent').innerHTML = `
-    <div class="result-box" style="padding:50px 20px;">
-      <h2 style="color:#10b981;font-size:2rem;">Test Done!</h2>
-      <p style="font-size:1.1rem;color:#475569;margin-top:10px;">Meet your Upline for your result.</p>
-      <button class="btn btn-primary" style="margin-top:20px;" onclick="goHome()">Back to Home</button>
-    </div>
-  `;
-}
-function cancelAttempt(){ attemptState=null; if(attemptTimer)clearInterval(attemptTimer); goHome(); }
-function parseHHMM(s){ if(!/^\d{1,2}:\d{2}$/.test(s))return null; const [h,m]=s.split(':').map(Number); return h*60+m; }
-function currentMinutes(){ const d=new Date(); return d.getHours()*60+d.getMinutes()+d.getSeconds()/60; }
-
-/* INIT */
-window.goHome = goHome; window.goLogin = goLogin; window.signInWithGoogle = signInWithGoogle; window.switchAuthTab = switchAuthTab; window.processSignup = processSignup; window.verifySupervisorCode = verifySupervisorCode; window.completeSignup = completeSignup; window.doLogin = doLogin; window.logout = logout; window.showForgotPassword = showForgotPassword; window.processForgotPassword = processForgotPassword; window.addMember = addMember; window.switchDashTab = switchDashTab; window.addSchedule = addSchedule; window.openKTView = openKTView; window.startAttempt = startAttempt; window.cancelAttempt = cancelAttempt; window.openTestBuilder = openTestBuilder; window.backToDashboard = backToDashboard; window.setSecret = setSecret; window.deleteMember = deleteMember; window.blockMember = blockMember; window.unblockMember = unblockMember; window.tbAddQuestion = tbAddQuestion; window.tbPublish = tbPublish; window.selectMCQ = selectMCQ; window.submitAttempt = submitAttempt;
-
-document.addEventListener('DOMContentLoaded', () => {
-  onAuthStateChanged(auth, (user) => { if (user) currentUser = user; else currentUser = null; });
-  
-  const savedUser = localStorage.getItem('mamMadihaLoggedIn');
-  if(savedUser) {
-    userData = JSON.parse(savedUser);
-    showView('dashboardView');
-    renderDashboard();
-  } else {
-    updateHomeKTStatus();
-  }
-});
-</script>
-</body>
- </html>
+Object.assign(window,{goHome,goLogin,showView,signInWithGoogle,switchAuthTab,processSignup,verifySupCode,completeSignup,doLogin,logout,showForgot,processForgot,addMember,switchDashTab,addSchedule,openKTView,startAttempt,cancelAttempt,finalizeAttempt,ans,openTestBuilder,tbAdd,tbDel,tbQ_,tbC,tbPublish,setSecret});
+</script></body></html>
