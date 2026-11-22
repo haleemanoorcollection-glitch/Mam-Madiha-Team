@@ -20,7 +20,7 @@
   .card h2::before{content:'';width:5px;height:20px;border-radius:3px;background:linear-gradient(135deg,#2563eb,#7c3aed);}
 
   label{display:block;font-weight:600;margin-bottom:6px;color:#334155;font-size:0.9rem;}
-  input[type="text"],input[type="password"],input[type="email"],input[type="number"],select,textarea{width:100%;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.95rem;background:#f8fafc;color:#1e293b;font-family:inherit;transition:all 0.2s;resize:vertical;}
+  input[type="text"],input[type="password"],input[type="email"],input[type="number"],input[type="date"],select,textarea{width:100%;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.95rem;background:#f8fafc;color:#1e293b;font-family:inherit;transition:all 0.2s;resize:vertical;}
   input:focus,select:focus,textarea:focus{outline:none;border-color:#2563eb;background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,0.12);}
   input:disabled{background:#e2e8f0;color:#64748b;cursor:not-allowed;font-weight:600;}
 
@@ -97,9 +97,6 @@
   .countdown-big{background:linear-gradient(135deg,#eff6ff,#dbeafe);color:#1e40af;padding:26px;border-radius:14px;text-align:center;font-size:2rem;font-weight:800;margin:20px 0;border:2px solid #bfdbfe;letter-spacing:2px;}
 
   .result-box{text-align:center;padding:36px 20px;background:linear-gradient(135deg,#eff6ff,#f5f3ff);border-radius:16px;margin-top:20px;}
-  .feedback-box{margin-top:10px;padding:12px 16px;border-radius:10px;font-size:0.88rem;}
-  .feedback-correct{background:#ecfdf5;border:1.5px solid #a7f3d0;color:#065f46;}
-  .feedback-wrong{background:#fef2f2;border:1.5px solid #fecaca;color:#991b1b;}
 
   .empty-state{text-align:center;padding:50px 20px;color:#94a3b8;}
   .empty-state .big-text{font-size:1.15rem;font-weight:700;color:#64748b;margin-bottom:6px;}
@@ -135,7 +132,7 @@
     .data-table, .data-table thead, .data-table tbody, .data-table th, .data-table td, .data-table tr {display: block;}
     .data-table thead tr {position: absolute;top: -9999px;left: -9999px;}
     .data-table tr {border: 1.5px solid #e2e8f0; border-radius: 12px; margin-bottom: 12px; background: #fff; padding:10px;}
-    .data-table td {border: none;border-bottom: 1px solid #f1f5f9;position: relative;padding-left: 50%;text-align: right;padding-top:10px;padding-bottom:10px;}
+    .data-table td {border: none;border-bottom: 1px solid #f1f5f9;position: relative;padding-left: 50%;text-align: right;padding-top:10px;padding-bottom:10px; word-break: break-all;}
     .data-table td:last-child {border-bottom: none;}
     .data-table td:before {position: absolute;top: 11px;left: 12px;width: 45%;padding-right: 10px;white-space: nowrap;text-align: left;font-weight: 700;color: #64748b;content: attr(data-label);}
   }
@@ -158,9 +155,11 @@
         <button class="btn btn-primary" style="width:100%;" onclick="goLogin()">Login / Sign Up</button>
       </div>
     </div>
+    
+    <!-- Knowledge Test Card with Live Timer -->
     <div class="home-test-card" onclick="openKTView()">
       <h2>Knowledge Test</h2>
-      <p>Click here to check test timings and start your test.</p>
+      <p id="homeKtStatus">Click here to check test timings and start your test.</p>
     </div>
   </div>
 
@@ -170,7 +169,6 @@
       <div class="card" id="authCard">
         <h2 style="text-align:center;justify-content:center;margin-bottom:20px;">Welcome</h2>
         
-        <!-- Step 1: Google -->
         <div id="authStepGoogle">
           <button class="btn btn-google" onclick="signInWithGoogle()">
             <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G">
@@ -178,7 +176,6 @@
           </button>
         </div>
         
-        <!-- Step 2: Form -->
         <div id="authFormArea" style="display:none; margin-top:20px;">
           <div class="form-group">
             <label>Gmail Address</label>
@@ -190,7 +187,7 @@
             <div class="tab" id="tabSignupBtn" onclick="switchAuthTab('signup')" style="flex:1;text-align:center;">Sign Up</div>
           </div>
 
-          <!-- Login Form -->
+          <!-- Login -->
           <div id="loginForm" style="display:none;">
             <div class="form-group">
               <label>Password</label>
@@ -204,7 +201,7 @@
             </div>
           </div>
 
-          <!-- Signup Form -->
+          <!-- Signup -->
           <div id="signupForm" style="display:none;">
             <div class="form-group">
               <label>Select Upline</label>
@@ -225,7 +222,7 @@
             </div>
           </div>
 
-          <!-- Supervisor Code Verification -->
+          <!-- Supervisor Code -->
           <div id="supervisorCodeForm" style="display:none;">
             <div class="notice notice-info">Are You Supervisor?</div>
             <div class="form-group">
@@ -237,7 +234,7 @@
             </div>
           </div>
 
-          <!-- Set Password Form -->
+          <!-- Set Password -->
           <div id="passwordSetForm" style="display:none;">
             <div class="notice notice-success">Set your password</div>
             <div class="form-group">
@@ -253,7 +250,7 @@
             </div>
           </div>
 
-          <!-- Forgot Password Form -->
+          <!-- Forgot Password -->
           <div id="forgotPasswordForm" style="display:none;">
             <div class="notice notice-warning">Request Password Reset</div>
             <div class="form-group" id="fpFboGroup">
@@ -302,41 +299,24 @@
     <div class="dash-header" id="dashHeader"></div>
     <div class="tabs" id="dashTabs"></div>
 
-    <!-- Profile -->
     <div id="tabProfile" class="dash-tab">
-      <div class="card">
-        <h2>My Profile</h2>
-        <div id="profileContent"></div>
-      </div>
+      <div class="card"><h2>My Profile</h2><div id="profileContent"></div></div>
     </div>
 
-    <!-- Add Member -->
     <div id="tabAddMember" class="dash-tab" style="display:none;">
       <div class="card">
         <h2>Add Member</h2>
         <p class="hint" style="margin-bottom:12px;">Add member details here. They will sign up themselves using Google.</p>
         <div class="form-grid-3">
-          <div class="form-group">
-            <label>Member Name</label>
-            <input type="text" id="amName" placeholder="Member name">
-          </div>
-          <div class="form-group">
-            <label>Member FBO ID</label>
-            <input type="text" id="amFbo" placeholder="FBO ID">
-          </div>
+          <div class="form-group"><label>Member Name</label><input type="text" id="amName" placeholder="Member name"></div>
+          <div class="form-group"><label>Member FBO ID</label><input type="text" id="amFbo" placeholder="FBO ID"></div>
         </div>
-        <div class="actions-bar">
-          <button class="btn btn-primary" onclick="addMember()">Add Member</button>
-        </div>
+        <div class="actions-bar"><button class="btn btn-primary" onclick="addMember()">Add Member</button></div>
       </div>
     </div>
 
-    <!-- My Members -->
     <div id="tabMyMembers" class="dash-tab" style="display:none;">
-      <div class="card">
-        <h2>My Members</h2>
-        <div id="membersList"></div>
-      </div>
+      <div class="card"><h2>My Members</h2><div id="membersList"></div></div>
     </div>
 
     <!-- Make Schedule (Supervisor Only) -->
@@ -344,55 +324,30 @@
       <div class="card">
         <h2>Make Test Schedule</h2>
         <div class="form-grid-3">
-          <div class="form-group">
-            <label>Date</label>
-            <input type="date" id="schDate">
-          </div>
-          <div class="form-group">
-            <label>Primary Member</label>
-            <select id="schPrimary"></select>
-          </div>
-          <div class="form-group">
-            <label>Secondary Member (Backup)</label>
-            <select id="schSecondary"></select>
-          </div>
+          <div class="form-group"><label>Date</label><input type="date" id="schDate"></div>
+          <div class="form-group"><label>Primary Member</label><select id="schPrimary"></select></div>
+          <div class="form-group"><label>Secondary Member (Backup)</label><select id="schSecondary"></select></div>
         </div>
-        <div class="actions-bar">
-          <button class="btn btn-primary" onclick="addSchedule()">Save Schedule</button>
-        </div>
+        <div class="actions-bar"><button class="btn btn-primary" onclick="addSchedule()">Save Schedule</button></div>
       </div>
     </div>
 
     <!-- Test Schedule (Everyone) -->
     <div id="tabSchedule" class="dash-tab" style="display:none;">
-      <div class="card">
-        <h2>Test Schedule</h2>
-        <div id="scheduleList"></div>
-      </div>
+      <div class="card"><h2>Test Schedule</h2><div id="scheduleList"></div></div>
     </div>
 
-    <!-- Test Builder -->
+    <!-- Test Builder (Not for Supervisor) -->
     <div id="tabTestBuilder" class="dash-tab" style="display:none;">
-      <div class="card">
-        <h2>Test Builder</h2>
-        <div id="testBuilderAccess"></div>
-      </div>
+      <div class="card"><h2>Test Builder</h2><div id="testBuilderAccess"></div></div>
     </div>
 
-    <!-- Results -->
     <div id="tabResults" class="dash-tab" style="display:none;">
-      <div class="card">
-        <h2>My Team Results</h2>
-        <div id="resultsContent"></div>
-      </div>
+      <div class="card"><h2>My Team Results</h2><div id="resultsContent"></div></div>
     </div>
 
-    <!-- Password Requests (Member Only) -->
     <div id="tabRequests" class="dash-tab" style="display:none;">
-      <div class="card">
-        <h2>Password Reset Requests</h2>
-        <div id="requestsContent"></div>
-      </div>
+      <div class="card"><h2>Password Reset Requests</h2><div id="requestsContent"></div></div>
     </div>
 
   </div>
@@ -442,7 +397,7 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-import { getFirestore, collection, doc, getDoc, getDocs, setDoc, addDoc, updateDoc, deleteDoc, query, where, onSnapshot, serverTimestamp, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+import { getFirestore, collection, doc, getDoc, getDocs, setDoc, addDoc, updateDoc, deleteDoc, query, where, onSnapshot, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD-bIXvnHh8NFRR0Tml8MG46yxW5YJc6Jo",
@@ -464,30 +419,33 @@ let tempGoogleUser = null;
 let authMode = 'login';
 let isSupervisorFlow = false;
 
-/* ============================================================
-   UTILITIES
-   ============================================================ */
+/* UTILS */
 function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function today(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
 function nowHHMM(){ const d=new Date(); return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); }
-
 let toastTimer;
 function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),3200); }
 function showView(id){ document.querySelectorAll('.view').forEach(v=>v.classList.remove('active')); const v=document.getElementById(id); if(v)v.classList.add('active'); window.scrollTo(0,0); }
-function goHome(){ showView('homeView'); stopKTViewTimer(); }
+function goHome(){ showView('homeView'); stopKTViewTimer(); updateHomeKTStatus(); }
 function goLogin(){ resetAuthUI(); showView('loginView'); }
 
-/* ============================================================
-   AUTHENTICATION & SIGNUP
-   ============================================================ */
+/* HOME KT STATUS */
+async function updateHomeKTStatus() {
+  const el = document.getElementById('homeKtStatus');
+  const testSnap = await getDoc(doc(db, "settings", "activeTest"));
+  if(testSnap.exists()) {
+    el.innerHTML = `<span style="color:#10b981;font-weight:bold;">Test is Published. Click to view timings.</span>`;
+  } else {
+    el.textContent = "Click here to check test timings and start your test.";
+  }
+}
+
+/* AUTH */
 async function signInWithGoogle() {
   try {
     const result = await signInWithPopup(auth, provider);
     tempGoogleUser = result.user;
-    
-    const userDocRef = doc(db, "users", tempGoogleUser.uid);
-    const userDoc = await getDoc(userDocRef);
-    
+    const userDoc = await getDoc(doc(db, "users", tempGoogleUser.uid));
     document.getElementById('authGmail').value = tempGoogleUser.email;
     document.getElementById('authFormArea').style.display = 'block';
     
@@ -506,7 +464,6 @@ function switchAuthTab(mode) {
   authMode = mode;
   document.getElementById('tabLoginBtn').classList.toggle('active', mode === 'login');
   document.getElementById('tabSignupBtn').classList.toggle('active', mode === 'signup');
-  
   document.getElementById('loginForm').style.display = mode === 'login' ? 'block' : 'none';
   document.getElementById('signupForm').style.display = mode === 'signup' ? 'block' : 'none';
   document.getElementById('supervisorCodeForm').style.display = 'none';
@@ -517,27 +474,20 @@ function switchAuthTab(mode) {
 async function loadUplinesForSignup() {
   const sel = document.getElementById('signupUpline');
   sel.innerHTML = '<option value="">Loading...</option>';
-  
   const q = query(collection(db, "users"), where("status", "==", "active"));
-  const querySnapshot = await getDocs(q);
-  
+  const snap = await getDocs(q);
   let opts = '<option value="">-- Select Upline (Leave empty if Supervisor) --</option>';
-  querySnapshot.forEach((doc) => {
-    opts += `<option value="${doc.id}">${esc(doc.data().name)} (Code: ${doc.data().code})</option>`;
-  });
-
+  snap.forEach(doc => { opts += `<option value="${doc.id}">${esc(doc.data().name)} (Code: ${doc.data().code})</option>`; });
   sel.innerHTML = opts;
 }
 
 async function processSignup() {
   const err = document.getElementById('authError');
   err.innerHTML = '';
-  
   const uplineId = document.getElementById('signupUpline').value;
   const name = document.getElementById('signupName').value.trim();
   const fbo = document.getElementById('signupFbo').value.trim();
   
-  // Supervisor Flow
   if(name === 'Supervisor' && fbo === '' && uplineId === '') {
      isSupervisorFlow = true;
      document.getElementById('signupForm').style.display = 'none';
@@ -545,34 +495,20 @@ async function processSignup() {
      return;
   }
 
-  // Normal Member Flow
-  if(!uplineId || !name || !fbo) {
-    err.innerHTML = '<div class="notice notice-danger">All fields are required.</div>';
-    return;
-  }
+  if(!uplineId || !name || !fbo) { err.innerHTML = '<div class="notice notice-danger">All fields required.</div>'; return; }
 
-  // Verify FBO in upline's pending list
   const q = query(collection(db, "users"), where("uplineId", "==", uplineId), where("fbo", "==", fbo), where("status", "==", "pending"));
   const snap = await getDocs(q);
-  
-  if(snap.empty) {
-    err.innerHTML = '<div class="notice notice-danger">Invalid FBO ID or not added by the selected Upline.</div>';
-    return;
-  }
+  if(snap.empty) { err.innerHTML = '<div class="notice notice-danger">Invalid FBO ID or not added by Upline.</div>'; return; }
 
-  window.pendingMemberDocId = snap.docs[0].id; // Save for completion
+  window.pendingMemberDocId = snap.docs[0].id;
   isSupervisorFlow = false;
-  
   document.getElementById('signupForm').style.display = 'none';
   document.getElementById('passwordSetForm').style.display = 'block';
 }
 
 function verifySupervisorCode() {
-  const code = document.getElementById('supSecretCode').value;
-  if(code !== '9876') {
-    showToast("Invalid Supervisor Code");
-    return;
-  }
+  if(document.getElementById('supSecretCode').value !== '9876') { showToast("Invalid Code"); return; }
   document.getElementById('supervisorCodeForm').style.display = 'none';
   document.getElementById('passwordSetForm').style.display = 'block';
 }
@@ -581,69 +517,46 @@ async function completeSignup() {
   const err = document.getElementById('authError');
   const pw1 = document.getElementById('setupPassword').value;
   const pw2 = document.getElementById('setupPassword2').value;
-  
-  if(pw1.length < 4) { err.innerHTML = '<div class="notice notice-danger">Password min 4 chars.</div>'; return; }
+  if(pw1.length < 4) { err.innerHTML = '<div class="notice notice-danger">Min 4 chars.</div>'; return; }
   if(pw1 !== pw2) { err.innerHTML = '<div class="notice notice-danger">Passwords do not match.</div>'; return; }
 
   try {
-    // Generate Next Code
-    const usersSnap = await getDocs(collection(db, "users"));
-    const nextCode = String(usersSnap.size + 1).padStart(3, '0');
+    // Generate Code Logic Fix: Get all active users and add 1
+    const activeUsersQ = query(collection(db, "users"), where("status", "==", "active"));
+    const activeSnap = await getDocs(activeUsersQ);
+    let maxCode = 0;
+    activeSnap.forEach(d => {
+       const c = parseInt(d.data().code || 0);
+       if(c > maxCode) maxCode = c;
+    });
+    const nextCode = String(maxCode + 1).padStart(3, '0');
+
     const gmail = tempGoogleUser.email;
     const uid = tempGoogleUser.uid;
 
     if(isSupervisorFlow) {
-      // Create Supervisor
-      const supData = {
-        name: "Mam Madiha Ghazal", 
-        gmail: gmail, uid: uid,
-        fbo: "SUPERVISOR", uplineId: null,
-        code: "001", status: "active", password: pw1
-      };
+      const supData = { name: "Mam Madiha Ghazal", gmail: gmail, uid: uid, fbo: "SUPERVISOR", uplineId: null, code: "001", status: "active", password: pw1 };
       await setDoc(doc(db, "users", uid), supData);
-      userData = supData;
-      userData.id = uid;
+      userData = supData; userData.id = uid;
     } else {
-      // Update Pending Member
       const pendingDocId = window.pendingMemberDocId;
-      const updateData = {
-         uid: uid, gmail: gmail, password: pw1,
-         status: "active", code: nextCode
-      };
+      const updateData = { uid: uid, gmail: gmail, password: pw1, status: "active", code: nextCode };
       await updateDoc(doc(db, "users", pendingDocId), updateData);
-      
       const docSnap = await getDoc(doc(db, "users", pendingDocId));
-      userData = docSnap.data();
-      userData.id = pendingDocId;
+      userData = docSnap.data(); userData.id = pendingDocId;
     }
-
-    showToast("Account activated!");
-    showView('dashboardView');
-    renderDashboard();
-
-  } catch(e) {
-    err.innerHTML = '<div class="notice notice-danger">Signup failed. Try again.</div>';
-  }
+    showToast("Account activated!"); showView('dashboardView'); renderDashboard();
+  } catch(e) { err.innerHTML = '<div class="notice notice-danger">Signup failed.</div>'; }
 }
 
 async function doLogin() {
   const err = document.getElementById('authError');
   const pw = document.getElementById('loginPassword').value;
-  
   const userDoc = await getDoc(doc(db, "users", tempGoogleUser.uid));
   if(!userDoc.exists()) { err.innerHTML = '<div class="notice notice-danger">User not found.</div>'; return; }
-  
-  const data = userDoc.data();
-  if(data.password !== pw) {
-    err.innerHTML = '<div class="notice notice-danger">Incorrect password.</div>';
-    return;
-  }
-  
-  userData = data;
-  userData.id = tempGoogleUser.uid;
-  showToast("Welcome back!");
-  showView('dashboardView');
-  renderDashboard();
+  if(userDoc.data().password !== pw) { err.innerHTML = '<div class="notice notice-danger">Incorrect password.</div>'; return; }
+  userData = userDoc.data(); userData.id = tempGoogleUser.uid;
+  showToast("Welcome back!"); showView('dashboardView'); renderDashboard();
 }
 
 function resetAuthUI() {
@@ -655,79 +568,54 @@ function resetAuthUI() {
   document.getElementById('setupPassword2').value = '';
   document.getElementById('authFormArea').style.display = 'none';
   document.getElementById('authError').innerHTML = '';
-  switchAuthTab('login');
-  tempGoogleUser = null;
-  userData = null;
+  switchAuthTab('login'); tempGoogleUser = null; userData = null;
 }
 
-async function logout() {
-  await signOut(auth);
-  resetAuthUI();
-  goHome();
-}
+async function logout() { await signOut(auth); resetAuthUI(); goHome(); }
 
-/* ============================================================
-   FORGOT PASSWORD
-   ============================================================ */
-let fpStep = 0;
-let fpData = {};
-
+/* FORGOT PASSWORD */
+let fpStep = 0; let fpData = {};
 function showForgotPassword() {
   document.getElementById('loginForm').style.display = 'none';
   document.getElementById('forgotPasswordForm').style.display = 'block';
-  fpStep = 1;
-  document.getElementById('btnFpAction').textContent = 'Send Request';
+  fpStep = 1; document.getElementById('btnFpAction').textContent = 'Send Request';
   document.getElementById('fpFboGroup').style.display = 'block';
   document.getElementById('fpSecretGroup').style.display = 'none';
   document.getElementById('fpNewPwGroup').style.display = 'none';
 }
 
 async function processForgotPassword() {
-  const err = document.getElementById('authError');
-  err.innerHTML = '';
-  const btn = document.getElementById('btnFpAction');
-
+  const err = document.getElementById('authError'); err.innerHTML = '';
   if(fpStep === 1) {
     const fbo = document.getElementById('fpFbo').value.trim();
     if(!fbo) { err.innerHTML = '<div class="notice notice-danger">Enter FBO ID</div>'; return; }
-    
     if(fbo === 'SUPERVISOR') {
        fpData = { isSupervisor: true };
        document.getElementById('fpFboGroup').style.display = 'none';
        document.getElementById('fpSecretGroup').style.display = 'block';
        document.getElementById('fpWaitMsg').textContent = 'Enter master code 9876.';
        document.getElementById('btnFpAction').textContent = 'Verify Code';
-       fpStep = 2;
-       return;
+       fpStep = 2; return;
     }
-
     const q = query(collection(db, "users"), where("fbo", "==", fbo), where("status", "==", "active"));
     const snap = await getDocs(q);
     if(snap.empty) { err.innerHTML = '<div class="notice notice-danger">FBO not found.</div>'; return; }
-
-    const uDoc = snap.docs[0];
-    fpData = { docId: uDoc.id, data: uDoc.data() };
-    
-    // Create request
-    await updateDoc(doc(db, "users", uDoc.id), { resetReq: 'PENDING' });
-    
+    fpData = { docId: snap.docs[0].id };
+    await updateDoc(doc(db, "users", snap.docs[0].id), { resetReq: 'PENDING' });
     document.getElementById('fpFboGroup').style.display = 'none';
     document.getElementById('fpSecretGroup').style.display = 'block';
     document.getElementById('fpWaitMsg').textContent = 'Ask your Upline for the secret code.';
     document.getElementById('btnFpAction').textContent = 'Verify Code';
     fpStep = 2;
-
   } else if(fpStep === 2) {
     const code = document.getElementById('fpSecret').value.trim();
     if(!code) { err.innerHTML = '<div class="notice notice-danger">Enter code</div>'; return; }
-
     if(fpData.isSupervisor) {
        if(code !== '9876') { err.innerHTML = '<div class="notice notice-danger">Invalid Code</div>'; return; }
     } else {
        const snap = await getDoc(doc(db, "users", fpData.docId));
-       if(snap.data().secretCode !== code) { err.innerHTML = '<div class="notice notice-danger">Invalid Code given by Upline</div>'; return; }
+       if(snap.data().secretCode !== code) { err.innerHTML = '<div class="notice notice-danger">Invalid Code</div>'; return; }
     }
-    
     document.getElementById('fpSecretGroup').style.display = 'none';
     document.getElementById('fpNewPwGroup').style.display = 'block';
     document.getElementById('btnFpAction').textContent = 'Change Password';
@@ -737,45 +625,28 @@ async function processForgotPassword() {
     const pw2 = document.getElementById('fpNewPw2').value;
     if(pw1.length < 4) { err.innerHTML = '<div class="notice notice-danger">Min 4 chars</div>'; return; }
     if(pw1 !== pw2) { err.innerHTML = '<div class="notice notice-danger">Passwords do not match</div>'; return; }
-
-    if(fpData.isSupervisor) {
-       // Can't change without auth, so tell them to login
-       err.innerHTML = '<div class="notice notice-danger">Supervisor must login with Google to reset. Go back and Login.</div>';
-    } else {
+    if(fpData.isSupervisor) { err.innerHTML = '<div class="notice notice-danger">Supervisor must login with Google.</div>'; }
+    else {
        await updateDoc(doc(db, "users", fpData.docId), { password: pw1, resetReq: null, secretCode: null });
-       showToast("Password Changed! Login now.");
-       resetAuthUI();
+       showToast("Password Changed! Login now."); resetAuthUI();
     }
   }
 }
 
-/* ============================================================
-   DASHBOARD & NAVIGATION
-   ============================================================ */
+/* DASHBOARD */
 function renderDashboard() {
   if(!userData) return;
+  const isSup = userData.code === '001';
   
   document.getElementById('dashHeader').innerHTML = `
     <div class="name">${esc(userData.name)}</div>
-    <div class="role">${userData.code === '001' ? 'Supervisor — Team Head' : 'Member'}</div>
-    <div class="team-head-badge">Code: ${userData.code || 'Pending'}</div>
+    <div class="role">${isSup ? 'Supervisor — Team Head' : 'Member'}</div>
+    <div class="team-head-badge">Code: ${userData.code}</div>
   `;
 
-  const isSup = userData.code === '001';
-  const tabs = [
-    {id:'Profile', label:'My Profile'},
-    {id:'AddMember', label:'Add Member'},
-    {id:'MyMembers', label:'My Members'},
-    {id:'Schedule', label:'Test Schedule'},
-    {id:'TestBuilder', label:'Test Builder'},
-    {id:'Results', label:'Results'}
-  ];
-
-  if(isSup) {
-    tabs.unshift({id:'MakeSchedule', label:'Make Schedule'});
-  } else {
-    tabs.push({id:'Requests', label:'Reset Requests'});
-  }
+  const tabs = [{id:'Profile', label:'My Profile'}, {id:'AddMember', label:'Add Member'}, {id:'MyMembers', label:'My Members'}, {id:'Schedule', label:'Test Schedule'}, {id:'Results', label:'Results'}];
+  if(isSup) { tabs.unshift({id:'MakeSchedule', label:'Make Schedule'}); }
+  else { tabs.push({id:'TestBuilder', label:'Test Builder'}); tabs.push({id:'Requests', label:'Reset Requests'}); }
 
   document.getElementById('dashTabs').innerHTML = tabs.map((t,i)=>`<div class="tab ${i===0?'active':''}" data-tab="${t.id}" onclick="switchDashTab('${t.id}')">${t.label}</div>`).join('');
   document.querySelectorAll('#dashboardView .dash-tab').forEach(el=>el.style.display='none');
@@ -784,7 +655,7 @@ function renderDashboard() {
   document.getElementById('profileContent').innerHTML = `
     <div class="form-grid">
       <div><label>Name</label><div><strong>${esc(userData.name)}</strong></div></div>
-      <div><label>Gmail</label><div>${esc(userData.gmail)}</div></div>
+      <div><label>Gmail</label><div style="word-break:break-all;">${esc(userData.gmail)}</div></div>
       <div><label>FBO ID</label><div>${esc(userData.fbo)}</div></div>
       <div><label>My Code</label><div><span class="badge badge-code">${userData.code}</span></div></div>
     </div>
@@ -793,9 +664,8 @@ function renderDashboard() {
   loadMyMembers();
   if(isSup) loadMakeSchedule();
   loadScheduleList();
-  loadTestBuilderAccess();
   loadResults();
-  if(!isSup) loadRequests();
+  if(!isSup) { loadTestBuilderAccess(); loadRequests(); }
 }
 
 function switchDashTab(id) {
@@ -807,22 +677,13 @@ function switchDashTab(id) {
   if(el)el.style.display='block';
 }
 
-/* ============================================================
-   MEMBER & SCHEDULE MANAGEMENT
-   ============================================================ */
+/* MEMBER MGMT */
 async function addMember() {
   const name = document.getElementById('amName').value.trim();
   const fbo = document.getElementById('amFbo').value.trim();
   if(!name || !fbo) { showToast("Name and FBO required"); return; }
-  
-  await addDoc(collection(db, "users"), {
-    name: name, fbo: fbo, uplineId: userData.id, uplineName: userData.name,
-    status: 'pending', gmail: '', uid: '', password: '', code: '', resetReq: null
-  });
-  showToast("Member added to Pending.");
-  document.getElementById('amName').value = '';
-  document.getElementById('amFbo').value = '';
-  loadMyMembers();
+  await addDoc(collection(db, "users"), { name, fbo, uplineId: userData.id, uplineName: userData.name, status: 'pending', gmail: '', uid: '', password: '', code: '', resetReq: null });
+  showToast("Added to Pending."); document.getElementById('amName').value = ''; document.getElementById('amFbo').value = ''; loadMyMembers();
 }
 
 function loadMyMembers() {
@@ -830,267 +691,135 @@ function loadMyMembers() {
   const q = query(collection(db, "users"), where("uplineId", "==", userData.id));
   onSnapshot(q, (snap) => {
     if(snap.empty) { el.innerHTML = '<div class="empty-state">No members yet.</div>'; return; }
-    let html = `<table class="data-table"><thead><tr><th>Name</th><th>Gmail</th><th>FBO</th><th>Code</th><th>Status</th></tr></thead><tbody>`;
+    let html = `<table class="data-table"><thead><tr><th>Name</th><th>Gmail</th><th>FBO</th><th>Code</th><th>Status</th><th>Actions</th></tr></thead><tbody>`;
     snap.forEach(doc => {
-      const m = doc.data();
-      html += `<tr><td data-label="Name">${esc(m.name)}</td><td data-label="Gmail">${esc(m.gmail) || '-'}</td><td data-label="FBO">${esc(m.fbo)}</td><td data-label="Code">${m.code || '-'}</td><td data-label="Status">${m.status === 'active' ? '<span class="badge badge-active">Active</span>' : '<span class="badge badge-pending">Pending</span>'}</td></tr>`;
+      const m = doc.data(); const id = doc.id;
+      html += `<tr>
+        <td data-label="Name">${esc(m.name)}</td>
+        <td data-label="Gmail" style="word-break:break-all;max-width:150px;">${esc(m.gmail) || '-'}</td>
+        <td data-label="FBO">${esc(m.fbo)}</td>
+        <td data-label="Code">${m.code || '-'}</td>
+        <td data-label="Status">${m.status==='active' ? '<span class="badge badge-active">Active</span>' : (m.status==='blocked'?'<span class="badge badge-blocked">Blocked</span>':'<span class="badge badge-pending">Pending</span>')}</td>
+        <td data-label="Actions">
+          <button class="btn btn-small btn-danger" onclick="deleteMember('${id}')">Delete</button>
+          ${m.status==='blocked' 
+            ? `<button class="btn btn-small btn-success" onclick="unblockMember('${id}')">Unblock</button>` 
+            : `<button class="btn btn-small btn-warning" onclick="blockMember('${id}')">Block</button>`}
+        </td>
+      </tr>`;
     });
     el.innerHTML = html + `</tbody></table>`;
   });
 }
 
-async function loadMakeSchedule() {
-  const uQ = query(collection(db, "users"), where("status", "==", "active"));
-  const uSnap = await getDocs(uQ);
-  const opts = '<option value="">-- Select --</option>' + uSnap.docs.map(d => `<option value="${d.id}">${esc(d.data().name)}</option>`).join('');
-  document.getElementById('schPrimary').innerHTML = opts;
-  document.getElementById('schSecondary').innerHTML = opts;
-}
+async function deleteMember(id) { if(confirm('Delete permanently?')) { await deleteDoc(doc(db, "users", id)); showToast("Deleted"); } }
+async function blockMember(id) { await updateDoc(doc(db, "users", id), { status: 'blocked' }); showToast("Blocked"); }
+async function unblockMember(id) { await updateDoc(doc(db, "users", id), { status: 'active' }); showToast("Unblocked"); }
 
+/* SCHEDULE */
+async function loadMakeSchedule() {
+  const uSnap = await getDocs(query(collection(db, "users"), where("status", "==", "active")));
+  const opts = '<option value="">-- Select --</option>' + uSnap.docs.map(d => `<option value="${d.id}">${esc(d.data().name)}</option>`).join('');
+  document.getElementById('schPrimary').innerHTML = opts; document.getElementById('schSecondary').innerHTML = opts;
+}
 async function addSchedule() {
-  const date = document.getElementById('schDate').value;
-  const pId = document.getElementById('schPrimary').value;
-  const sId = document.getElementById('schSecondary').value;
+  const date = document.getElementById('schDate').value; const pId = document.getElementById('schPrimary').value; const sId = document.getElementById('schSecondary').value;
   if(!date || !pId) { showToast("Date and Primary required"); return; }
-  
   const pName = document.getElementById('schPrimary').options[document.getElementById('schPrimary').selectedIndex].text;
   const sName = sId ? document.getElementById('schSecondary').options[document.getElementById('schSecondary').selectedIndex].text : '';
-  
   await setDoc(doc(db, "schedules", date), { date, primaryId: pId, primaryName: pName, secondaryId: sId, secondaryName: sName });
   showToast("Schedule Saved");
 }
-
 function loadScheduleList() {
   const el = document.getElementById('scheduleList');
   onSnapshot(collection(db, "schedules"), (snap) => {
     if(snap.empty) { el.innerHTML = 'No schedules.'; return; }
-    let html = '';
-    snap.forEach(doc => {
-      const s = doc.data();
-      html += `<div class="schedule-item"><div><strong>${esc(s.date)}</strong></div><div>Primary: <strong>${esc(s.primaryName)}</strong></div><div>Backup: <strong>${esc(s.secondaryName) || 'None'}</strong></div></div>`;
-    });
+    let html = ''; snap.forEach(doc => { const s = doc.data(); html += `<div class="schedule-item"><div><strong>${esc(s.date)}</strong></div><div>Primary: <strong>${esc(s.primaryName)}</strong></div><div>Backup: <strong>${esc(s.secondaryName) || 'None'}</strong></div></div>`; });
     el.innerHTML = html;
   });
 }
 
-/* ============================================================
-   TEST BUILDER ACCESS CHECK
-   ============================================================ */
+/* TEST BUILDER ACCESS */
 function loadTestBuilderAccess() {
   const el = document.getElementById('testBuilderAccess');
-  const todayStr = today();
-  
-  onSnapshot(doc(db, "schedules", todayStr), (docSnap) => {
-    if(!docSnap.exists()) {
-      el.innerHTML = `<div class="notice notice-warning">No schedule for today.</div>`;
-      return;
-    }
+  onSnapshot(doc(db, "schedules", today()), (docSnap) => {
+    if(!docSnap.exists()) { el.innerHTML = `<div class="notice notice-warning">No schedule for today.</div>`; return; }
     const s = docSnap.data();
     if(s.primaryId === userData.id || s.secondaryId === userData.id) {
-      el.innerHTML = `
-        <div class="notice notice-success">Aaj aapki barri hai! Test banayein.</div>
-        <div class="actions-bar" style="justify-content:flex-start;"><button class="btn btn-primary" onclick="openTestBuilder()">Next / Create Test</button></div>
-      `;
+      el.innerHTML = `<div class="notice notice-success">Aaj aapki barri hai!</div><div class="actions-bar" style="justify-content:flex-start;"><button class="btn btn-primary" onclick="openTestBuilder()">Next / Create Test</button></div>`;
     } else {
       el.innerHTML = `<div class="notice notice-danger">Aaj aapki barri nahi hai. Aaj ${esc(s.primaryName)} ki barri hai.</div>`;
     }
   });
 }
-
 function openTestBuilder() { showView('testBuilderView'); }
 function backToDashboard() { showView('dashboardView'); }
 
-/* ============================================================
-   RESULTS & REQUESTS
-   ============================================================ */
+/* RESULTS & REQUESTS */
 function loadResults() {
   const el = document.getElementById('resultsContent');
   const isSup = userData.code === '001';
-  
-  // If supervisor, show all. If member, show only usedCode == their code.
   let q = isSup ? collection(db, "results") : query(collection(db, "results"), where("usedCode", "==", userData.code));
-  
   onSnapshot(q, (snap) => {
     if(snap.empty) { el.innerHTML = '<div class="empty-state">No results yet.</div>'; return; }
     let html = `<table class="data-table"><thead><tr><th>Date</th><th>Taker</th><th>Upline</th><th>Score</th><th>Grade</th></tr></thead><tbody>`;
-    snap.forEach(doc => {
-      const r = doc.data();
-      html += `<tr><td data-label="Date">${esc(r.date)}</td><td data-label="Taker">${esc(r.takerName)}</td><td data-label="Upline">${esc(r.uplineName)}</td><td data-label="Score">${r.correct}/${r.total}</td><td data-label="Grade">${r.grade}</td></tr>`;
-    });
+    snap.forEach(doc => { const r = doc.data(); html += `<tr><td data-label="Date">${esc(r.date)}</td><td data-label="Taker">${esc(r.takerName)}</td><td data-label="Upline">${esc(r.uplineName)}</td><td data-label="Score">${r.correct}/${r.total}</td><td data-label="Grade">${r.grade}</td></tr>`; });
     el.innerHTML = html + `</tbody></table>`;
   });
 }
-
 function loadRequests() {
   const el = document.getElementById('requestsContent');
   const q = query(collection(db, "users"), where("uplineId", "==", userData.id), where("resetReq", "==", "PENDING"));
-  
   onSnapshot(q, (snap) => {
     if(snap.empty) { el.innerHTML = '<div class="empty-state">No pending requests.</div>'; return; }
     let html = '';
-    snap.forEach(doc => {
-      const m = doc.data();
-      html += `
-        <div class="schedule-item">
-          <div><strong>${esc(m.name)}</strong> (${esc(m.fbo)})</div>
-          <div style="display:flex;gap:8px;">
-            <input type="text" id="sec_${doc.id}" placeholder="Secret Code" style="width:120px;padding:6px;">
-            <button class="btn btn-small btn-primary" onclick="setSecret('${doc.id}')">Set Code</button>
-          </div>
-        </div>
-      `;
-    });
+    snap.forEach(doc => { const m = doc.data(); html += `<div class="schedule-item"><div><strong>${esc(m.name)}</strong> (${esc(m.fbo)})</div><div style="display:flex;gap:8px;"><input type="text" id="sec_${doc.id}" placeholder="Secret Code" style="width:120px;padding:6px;"><button class="btn btn-small btn-primary" onclick="setSecret('${doc.id}')">Set Code</button></div></div>`; });
     el.innerHTML = html;
   });
 }
+async function setSecret(id) { const code = document.getElementById('sec_'+id).value.trim(); if(!code) return; await updateDoc(doc(db, "users", id), { secretCode: code }); showToast("Code set."); }
 
-async function setSecret(id) {
-  const code = document.getElementById('sec_'+id).value.trim();
-  if(!code) return;
-  await updateDoc(doc(db, "users", id), { secretCode: code });
-  showToast("Secret code set. Share with member.");
-}
-
-/* ============================================================
-   KNOWLEDGE TEST (Test Taker)
-   ============================================================ */
-let attemptState=null;
-let attemptTimer=null;
-let ktTimer=null;
-
+/* KNOWLEDGE TEST */
+let attemptState=null; let attemptTimer=null; let ktTimer=null;
 function openKTView() { showView('ktView'); renderKT(); ktTimer = setInterval(renderKT, 1000); }
 function stopKTViewTimer() { if(ktTimer) clearInterval(ktTimer); }
-
 async function renderKT() {
   const el = document.getElementById('ktContent');
-  const t = { testStart: "18:00", testDone: "20:00" }; // Hardcoded for now
-  const sM=parseHHMM(t.testStart), dM=parseHHMM(t.testDone);
-  const now = currentMinutes();
-  
-  const testSnap = await getDoc(doc(db, "settings", "activeTest"));
-  const test = testSnap.exists() ? testSnap.data() : null;
-
+  const t = { testStart: "18:00", testDone: "20:00" };
+  const sM=parseHHMM(t.testStart), dM=parseHHMM(t.testDone); const now = currentMinutes();
+  const testSnap = await getDoc(doc(db, "settings", "activeTest")); const test = testSnap.exists() ? testSnap.data() : null;
   if(test && now>=sM){
     const activeEnd=sM+test.duration;
-    if(now<activeEnd){
-      el.innerHTML=renderStartForm(test,activeEnd);
-      return;
-    }
-    if(now<dM){
-      el.innerHTML=`<div class="notice notice-success" style="font-size:1.4rem;padding:40px;">Test Done</div>`;
-      return;
-    }
+    if(now<activeEnd){ el.innerHTML=renderStartForm(test,activeEnd); return; }
+    if(now<dM){ el.innerHTML=`<div class="notice notice-success" style="font-size:1.4rem;padding:40px;">Test Done</div>`; return; }
   }
-
-  if(!test && now>=sM && now<dM){
-    el.innerHTML=`<div class="notice notice-warning" style="font-size:1.4rem;padding:40px;">No Test</div>`;
-    return;
-  }
-
+  if(!test && now>=sM && now<dM){ el.innerHTML=`<div class="notice notice-warning" style="font-size:1.4rem;padding:40px;">No Test</div>`; return; }
   const totalSec=Math.floor(((sM-now+1440)%1440)*60);
-  el.innerHTML=`
-    <div class="notice notice-info">Next test at ${t.testStart}</div>
-    <div class="countdown-big">${String(Math.floor(totalSec/3600)).padStart(2,'0')} : ${String(Math.floor((totalSec%3600)/60)).padStart(2,'0')} : ${String(totalSec%60).padStart(2,'0')}</div>
-  `;
+  el.innerHTML=`<div class="notice notice-info">Next test at ${t.testStart}</div><div class="countdown-big">${String(Math.floor(totalSec/3600)).padStart(2,'0')} : ${String(Math.floor((totalSec%3600)/60)).padStart(2,'0')} : ${String(totalSec%60).padStart(2,'0')}</div>`;
 }
-
 function renderStartForm(test,activeEnd){
   const totalSec=Math.floor((activeEnd-currentMinutes())*60);
-  return `
-    <div class="countdown-bar">Time remaining: ${String(Math.floor(totalSec/60)).padStart(2,'0')} : ${String(totalSec%60).padStart(2,'0')}</div>
-    <div class="card">
-      <h2>Start Test</h2>
-      <div class="form-group"><label>Your Name</label><input type="text" id="ktName"></div>
-      <div class="form-group"><label>Upline Name</label><input type="text" id="ktUpline"></div>
-      <div class="form-group"><label>Upline Code</label><input type="text" id="ktCode" placeholder="e.g. 001"></div>
-      <div id="ktError"></div>
-      <div class="actions-bar"><button class="btn btn-primary" onclick="startAttempt()">Next</button></div>
-    </div>
-  `;
+  return `<div class="countdown-bar">Time remaining: ${String(Math.floor(totalSec/60)).padStart(2,'0')} : ${String(totalSec%60).padStart(2,'0')}</div><div class="card"><h2>Start Test</h2><div class="form-group"><label>Your Name</label><input type="text" id="ktName"></div><div class="form-group"><label>Upline Name</label><input type="text" id="ktUpline"></div><div class="form-group"><label>Upline Code</label><input type="text" id="ktCode" placeholder="e.g. 001"></div><div id="ktError"></div><div class="actions-bar"><button class="btn btn-primary" onclick="startAttempt()">Next</button></div></div>`;
 }
-
 async function startAttempt() {
-  const name = document.getElementById('ktName').value.trim();
-  const upline = document.getElementById('ktUpline').value.trim();
-  const code = document.getElementById('ktCode').value.trim();
-  const err = document.getElementById('ktError');
-  
+  const name = document.getElementById('ktName').value.trim(); const upline = document.getElementById('ktUpline').value.trim(); const code = document.getElementById('ktCode').value.trim(); const err = document.getElementById('ktError');
   if(!name || !upline || !code) { err.innerHTML = '<div class="notice notice-danger">All fields required</div>'; return; }
-  
-  const q = query(collection(db, "users"), where("code", "==", code));
-  const snap = await getDocs(q);
+  const snap = await getDocs(query(collection(db, "users"), where("code", "==", code)));
   if(snap.empty) { err.innerHTML = '<div class="notice notice-danger">Invalid Code!</div>'; return; }
-
-  const testSnap = await getDoc(doc(db, "settings", "activeTest"));
-  const test = testSnap.data();
-  
+  const test = (await getDoc(doc(db, "settings", "activeTest"))).data();
   attemptState = { takerName: name, uplineName: upline, usedCode: code, test, answers: new Array(test.questions.length).fill(null), submitted: false };
-  stopKTViewTimer();
-  if(attemptTimer)clearInterval(attemptTimer);
-  attemptTimer=setInterval(updateAttemptTimer,1000);
-  renderAttempt();
-  showView('attemptView');
+  stopKTViewTimer(); if(attemptTimer)clearInterval(attemptTimer); attemptTimer=setInterval(updateAttemptTimer,1000);
+  renderAttempt(); showView('attemptView');
 }
+function parseHHMM(s){ if(!/^\d{1,2}:\d{2}$/.test(s))return null; const [h,m]=s.split(':').map(Number); return h*60+m; }
+function currentMinutes(){ const d=new Date(); return d.getHours()*60+d.getMinutes()+d.getSeconds()/60; }
 
-function updateAttemptTimer(){ /* Timer logic */ }
-function renderAttempt(){ /* Render questions */ }
-function cancelAttempt(){ attemptState=null; if(attemptTimer)clearInterval(attemptTimer); goHome(); }
-
-async function finalizeAttempt() {
-  // Result Hidden Logic
-  const test = attemptState.test;
-  let correct = 0;
-  // ... calculate logic ...
-  const total = test.questions.length;
-  const pct = Math.round(correct/total*100);
-  
-  await addDoc(collection(db, "results"), {
-    takerName: attemptState.takerName,
-    uplineName: attemptState.uplineName,
-    usedCode: attemptState.usedCode,
-    correct, total, grade: pct, // using percentage as grade for now
-    date: today(), time: nowHHMM()
-  });
-
-  // Show ONLY success, no grade
-  document.getElementById('attemptContent').innerHTML = `
-    <div class="result-box" style="padding:50px 20px;">
-      <h2 style="color:#10b981;font-size:2rem;">Test Done!</h2>
-      <p style="font-size:1.1rem;color:#475569;margin-top:10px;">Meet your Upline for your result.</p>
-      <button class="btn btn-primary" style="margin-top:20px;" onclick="goHome()">Back to Home</button>
-    </div>
-  `;
-}
-
-/* ============================================================
-   INIT
-   ============================================================ */
-window.goHome = goHome;
-window.goLogin = goLogin;
-window.signInWithGoogle = signInWithGoogle;
-window.switchAuthTab = switchAuthTab;
-window.processSignup = processSignup;
-window.verifySupervisorCode = verifySupervisorCode;
-window.completeSignup = completeSignup;
-window.doLogin = doLogin;
-window.logout = logout;
-window.showForgotPassword = showForgotPassword;
-window.processForgotPassword = processForgotPassword;
-window.addMember = addMember;
-window.switchDashTab = switchDashTab;
-window.addSchedule = addSchedule;
-window.openKTView = openKTView;
-window.startAttempt = startAttempt;
-window.cancelAttempt = cancelAttempt;
-window.openTestBuilder = openTestBuilder;
-window.backToDashboard = backToDashboard;
-window.setSecret = setSecret;
+/* INIT */
+window.goHome = goHome; window.goLogin = goLogin; window.signInWithGoogle = signInWithGoogle; window.switchAuthTab = switchAuthTab; window.processSignup = processSignup; window.verifySupervisorCode = verifySupervisorCode; window.completeSignup = completeSignup; window.doLogin = doLogin; window.logout = logout; window.showForgotPassword = showForgotPassword; window.processForgotPassword = processForgotPassword; window.addMember = addMember; window.switchDashTab = switchDashTab; window.addSchedule = addSchedule; window.openKTView = openKTView; window.startAttempt = startAttempt; window.cancelAttempt = cancelAttempt; window.openTestBuilder = openTestBuilder; window.backToDashboard = backToDashboard; window.setSecret = setSecret; window.deleteMember = deleteMember; window.blockMember = blockMember; window.unblockMember = unblockMember;
 
 document.addEventListener('DOMContentLoaded', () => {
-  onAuthStateChanged(auth, (user) => {
-    if (user) currentUser = user;
-    else currentUser = null;
-  });
+  onAuthStateChanged(auth, (user) => { if (user) currentUser = user; else currentUser = null; });
+  updateHomeKTStatus();
 });
 </script>
 </body>
