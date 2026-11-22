@@ -97,7 +97,7 @@
   .countdown-big{background:linear-gradient(135deg,#eff6ff,#dbeafe);color:#1e40af;padding:26px;border-radius:14px;text-align:center;font-size:2rem;font-weight:800;margin:20px 0;border:2px solid #bfdbfe;letter-spacing:2px;}
 
   .result-box{text-align:center;padding:36px 20px;background:linear-gradient(135deg,#eff6ff,#f5f3ff);border-radius:16px;margin-top:20px;}
-
+  
   .empty-state{text-align:center;padding:50px 20px;color:#94a3b8;}
   .empty-state .big-text{font-size:1.15rem;font-weight:700;color:#64748b;margin-bottom:6px;}
 
@@ -130,7 +130,6 @@
     .actions-bar{justify-content:stretch;}
     .actions-bar .btn{flex:1;}
     
-    /* Mobile Table Fix */
     .data-table, .data-table thead, .data-table tbody, .data-table th, .data-table td, .data-table tr {display: block;}
     .data-table thead tr {position: absolute;top: -9999px;left: -9999px;}
     .data-table tr {border: 1.5px solid #e2e8f0; border-radius: 12px; margin-bottom: 12px; background: #fff; padding:10px;}
@@ -188,7 +187,6 @@
             <div class="tab" id="tabSignupBtn" onclick="switchAuthTab('signup')" style="flex:1;text-align:center;">Sign Up</div>
           </div>
 
-          <!-- Login -->
           <div id="loginForm" style="display:none;">
             <div class="form-group">
               <label>Password</label>
@@ -202,7 +200,6 @@
             </div>
           </div>
 
-          <!-- Signup -->
           <div id="signupForm" style="display:none;">
             <div class="form-group">
               <label>Select Upline</label>
@@ -223,7 +220,6 @@
             </div>
           </div>
 
-          <!-- Supervisor Code -->
           <div id="supervisorCodeForm" style="display:none;">
             <div class="notice notice-info">Are You Supervisor?</div>
             <div class="form-group">
@@ -235,7 +231,6 @@
             </div>
           </div>
 
-          <!-- Set Password -->
           <div id="passwordSetForm" style="display:none;">
             <div class="notice notice-success">Set your password</div>
             <div class="form-group">
@@ -251,7 +246,6 @@
             </div>
           </div>
 
-          <!-- Forgot Password -->
           <div id="forgotPasswordForm" style="display:none;">
             <div class="notice notice-warning">Request Password Reset</div>
             <div class="form-group" id="fpFboGroup">
@@ -444,7 +438,6 @@ async function signInWithGoogle() {
     const result = await signInWithPopup(auth, provider);
     tempGoogleUser = result.user;
     
-    // Check if user exists in DB by Gmail (More reliable than UID if UID mismatch)
     const q = query(collection(db, "users"), where("gmail", "==", tempGoogleUser.email));
     const snap = await getDocs(q);
     
@@ -452,12 +445,10 @@ async function signInWithGoogle() {
     document.getElementById('authFormArea').style.display = 'block';
     
     if (!snap.empty) {
-      // User exists
       const userDoc = snap.docs[0];
       userData = userDoc.data();
       userData.id = userDoc.id;
       
-      // Update UID if it was missing or different
       if(userData.uid !== tempGoogleUser.uid) {
         await updateDoc(doc(db, "users", userDoc.id), { uid: tempGoogleUser.uid });
       }
@@ -568,6 +559,7 @@ async function doLogin() {
   
   if(userData.password !== pw) { err.innerHTML = '<div class="notice notice-danger">Incorrect password.</div>'; return; }
   
+  localStorage.setItem('mamMadihaLoggedIn', JSON.stringify(userData));
   showToast("Welcome back!"); showView('dashboardView'); renderDashboard();
 }
 
@@ -583,7 +575,12 @@ function resetAuthUI() {
   switchAuthTab('login'); tempGoogleUser = null; userData = null;
 }
 
-async function logout() { await signOut(auth); resetAuthUI(); goHome(); }
+async function logout() { 
+  await signOut(auth); 
+  localStorage.removeItem('mamMadihaLoggedIn');
+  resetAuthUI(); 
+  goHome(); 
+}
 
 /* FORGOT PASSWORD */
 let fpStep = 0; let fpData = {};
@@ -659,8 +656,6 @@ function renderDashboard() {
   const tabs = [{id:'Profile', label:'My Profile'}, {id:'AddMember', label:'Add Member'}, {id:'MyMembers', label:'My Members'}, {id:'Schedule', label:'Test Schedule'}, {id:'Results', label:'Results'}];
   if(isSup) { tabs.unshift({id:'MakeSchedule', label:'Make Schedule'}); }
   else { tabs.push({id:'TestBuilder', label:'Test Builder'}); }
-  
-  // Added for BOTH (Supervisor and Members)
   tabs.push({id:'Requests', label:'Reset Requests'});
 
   document.getElementById('dashTabs').innerHTML = tabs.map((t,i)=>`<div class="tab ${i===0?'active':''}" data-tab="${t.id}" onclick="switchDashTab('${t.id}')">${t.label}</div>`).join('');
@@ -681,7 +676,7 @@ function renderDashboard() {
   loadScheduleList();
   loadResults();
   if(!isSup) { loadTestBuilderAccess(); }
-  loadRequests(); // Loaded for everyone
+  loadRequests(); 
 }
 
 function switchDashTab(id) {
@@ -771,6 +766,79 @@ function loadTestBuilderAccess() {
 function openTestBuilder() { showView('testBuilderView'); }
 function backToDashboard() { showView('dashboardView'); }
 
+/* TEST BUILDER LOGIC */
+let tbQuestions = [];
+let tbGrades = [{letter:'A+',min:100},{letter:'A',min:90},{letter:'F',min:0}];
+
+function openTestBuilder() {
+  document.getElementById('tbUserBadge').textContent = 'Test Builder: ' + userData.name;
+  showView('testBuilderView');
+  if(tbQuestions.length === 0) tbAddQuestion();
+  renderTBQuestions();
+  renderTBGrades();
+}
+
+function tbAddQuestion() { tbQuestions.push({ text: '', type: 'short', answer: '', options: ['', '', '', ''], correct: 0 }); renderTBQuestions(); }
+
+function renderTBQuestions() {
+  const el = document.getElementById('tbQuestionsContainer');
+  el.innerHTML = tbQuestions.map((q, i) => `
+    <div class="question-block">
+      <div class="q-header"><span class="q-num">${i+1}</span></div>
+      <div class="form-group">
+        <label>Question Text</label>
+        <input type="text" value="${esc(q.text)}" oninput="tbQuestions[${i}].text = this.value" placeholder="Enter question">
+      </div>
+      ${q.type === 'mcq' ? `
+        <label>Options</label>
+        <div class="options-grid">
+          ${q.options.map((o, j) => `
+            <div class="option-row">
+              <input type="radio" name="tbCorr_${i}" ${q.correct===j?'checked':''} onchange="tbQuestions[${i}].correct = ${j}">
+              <input type="text" value="${esc(o)}" oninput="tbQuestions[${i}].options[${j}] = this.value" placeholder="Option ${String.fromCharCode(65+j)}">
+            </div>
+          `).join('')}
+        </div>
+      ` : `
+        <div class="form-group">
+          <label>Correct Answer (Short)</label>
+          <input type="text" value="${esc(q.answer)}" oninput="tbQuestions[${i}].answer = this.value" placeholder="Expected answer">
+        </div>
+      `}
+    </div>
+  `).join('');
+}
+
+function renderTBGrades() {
+  const el = document.getElementById('tbGradeRows');
+  el.innerHTML = tbGrades.map((g, i) => `
+    <div class="grade-row">
+      <span class="grade-badge">${g.letter}</span>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <input type="number" min="0" max="100" value="${g.min}" style="width:90px;padding:6px;text-align:center;" onchange="tbGrades[${i}].min = parseInt(this.value)">
+        <span style="color:#64748b;font-size:0.85rem;">% minimum</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function tbPublish() {
+  for(let i=0; i<tbQuestions.length; i++) {
+    if(!tbQuestions[i].text.trim()) { showToast("Question text empty!"); return; }
+  }
+  
+  await setDoc(doc(db, "settings", "activeTest"), {
+    title: document.getElementById('tbTitle').value || 'Knowledge Test',
+    duration: parseFloat(document.getElementById('tbDuration').value),
+    questions: tbQuestions,
+    grades: tbGrades,
+    publishedBy: userData.name,
+    publishedDate: today()
+  });
+  showToast("Test Published Successfully!");
+  backToDashboard();
+}
+
 /* RESULTS & REQUESTS */
 function loadResults() {
   const el = document.getElementById('resultsContent');
@@ -827,16 +895,89 @@ async function startAttempt() {
   stopKTViewTimer(); if(attemptTimer)clearInterval(attemptTimer); attemptTimer=setInterval(updateAttemptTimer,1000);
   renderAttempt(); showView('attemptView');
 }
+function updateAttemptTimer(){
+  if(!attemptState || attemptState.submitted)return;
+  const el=document.getElementById('attemptTimer');
+  if(!el)return;
+  const totalSec=Math.floor((attemptState.activeEndMin-currentMinutes())*60);
+  if(totalSec<=0){ el.textContent='00:00'; if(!attemptState.submitted){ attemptState.submitted=true; finalizeAttempt(true); } return; }
+  el.textContent=`${String(Math.floor(totalSec/60)).padStart(2,'0')}:${String(totalSec%60).padStart(2,'0')}`;
+}
+function renderAttempt(){
+  if(!attemptState)return;
+  const el=document.getElementById('attemptContent');
+  const test=attemptState.test;
+  el.innerHTML=`
+    <div class="countdown-bar">Time remaining: <span id="attemptTimer">--:--</span></div>
+    <div class="test-header"><h2>${esc(test.title)}</h2><p>${test.questions.length} questions - ${test.duration} minutes</p></div>
+    <div id="attemptQuestions">${test.questions.map((q,i)=>renderAttemptQ(q,i)).join('')}</div>
+    <div id="attemptError" style="margin-top:12px;"></div>
+    <div class="actions-bar"><button class="btn btn-success" onclick="submitAttempt()">Submit Test</button></div>
+  `;
+  updateAttemptTimer();
+}
+function renderAttemptQ(q,i){
+  if(q.type==='mcq'){
+    return `<div class="test-question"><h3>Q${i+1}. ${esc(q.text)}</h3>${q.options.map((o,j)=>`<label class="test-option" onclick="selectMCQ(${i},${j},this)"><input type="radio" name="ans_${i}" value="${j}"><span>${esc(o)}</span></label>`).join('')}</div>`;
+  }
+  return `<div class="test-question"><h3>Q${i+1}. ${esc(q.text)}</h3><textarea rows="2" placeholder="Write your answer here..." oninput="attemptState.answers[${i}]={type:'short',value:this.value}"></textarea></div>`;
+}
+function selectMCQ(i,j,el){
+  const parent=el.closest('.test-question');
+  parent.querySelectorAll('.test-option').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected'); el.querySelector('input').checked=true;
+  attemptState.answers[i]={type:'mcq',value:j};
+}
+function submitAttempt(){
+  attemptState.submitted=true; finalizeAttempt(false);
+}
+async function finalizeAttempt(timeout){
+  if(!attemptState)return;
+  if(attemptTimer){clearInterval(attemptTimer);attemptTimer=null;}
+  const test=attemptState.test;
+  let correct=0;
+  test.questions.forEach((q,i)=>{
+    const a=attemptState.answers[i];
+    if(q.type==='mcq' && a && a.value===q.correct) correct++;
+    else if(q.type==='short' && a && a.value.trim().toLowerCase().includes(q.answer.toLowerCase())) correct++;
+  });
+  const total=test.questions.length;
+  const pct=Math.round(correct/total*100);
+  let grade = 'F';
+  test.grades.sort((a,b)=>b.min-a.min).forEach(g => { if(pct >= g.min && grade === 'F') grade = g.letter; });
+
+  await addDoc(collection(db, "results"), {
+    takerName: attemptState.takerName, uplineName: attemptState.uplineName, usedCode: attemptState.usedCode,
+    correct, total, grade, date: today(), time: nowHHMM()
+  });
+
+  document.getElementById('attemptContent').innerHTML = `
+    <div class="result-box" style="padding:50px 20px;">
+      <h2 style="color:#10b981;font-size:2rem;">Test Done!</h2>
+      <p style="font-size:1.1rem;color:#475569;margin-top:10px;">Meet your Upline for your result.</p>
+      <button class="btn btn-primary" style="margin-top:20px;" onclick="goHome()">Back to Home</button>
+    </div>
+  `;
+}
+function cancelAttempt(){ attemptState=null; if(attemptTimer)clearInterval(attemptTimer); goHome(); }
 function parseHHMM(s){ if(!/^\d{1,2}:\d{2}$/.test(s))return null; const [h,m]=s.split(':').map(Number); return h*60+m; }
 function currentMinutes(){ const d=new Date(); return d.getHours()*60+d.getMinutes()+d.getSeconds()/60; }
 
 /* INIT */
-window.goHome = goHome; window.goLogin = goLogin; window.signInWithGoogle = signInWithGoogle; window.switchAuthTab = switchAuthTab; window.processSignup = processSignup; window.verifySupervisorCode = verifySupervisorCode; window.completeSignup = completeSignup; window.doLogin = doLogin; window.logout = logout; window.showForgotPassword = showForgotPassword; window.processForgotPassword = processForgotPassword; window.addMember = addMember; window.switchDashTab = switchDashTab; window.addSchedule = addSchedule; window.openKTView = openKTView; window.startAttempt = startAttempt; window.cancelAttempt = cancelAttempt; window.openTestBuilder = openTestBuilder; window.backToDashboard = backToDashboard; window.setSecret = setSecret; window.deleteMember = deleteMember; window.blockMember = blockMember; window.unblockMember = unblockMember;
+window.goHome = goHome; window.goLogin = goLogin; window.signInWithGoogle = signInWithGoogle; window.switchAuthTab = switchAuthTab; window.processSignup = processSignup; window.verifySupervisorCode = verifySupervisorCode; window.completeSignup = completeSignup; window.doLogin = doLogin; window.logout = logout; window.showForgotPassword = showForgotPassword; window.processForgotPassword = processForgotPassword; window.addMember = addMember; window.switchDashTab = switchDashTab; window.addSchedule = addSchedule; window.openKTView = openKTView; window.startAttempt = startAttempt; window.cancelAttempt = cancelAttempt; window.openTestBuilder = openTestBuilder; window.backToDashboard = backToDashboard; window.setSecret = setSecret; window.deleteMember = deleteMember; window.blockMember = blockMember; window.unblockMember = unblockMember; window.tbAddQuestion = tbAddQuestion; window.tbPublish = tbPublish; window.selectMCQ = selectMCQ; window.submitAttempt = submitAttempt;
 
 document.addEventListener('DOMContentLoaded', () => {
   onAuthStateChanged(auth, (user) => { if (user) currentUser = user; else currentUser = null; });
-  updateHomeKTStatus();
+  
+  const savedUser = localStorage.getItem('mamMadihaLoggedIn');
+  if(savedUser) {
+    userData = JSON.parse(savedUser);
+    showView('dashboardView');
+    renderDashboard();
+  } else {
+    updateHomeKTStatus();
+  }
 });
 </script>
 </body>
-         </html>
+ </html>
